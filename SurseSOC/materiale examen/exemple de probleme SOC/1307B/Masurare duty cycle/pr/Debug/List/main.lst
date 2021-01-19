@@ -1,0 +1,459 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        21/Dec/2014  15:33:44 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\Masurare duty cycle\pr\main.c                   #
+#    Command line =  "D:\1307B\Masurare duty cycle\pr\main.c" --cpu=m16 -ms   #
+#                    -o "D:\1307B\Masurare duty cycle\pr\Debug\Obj\" -lC      #
+#                    "D:\1307B\Masurare duty cycle\pr\Debug\List\" -lA        #
+#                    "D:\1307B\Masurare duty cycle\pr\Debug\List\"            #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\1307B\Masurare duty cycle\pr\Debug\List\main.lst      #
+#    Object file  =  D:\1307B\Masurare duty cycle\pr\Debug\Obj\main.r90       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\Masurare duty cycle\pr\main.c
+      1          #include<inavr.h>
+      2          #include<intrinsics.h>
+      3          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x52
+   \   union <unnamed> volatile __io _A_TCNT0
+   \                     _A_TCNT0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x37
+   \   union <unnamed> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x36
+   \   union <unnamed> volatile __io _A_PINB
+   \                     _A_PINB:
+   \   00000000                      DS8 1
+      4          #include"usart.h"
+      5          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      6          long cnt,cicli1,cicli0,frecv1,frecv2,cnt1;
+   \                     cnt:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     cicli1:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     cicli0:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     frecv1:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     frecv2:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     cnt1:
+   \   00000000                      DS8 4
+      7          #pragma vector = TIMER0_OVF_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      8          __interrupt void timer0_ovf_int()
+   \                     timer0_ovf_int:
+      9          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   934A               ST      -Y, R20
+   \   00000006   933A               ST      -Y, R19
+   \   00000008   932A               ST      -Y, R18
+   \   0000000A   931A               ST      -Y, R17
+   \   0000000C   930A               ST      -Y, R16
+   \   0000000E   B74F               IN      R20, 0x3F
+     10           cnt++;
+   \   00000010   ....               LDI     R30, LOW(cnt)
+   \   00000012   ....               LDI     R31, (cnt) >> 8
+   \   00000014   8100               LD      R16, Z
+   \   00000016   8111               LDD     R17, Z+1
+   \   00000018   8122               LDD     R18, Z+2
+   \   0000001A   8133               LDD     R19, Z+3
+   \   0000001C   5F0F               SUBI    R16, 255
+   \   0000001E   4F1F               SBCI    R17, 255
+   \   00000020   4F2F               SBCI    R18, 255
+   \   00000022   4F3F               SBCI    R19, 255
+   \   00000024   8300               ST      Z, R16
+   \   00000026   8311               STD     Z+1, R17
+   \   00000028   8322               STD     Z+2, R18
+   \   0000002A   8333               STD     Z+3, R19
+     11          }
+   \   0000002C   BF4F               OUT     0x3F, R20
+   \   0000002E   9109               LD      R16, Y+
+   \   00000030   9119               LD      R17, Y+
+   \   00000032   9129               LD      R18, Y+
+   \   00000034   9139               LD      R19, Y+
+   \   00000036   9149               LD      R20, Y+
+   \   00000038   91E9               LD      R30, Y+
+   \   0000003A   91F9               LD      R31, Y+
+   \   0000003C   9518               RETI
+     12          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     13          void main(void)
+   \                     main:
+     14          {
+   \   00000000   938A               ST      -Y, R24
+     15            char value ;
+     16            __enable_interrupt();
+   \   00000002   9478               SEI
+     17            USART_initialize(BAUD_RATE);
+   \   00000004   E00C               LDI     R16, 12
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   ........           CALL    USART_initialize
+     18            DDRB=0;//<<PB2);
+   \   0000000C   E000               LDI     R16, 0
+   \   0000000E   BB07               OUT     0x17, R16
+     19            TIMSK |= (1<<TOIE0);// intrerupere overflow
+   \   00000010   B709               IN      R16, 0x39
+   \   00000012   6001               ORI     R16, 0x01
+   \   00000014   BF09               OUT     0x39, R16
+     20            TCCR0 = 0; // mod normal , fara prescaler , oc0 deconectat
+   \   00000016   E000               LDI     R16, 0
+   \   00000018   BF03               OUT     0x33, R16
+     21            while(1)
+     22            {
+     23              value = (PINB & (1<<PB2));
+   \                     ??main_0:
+   \   0000001A   B306               IN      R16, 0x16
+   \   0000001C   7004               ANDI    R16, 0x04
+   \   0000001E   2F80               MOV     R24, R16
+     24              while( (PINB & (1<<PB2)) == value )
+   \                     ??main_1:
+   \   00000020   B306               IN      R16, 0x16
+   \   00000022   7004               ANDI    R16, 0x04
+   \   00000024   1708               CP      R16, R24
+   \   00000026   F3E1               BREQ    ??main_1
+     25              {
+     26                ;
+     27              }
+     28              value^= 1<<PB2;
+   \   00000028   E004               LDI     R16, 4
+   \   0000002A   2780               EOR     R24, R16
+     29              TCCR0 |= (1<<CS00);
+   \   0000002C   B703               IN      R16, 0x33
+   \   0000002E   6001               ORI     R16, 0x01
+   \   00000030   BF03               OUT     0x33, R16
+     30              while( (PINB & (1<<PB2)) == value )
+   \                     ??main_2:
+   \   00000032   B306               IN      R16, 0x16
+   \   00000034   7004               ANDI    R16, 0x04
+   \   00000036   1708               CP      R16, R24
+   \   00000038   F3E1               BREQ    ??main_2
+     31              {
+     32                ;
+     33              }
+     34             
+     35              cicli1 = TCNT0;
+   \   0000003A   B702               IN      R16, 0x32
+   \   0000003C   E010               LDI     R17, 0
+   \   0000003E   E020               LDI     R18, 0
+   \   00000040   E030               LDI     R19, 0
+   \   00000042   ....               LDI     R30, LOW(cicli1)
+   \   00000044   ....               LDI     R31, (cicli1) >> 8
+   \   00000046   8300               ST      Z, R16
+   \   00000048   8311               STD     Z+1, R17
+   \   0000004A   8322               STD     Z+2, R18
+   \   0000004C   8333               STD     Z+3, R19
+     36              cnt1=cnt;
+   \   0000004E   ....               LDI     R30, LOW(cnt)
+   \   00000050   ....               LDI     R31, (cnt) >> 8
+   \   00000052   8100               LD      R16, Z
+   \   00000054   8111               LDD     R17, Z+1
+   \   00000056   8122               LDD     R18, Z+2
+   \   00000058   8133               LDD     R19, Z+3
+   \   0000005A   ....               LDI     R30, LOW(cnt1)
+   \   0000005C   ....               LDI     R31, (cnt1) >> 8
+   \   0000005E   8300               ST      Z, R16
+   \   00000060   8311               STD     Z+1, R17
+   \   00000062   8322               STD     Z+2, R18
+   \   00000064   8333               STD     Z+3, R19
+     37              TCNT0 = 0;
+   \   00000066   E000               LDI     R16, 0
+   \   00000068   BF02               OUT     0x32, R16
+     38              cnt=0;
+   \   0000006A   E000               LDI     R16, 0
+   \   0000006C   E010               LDI     R17, 0
+   \   0000006E   E020               LDI     R18, 0
+   \   00000070   E030               LDI     R19, 0
+   \   00000072   ....               LDI     R30, LOW(cnt)
+   \   00000074   ....               LDI     R31, (cnt) >> 8
+   \   00000076   8300               ST      Z, R16
+   \   00000078   8311               STD     Z+1, R17
+   \   0000007A   8322               STD     Z+2, R18
+   \   0000007C   8333               STD     Z+3, R19
+     39             
+     40              value^= 1<<PB2;
+   \   0000007E   E004               LDI     R16, 4
+   \   00000080   2780               EOR     R24, R16
+     41              while( (PINB & (1<<PB2)) == value )
+   \                     ??main_3:
+   \   00000082   B306               IN      R16, 0x16
+   \   00000084   7004               ANDI    R16, 0x04
+   \   00000086   1708               CP      R16, R24
+   \   00000088   F3E1               BREQ    ??main_3
+     42              {
+     43                ;
+     44              }
+     45             
+     46             
+     47              cicli0 = TCNT0;
+   \   0000008A   B702               IN      R16, 0x32
+   \   0000008C   E010               LDI     R17, 0
+   \   0000008E   E020               LDI     R18, 0
+   \   00000090   E030               LDI     R19, 0
+   \   00000092   ....               LDI     R30, LOW(cicli0)
+   \   00000094   ....               LDI     R31, (cicli0) >> 8
+   \   00000096   8300               ST      Z, R16
+   \   00000098   8311               STD     Z+1, R17
+   \   0000009A   8322               STD     Z+2, R18
+   \   0000009C   8333               STD     Z+3, R19
+     48              cicli1 = (cnt1*0xFF+cicli1);
+   \   0000009E   EF4F               LDI     R20, 255
+   \   000000A0   E050               LDI     R21, 0
+   \   000000A2   E060               LDI     R22, 0
+   \   000000A4   E070               LDI     R23, 0
+   \   000000A6   ....               LDI     R30, LOW(cnt1)
+   \   000000A8   ....               LDI     R31, (cnt1) >> 8
+   \   000000AA   8100               LD      R16, Z
+   \   000000AC   8111               LDD     R17, Z+1
+   \   000000AE   8122               LDD     R18, Z+2
+   \   000000B0   8133               LDD     R19, Z+3
+   \   000000B2   ........           CALL    ?L_EC_MUL_L03
+   \   000000B6   ....               LDI     R30, LOW(cicli1)
+   \   000000B8   ....               LDI     R31, (cicli1) >> 8
+   \   000000BA   8140               LD      R20, Z
+   \   000000BC   8151               LDD     R21, Z+1
+   \   000000BE   8162               LDD     R22, Z+2
+   \   000000C0   8173               LDD     R23, Z+3
+   \   000000C2   0F40               ADD     R20, R16
+   \   000000C4   1F51               ADC     R21, R17
+   \   000000C6   1F62               ADC     R22, R18
+   \   000000C8   1F73               ADC     R23, R19
+   \   000000CA   8340               ST      Z, R20
+   \   000000CC   8351               STD     Z+1, R21
+   \   000000CE   8362               STD     Z+2, R22
+   \   000000D0   8373               STD     Z+3, R23
+     49              cicli0 = (cnt*0xFF+cicli0);
+   \   000000D2   EF4F               LDI     R20, 255
+   \   000000D4   E050               LDI     R21, 0
+   \   000000D6   E060               LDI     R22, 0
+   \   000000D8   E070               LDI     R23, 0
+   \   000000DA   ....               LDI     R30, LOW(cnt)
+   \   000000DC   ....               LDI     R31, (cnt) >> 8
+   \   000000DE   8100               LD      R16, Z
+   \   000000E0   8111               LDD     R17, Z+1
+   \   000000E2   8122               LDD     R18, Z+2
+   \   000000E4   8133               LDD     R19, Z+3
+   \   000000E6   ........           CALL    ?L_EC_MUL_L03
+   \   000000EA   ....               LDI     R30, LOW(cicli0)
+   \   000000EC   ....               LDI     R31, (cicli0) >> 8
+   \   000000EE   8140               LD      R20, Z
+   \   000000F0   8151               LDD     R21, Z+1
+   \   000000F2   8162               LDD     R22, Z+2
+   \   000000F4   8173               LDD     R23, Z+3
+   \   000000F6   0F40               ADD     R20, R16
+   \   000000F8   1F51               ADC     R21, R17
+   \   000000FA   1F62               ADC     R22, R18
+   \   000000FC   1F73               ADC     R23, R19
+   \   000000FE   8340               ST      Z, R20
+   \   00000100   8351               STD     Z+1, R21
+   \   00000102   8362               STD     Z+2, R22
+   \   00000104   8373               STD     Z+3, R23
+     50              
+     51              if(!((value&1<<PB2)==1<<PB2))
+   \   00000106   FB82               BST     R24, 2
+   \   00000108   F1E6               BRTS    ??main_4
+     52              {
+     53                cicli1^=cicli0;
+   \   0000010A   ....               LDI     R30, LOW(cicli0)
+   \   0000010C   ....               LDI     R31, (cicli0) >> 8
+   \   0000010E   8100               LD      R16, Z
+   \   00000110   8111               LDD     R17, Z+1
+   \   00000112   8122               LDD     R18, Z+2
+   \   00000114   8133               LDD     R19, Z+3
+   \   00000116   ....               LDI     R30, LOW(cicli1)
+   \   00000118   ....               LDI     R31, (cicli1) >> 8
+   \   0000011A   8140               LD      R20, Z
+   \   0000011C   8151               LDD     R21, Z+1
+   \   0000011E   8162               LDD     R22, Z+2
+   \   00000120   8173               LDD     R23, Z+3
+   \   00000122   2740               EOR     R20, R16
+   \   00000124   2751               EOR     R21, R17
+   \   00000126   2762               EOR     R22, R18
+   \   00000128   2773               EOR     R23, R19
+   \   0000012A   8340               ST      Z, R20
+   \   0000012C   8351               STD     Z+1, R21
+   \   0000012E   8362               STD     Z+2, R22
+   \   00000130   8373               STD     Z+3, R23
+     54                cicli0^=cicli1;
+   \   00000132   ....               LDI     R30, LOW(cicli1)
+   \   00000134   ....               LDI     R31, (cicli1) >> 8
+   \   00000136   8100               LD      R16, Z
+   \   00000138   8111               LDD     R17, Z+1
+   \   0000013A   8122               LDD     R18, Z+2
+   \   0000013C   8133               LDD     R19, Z+3
+   \   0000013E   ....               LDI     R30, LOW(cicli0)
+   \   00000140   ....               LDI     R31, (cicli0) >> 8
+   \   00000142   8140               LD      R20, Z
+   \   00000144   8151               LDD     R21, Z+1
+   \   00000146   8162               LDD     R22, Z+2
+   \   00000148   8173               LDD     R23, Z+3
+   \   0000014A   2740               EOR     R20, R16
+   \   0000014C   2751               EOR     R21, R17
+   \   0000014E   2762               EOR     R22, R18
+   \   00000150   2773               EOR     R23, R19
+   \   00000152   8340               ST      Z, R20
+   \   00000154   8351               STD     Z+1, R21
+   \   00000156   8362               STD     Z+2, R22
+   \   00000158   8373               STD     Z+3, R23
+     55                cicli1^=cicli0;
+   \   0000015A   ....               LDI     R30, LOW(cicli0)
+   \   0000015C   ....               LDI     R31, (cicli0) >> 8
+   \   0000015E   8100               LD      R16, Z
+   \   00000160   8111               LDD     R17, Z+1
+   \   00000162   8122               LDD     R18, Z+2
+   \   00000164   8133               LDD     R19, Z+3
+   \   00000166   ....               LDI     R30, LOW(cicli1)
+   \   00000168   ....               LDI     R31, (cicli1) >> 8
+   \   0000016A   8140               LD      R20, Z
+   \   0000016C   8151               LDD     R21, Z+1
+   \   0000016E   8162               LDD     R22, Z+2
+   \   00000170   8173               LDD     R23, Z+3
+   \   00000172   2740               EOR     R20, R16
+   \   00000174   2751               EOR     R21, R17
+   \   00000176   2762               EOR     R22, R18
+   \   00000178   2773               EOR     R23, R19
+   \   0000017A   8340               ST      Z, R20
+   \   0000017C   8351               STD     Z+1, R21
+   \   0000017E   8362               STD     Z+2, R22
+   \   00000180   8373               STD     Z+3, R23
+     56             }
+     57              TCCR0 = 0;
+   \                     ??main_4:
+   \   00000182   E000               LDI     R16, 0
+   \   00000184   BF03               OUT     0x33, R16
+     58              USART_transmit('1');
+   \   00000186   E301               LDI     R16, 49
+   \   00000188   ........           CALL    USART_transmit
+     59              USART_transmit(':');
+   \   0000018C   E30A               LDI     R16, 58
+   \   0000018E   ........           CALL    USART_transmit
+     60              //PRINTF((void*)(&cicli1),LONG);
+     61              USART_transmit('\r');
+   \   00000192   E00D               LDI     R16, 13
+   \   00000194   ........           CALL    USART_transmit
+     62              USART_transmit('0');
+   \   00000198   E300               LDI     R16, 48
+   \   0000019A   ........           CALL    USART_transmit
+     63              USART_transmit(':');
+   \   0000019E   E30A               LDI     R16, 58
+   \   000001A0   ........           CALL    USART_transmit
+     64             // PRINTF((void*)(&cicli0),LONG);
+     65              USART_transmit('\r');
+   \   000001A4   E00D               LDI     R16, 13
+   \   000001A6   ........           CALL    USART_transmit
+     66              cnt=0;
+   \   000001AA   E000               LDI     R16, 0
+   \   000001AC   E010               LDI     R17, 0
+   \   000001AE   E020               LDI     R18, 0
+   \   000001B0   E030               LDI     R19, 0
+   \   000001B2   ....               LDI     R30, LOW(cnt)
+   \   000001B4   ....               LDI     R31, (cnt) >> 8
+   \   000001B6   8300               ST      Z, R16
+   \   000001B8   8311               STD     Z+1, R17
+   \   000001BA   8322               STD     Z+2, R18
+   \   000001BC   8333               STD     Z+3, R19
+   \   000001BE   CF2D               RJMP    ??main_0
+   \   000001C0                      REQUIRE _A_DDRB
+   \   000001C0                      REQUIRE _A_TIMSK
+   \   000001C0                      REQUIRE _A_TCCR0
+   \   000001C0                      REQUIRE _A_PINB
+   \   000001C0                      REQUIRE _A_TCNT0
+     67              
+     68            }
+     69          }
+
+   \                                 In  segment INTVEC, offset 0x24, root
+   \                     `??timer0_ovf_int??INTVEC 36`:
+   \   00000024   ........           JMP     timer0_ovf_int
+     70          
+     71          
+     72          
+     73          
+     74          
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       1      4  main
+                   1 2 -> USART_initialize
+                   1 2 -> USART_transmit
+       7      2  timer0_ovf_int
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??timer0_ovf_int??INTVEC 36
+       1  _A_DDRB
+       1  _A_PINB
+       1  _A_TCCR0
+       1  _A_TCNT0
+       1  _A_TIMSK
+       4  cicli0
+       4  cicli1
+       4  cnt
+       4  cnt1
+       4  frecv1
+       4  frecv2
+     448  main
+      62  timer0_ovf_int
+       6  -- Other
+
+ 
+   5 bytes in segment ABSOLUTE
+ 510 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+  24 bytes in segment NEAR_Z
+ 
+ 510 bytes of CODE memory (+ 10 bytes shared)
+  24 bytes of DATA memory (+  5 bytes shared)
+
+Errors: none
+Warnings: none

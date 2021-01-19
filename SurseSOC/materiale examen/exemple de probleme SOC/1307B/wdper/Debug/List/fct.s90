@@ -1,0 +1,1329 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       21/Dec/2014  12:30:33 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\wdper\fct.c                                    /
+//    Command line =  D:\1307B\wdper\fct.c --cpu=m16 -ms -o                   /
+//                    D:\1307B\wdper\Debug\Obj\ -lC                           /
+//                    D:\1307B\wdper\Debug\List\ -lA                          /
+//                    D:\1307B\wdper\Debug\List\ --initializers_in_flash      /
+//                    --no_cse --no_inline --no_code_motion --no_cross_call   /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\1307B\wdper\Debug\List\fct.s90                       /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME fct
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B10_L09
+        EXTERN ?EPILOGUE_B14_L09
+        EXTERN ?EPILOGUE_B16_L09
+        EXTERN ?EPILOGUE_B6_L09
+        EXTERN ?F2SLL_L12
+        EXTERN ?F2SL_L04
+        EXTERN ?F_CMP_GE_L04
+        EXTERN ?F_CMP_LT_L04
+        EXTERN ?F_MUL_L04
+        EXTERN ?F_SUB_L04
+        EXTERN ?LL_CMP_L12
+        EXTERN ?LL_MUL_L12
+        EXTERN ?PROLOGUE10_L09
+        EXTERN ?PROLOGUE14_L09
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?PROLOGUE6_L09
+        EXTERN ?Register_R10_is_cg_reg
+        EXTERN ?Register_R11_is_cg_reg
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?SL2F_L04
+        EXTERN ?SLL2F_L12
+        EXTERN ?SLL_DIV_L12
+        EXTERN ?SLL_MOD_L12
+        EXTERN ?SLL_SHR_L12
+        EXTERN ?SS_DIVMOD_L02
+        EXTERN ?SV_SWITCH_L06
+        EXTERN ?S_EC_MUL_L02
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBWEAK __Constant_0_0
+        PUBWEAK __Constant_a_0
+        PUBWEAK __Constant_ffffffff_ffffffff
+        PUBLIC characterTransmit
+        FUNCTION characterTransmit,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC doubleTransmit
+        FUNCTION doubleTransmit,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC floatTransmit
+        FUNCTION floatTransmit,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 58, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC hexadecimalTransmit
+        FUNCTION hexadecimalTransmit,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 27, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC integerTransmit
+        FUNCTION integerTransmit,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 15, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC myprint
+        FUNCTION myprint,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\1307B\wdper\fct.c
+//    1 #include "usart.h"
+//    2 #include "fct.h"
+//    3 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    4 void myprint(unsigned int tip, unsigned int nr_car, void * val)
+myprint:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function myprint
+//    5 {
+        FUNCALL myprint, integerTransmit
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL myprint, hexadecimalTransmit
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL myprint, doubleTransmit
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL myprint, characterTransmit
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE6_L09
+          CFI R5 Frame(CFA_Y, -1)
+          CFI R4 Frame(CFA_Y, -2)
+          CFI R27 Frame(CFA_Y, -3)
+          CFI R26 Frame(CFA_Y, -4)
+          CFI R25 Frame(CFA_Y, -5)
+          CFI R24 Frame(CFA_Y, -6)
+          CFI CFA_Y Y+6
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        MOVW    R25:R24, R17:R16
+        MOVW    R5:R4, R19:R18
+        MOVW    R27:R26, R21:R20
+//    6 switch(tip)
+        MOVW    R17:R16, R25:R24
+        LDI     R30, LOW(`?<Jumptable for myprint>_0`)
+        LDI     R31, (`?<Jumptable for myprint>_0`) >> 8
+        JMP     ?SV_SWITCH_L06
+//    7 {
+//    8 case 0:
+//    9 integerTransmit(tip, nr_car, val);
+??myprint_0:
+        MOVW    R21:R20, R27:R26
+        MOVW    R19:R18, R5:R4
+        MOVW    R17:R16, R25:R24
+        RCALL   integerTransmit
+//   10 break;
+        RJMP    ??myprint_1
+//   11 case 1:
+//   12 hexadecimalTransmit(tip, nr_car, val);
+??myprint_2:
+        MOVW    R21:R20, R27:R26
+        MOVW    R19:R18, R5:R4
+        MOVW    R17:R16, R25:R24
+        RCALL   hexadecimalTransmit
+//   13 break;
+        RJMP    ??myprint_1
+//   14 case 2:
+//   15 doubleTransmit(tip, nr_car, val);
+??myprint_3:
+        MOVW    R21:R20, R27:R26
+        MOVW    R19:R18, R5:R4
+        MOVW    R17:R16, R25:R24
+        RCALL   doubleTransmit
+//   16 break;
+        RJMP    ??myprint_1
+//   17 case 3:
+//   18 characterTransmit(tip, nr_car, val);
+??myprint_4:
+        MOVW    R21:R20, R27:R26
+        MOVW    R19:R18, R5:R4
+        MOVW    R17:R16, R25:R24
+        RCALL   characterTransmit
+//   19 break;
+//   20 }
+//   21 }
+??myprint_1:
+        LDI     R30, 6
+        JMP     ?EPILOGUE_B6_L09
+          CFI EndBlock cfiBlock0
+//   22 //transmiterea unui întreg pe serialã
+
+        RSEG CODE:CODE:NOROOT(1)
+//   23 void integerTransmit (unsigned int p1, unsigned int p2, void * p3)
+integerTransmit:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function integerTransmit
+//   24 {
+        FUNCALL integerTransmit, USART_transmit
+        LOCFRAME CSTACK, 15, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL integerTransmit, USART_transmit
+        LOCFRAME CSTACK, 15, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE10_L09
+          CFI R9 Frame(CFA_Y, -1)
+          CFI R8 Frame(CFA_Y, -2)
+          CFI R7 Frame(CFA_Y, -3)
+          CFI R6 Frame(CFA_Y, -4)
+          CFI R5 Frame(CFA_Y, -5)
+          CFI R4 Frame(CFA_Y, -6)
+          CFI R27 Frame(CFA_Y, -7)
+          CFI R26 Frame(CFA_Y, -8)
+          CFI R25 Frame(CFA_Y, -9)
+          CFI R24 Frame(CFA_Y, -10)
+          CFI CFA_Y Y+10
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        SBIW    R29:R28, 5
+          CFI CFA_Y Y+15
+        MOVW    R9:R8, R17:R16
+        MOVW    R5:R4, R19:R18
+        MOVW    R27:R26, R21:R20
+//   25 int index=0;
+        LDI     R24, 0
+        LDI     R25, 0
+//   26 char aux[5];
+//   27 int x=*((int *)(p3));
+        LD      R6, X+
+        LD      R7, X
+        SBIW    R27:R26, 1
+//   28 if(x<0)
+        TST     R7
+        BRPL    ??integerTransmit_0
+//   29 {
+//   30 USART_transmit('-');
+        LDI     R16, 45
+        CALL    USART_transmit
+//   31 x*=(-1);
+        LDI     R20, 255
+        LDI     R21, 255
+        MOVW    R17:R16, R7:R6
+        CALL    ?S_EC_MUL_L02
+        MOVW    R7:R6, R17:R16
+//   32 }
+//   33 while(x!=0)
+??integerTransmit_0:
+        MOV     R16, R6
+        OR      R16, R7
+        BREQ    ??integerTransmit_1
+//   34 {
+//   35  /* switch(aux[index])
+//   36   {
+//   37   case "+*/
+//   38 aux[index]=x%10+'0';
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R7:R6
+        CALL    ?SS_DIVMOD_L02
+        SUBI    R20, 208
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R24
+        ADC     R31, R25
+        ST      Z, R20
+//   39 index++;
+        ADIW    R25:R24, 1
+//   40 x=x/10;
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R7:R6
+        CALL    ?SS_DIVMOD_L02
+        MOVW    R7:R6, R17:R16
+        RJMP    ??integerTransmit_0
+//   41 }
+//   42 while(p2>0 )
+??integerTransmit_1:
+        MOV     R16, R4
+        OR      R16, R5
+        BREQ    ??integerTransmit_2
+//   43 {
+//   44 USART_transmit(aux[index-1]);
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R24
+        ADC     R31, R25
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        CALL    USART_transmit
+//   45 index--;
+        SBIW    R25:R24, 1
+//   46 p2--;
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        RJMP    ??integerTransmit_1
+//   47 }
+//   48 }
+??integerTransmit_2:
+        ADIW    R29:R28, 5
+          CFI CFA_Y Y+10
+        LDI     R30, 10
+        JMP     ?EPILOGUE_B10_L09
+          CFI EndBlock cfiBlock1
+//   49 //transmiterea unui numãr hexazecimal pe serialã
+
+        RSEG CODE:CODE:NOROOT(1)
+//   50 void hexadecimalTransmit (unsigned int p1, unsigned int p2, void * p3)
+hexadecimalTransmit:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function hexadecimalTransmit
+//   51 {
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 27, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 27, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 27, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        SBIW    R29:R28, 11
+          CFI CFA_Y Y+27
+        STD     Y+9, R16
+        STD     Y+10, R17
+        ST      Y, R18
+        STD     Y+1, R19
+        STD     Y+7, R20
+        STD     Y+8, R21
+//   52   long long x=*((long long *)(p3));
+        LDD     R30, Y+7
+        LDD     R31, Y+8
+        LD      R8, Z
+        LDD     R9, Z+1
+        LDD     R10, Z+2
+        LDD     R11, Z+3
+        LDD     R12, Z+4
+        LDD     R13, Z+5
+        LDD     R14, Z+6
+        LDD     R15, Z+7
+//   53   char aux[5];
+//   54   int index=0;
+        LDI     R26, 0
+        LDI     R27, 0
+//   55   USART_transmit('0');
+        LDI     R16, 48
+        CALL    USART_transmit
+//   56   USART_transmit('x');
+        LDI     R16, 120
+        CALL    USART_transmit
+//   57   while(x!=0)
+??hexadecimalTransmit_0:
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??hexadecimalTransmit_1
+//   58   {
+//   59     aux[index]=x&0x0F;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        ANDI    R16, 0x0F
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R26
+        ADC     R31, R27
+        ST      Z, R16
+//   60     if(aux[index]<=9)
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R26
+        ADC     R31, R27
+        LD      R16, Z
+        CPI     R16, 10
+        BRCC    ??hexadecimalTransmit_2
+//   61     {
+//   62       aux[index]+='0';
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R26
+        ADC     R31, R27
+        LD      R16, Z
+        SUBI    R16, 208
+        ST      Z, R16
+        RJMP    ??hexadecimalTransmit_3
+//   63     }
+//   64     else
+//   65     {
+//   66       aux[index]=aux[index]+'A'-10;
+??hexadecimalTransmit_2:
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R26
+        ADC     R31, R27
+        LD      R16, Z
+        SUBI    R16, 201
+        ST      Z, R16
+//   67     }
+//   68     index++;
+??hexadecimalTransmit_3:
+        ADIW    R27:R26, 1
+//   69     x>>=4;
+        LDI     R30, 4
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOV     R24, R30
+        CALL    ?SLL_SHR_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        RJMP    ??hexadecimalTransmit_0
+//   70   }
+//   71   while(p2>0 && index>0)
+??hexadecimalTransmit_1:
+        LD      R16, Y
+        LDD     R17, Y+1
+        OR      R16, R17
+        BREQ    ??hexadecimalTransmit_4
+        CPI     R26, 1
+        LDI     R16, 0
+        CPC     R27, R16
+        BRLT    ??hexadecimalTransmit_4
+//   72   {
+//   73     USART_transmit(aux[index-1]);
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R26
+        ADC     R31, R27
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        CALL    USART_transmit
+//   74     index--;
+        SBIW    R27:R26, 1
+//   75     p2--;
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 1
+        SBCI    R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+        RJMP    ??hexadecimalTransmit_1
+//   76   }
+//   77 }
+??hexadecimalTransmit_4:
+        ADIW    R29:R28, 11
+          CFI CFA_Y Y+16
+        LDI     R30, 16
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock2
+//   78 
+//   79 //transmiterea unui numãr de tip double pe serialã
+
+        RSEG CODE:CODE:NOROOT(1)
+//   80 void doubleTransmit(unsigned int p1, unsigned int p2, void * p3)
+doubleTransmit:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function doubleTransmit
+//   81 {
+        FUNCALL doubleTransmit, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL doubleTransmit, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL doubleTransmit, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL doubleTransmit, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE14_L09
+          CFI R13 Frame(CFA_Y, -1)
+          CFI R12 Frame(CFA_Y, -2)
+          CFI R11 Frame(CFA_Y, -3)
+          CFI R10 Frame(CFA_Y, -4)
+          CFI R9 Frame(CFA_Y, -5)
+          CFI R8 Frame(CFA_Y, -6)
+          CFI R7 Frame(CFA_Y, -7)
+          CFI R6 Frame(CFA_Y, -8)
+          CFI R5 Frame(CFA_Y, -9)
+          CFI R4 Frame(CFA_Y, -10)
+          CFI R27 Frame(CFA_Y, -11)
+          CFI R26 Frame(CFA_Y, -12)
+          CFI R25 Frame(CFA_Y, -13)
+          CFI R24 Frame(CFA_Y, -14)
+          CFI CFA_Y Y+14
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        SBIW    R29:R28, 5
+          CFI CFA_Y Y+19
+        MOVW    R13:R12, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R9:R8, R21:R20
+//   82 int index=0;
+        CLR     R6
+        CLR     R7
+//   83 int dataIntreg;
+//   84 char aux[5];
+//   85 double x=*((double *)(p3));
+        MOVW    R31:R30, R9:R8
+        LD      R24, Z
+        LDD     R25, Z+1
+        LDD     R26, Z+2
+        LDD     R27, Z+3
+//   86 if(x<0)
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_CMP_LT_L04
+        BRCC    ??doubleTransmit_0
+//   87 {
+//   88   USART_transmit('-');
+        LDI     R16, 45
+        CALL    USART_transmit
+//   89 x*=(-1.0);
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 128
+        LDI     R23, 191
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_MUL_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//   90 }
+//   91 dataIntreg=(int)x;
+??doubleTransmit_0:
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F2SL_L04
+        MOVW    R5:R4, R17:R16
+//   92 while((int)dataIntreg!=0)
+??doubleTransmit_1:
+        MOV     R16, R4
+        OR      R16, R5
+        BREQ    ??doubleTransmit_2
+//   93 {
+//   94 aux[index]=(int)dataIntreg%10+'0';
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R5:R4
+        CALL    ?SS_DIVMOD_L02
+        SUBI    R20, 208
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R6
+        ADC     R31, R7
+        ST      Z, R20
+//   95 index++;
+        LDI     R16, 1
+        ADD     R6, R16
+        LDI     R16, 0
+        ADC     R7, R16
+//   96 dataIntreg=dataIntreg/10;
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R5:R4
+        CALL    ?SS_DIVMOD_L02
+        MOVW    R5:R4, R17:R16
+        RJMP    ??doubleTransmit_1
+//   97 }
+//   98 while(index>0 )
+??doubleTransmit_2:
+        LDI     R16, 1
+        CP      R6, R16
+        LDI     R16, 0
+        CPC     R7, R16
+        BRLT    ??doubleTransmit_3
+//   99 {
+//  100 USART_transmit(aux[index-1]);
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R6
+        ADC     R31, R7
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        CALL    USART_transmit
+//  101 index--;
+        LDI     R16, 255
+        ADD     R6, R16
+        LDI     R16, 255
+        ADC     R7, R16
+        RJMP    ??doubleTransmit_2
+//  102 }
+//  103 dataIntreg=(int)x;
+??doubleTransmit_3:
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F2SL_L04
+        MOVW    R5:R4, R17:R16
+//  104 x=x-dataIntreg;
+        MOVW    R17:R16, R5:R4
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        CALL    ?SL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_SUB_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  105 if(x>0)
+        LDI     R20, 1
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_CMP_GE_L04
+        BRCC    ??doubleTransmit_4
+//  106 {
+//  107 USART_transmit('.');
+        LDI     R16, 46
+        CALL    USART_transmit
+//  108 }
+//  109 while(x>0 && p2>0)
+??doubleTransmit_4:
+        LDI     R20, 1
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_CMP_GE_L04
+        BRCC    ??doubleTransmit_5
+        MOV     R16, R10
+        OR      R16, R11
+        BREQ    ??doubleTransmit_5
+//  110 {
+//  111 x=x*10;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 32
+        LDI     R23, 65
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_MUL_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  112 dataIntreg=(int)x;
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F2SL_L04
+        MOVW    R5:R4, R17:R16
+//  113 USART_transmit(dataIntreg+'0');
+        MOV     R16, R4
+        SUBI    R16, 208
+        CALL    USART_transmit
+//  114 x=x-dataIntreg;
+        MOVW    R17:R16, R5:R4
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        CALL    ?SL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_SUB_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  115 p2--;
+        LDI     R16, 255
+        ADD     R10, R16
+        LDI     R16, 255
+        ADC     R11, R16
+        RJMP    ??doubleTransmit_4
+//  116 }
+//  117 }
+??doubleTransmit_5:
+        ADIW    R29:R28, 5
+          CFI CFA_Y Y+14
+        LDI     R30, 14
+        JMP     ?EPILOGUE_B14_L09
+          CFI EndBlock cfiBlock3
+//  118 
+//  119 //transmiterea unui numar de tip float
+
+        RSEG CODE:CODE:NOROOT(1)
+//  120 void floatTransmit(unsigned int p1, unsigned int p2, void * p3)
+floatTransmit:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function floatTransmit
+//  121 {
+        FUNCALL floatTransmit, USART_transmit
+        LOCFRAME CSTACK, 58, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL floatTransmit, USART_transmit
+        LOCFRAME CSTACK, 58, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL floatTransmit, USART_transmit
+        LOCFRAME CSTACK, 58, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        SBIW    R29:R28, 42
+          CFI CFA_Y Y+58
+        STD     Y+10, R16
+        STD     Y+11, R17
+        STD     Y+8, R18
+        STD     Y+9, R19
+        STD     Y+6, R20
+        STD     Y+7, R21
+//  122 char buff[30]={0};
+        MOVW    R17:R16, R29:R28
+        SUBI    R16, 244
+        SBCI    R17, 255
+        MOVW    R31:R30, R17:R16
+        LDI     R18, 0
+        LDI     R24, 30
+??floatTransmit_0:
+        ST      Z+, R18
+        DEC     R24
+        BRNE    ??floatTransmit_0
+//  123 int j, nrCaract;
+//  124 long long nr;
+//  125 char nrNeg;
+//  126 int i;
+//  127 float floatNr;
+//  128 floatNr=*((float *)p3);
+        LDD     R30, Y+6
+        LDD     R31, Y+7
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  129 nrCaract=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+//  130 nr=(long long)floatNr;
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F2SLL_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//  131 nrNeg=(nr<0);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    ?LL_CMP_L12
+        BRGE    ??floatTransmit_1
+        LDI     R16, 1
+        RJMP    ??floatTransmit_2
+??floatTransmit_1:
+        LDI     R16, 0
+??floatTransmit_2:
+        MOV     R25, R16
+//  132 if (nrNeg)
+        TST     R25
+        BREQ    ??floatTransmit_3
+//  133 nr*=-1;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        LDI     R26, LOW(__Constant_ffffffff_ffffffff)
+        LDI     R27, (__Constant_ffffffff_ffffffff) >> 8
+        CALL    ?LL_MUL_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//  134 while(nr!=0)
+??floatTransmit_3:
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    ?LL_CMP_L12
+        BREQ    ??floatTransmit_4
+//  135 {
+//  136 j=nr%10;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    ?SLL_MOD_L12
+        STD     Y+4, R16
+        STD     Y+5, R17
+//  137 nr=nr/10;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        CALL    ?SLL_DIV_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//  138 buff[nrCaract]=j+'0';
+        LDD     R18, Y+4
+        LDD     R19, Y+5
+        SUBI    R18, 208
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 12
+        LD      R16, Y
+        LDD     R17, Y+1
+        ADD     R30, R16
+        ADC     R31, R17
+        ST      Z, R18
+//  139 nrCaract++;
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Y, R16
+        STD     Y+1, R17
+        RJMP    ??floatTransmit_3
+//  140 }
+//  141 if(nrCaract ==0)
+??floatTransmit_4:
+        LD      R16, Y
+        LDD     R17, Y+1
+        OR      R16, R17
+        BRNE    ??floatTransmit_5
+//  142 {
+//  143 buff[0]='0';
+        LDI     R16, 48
+        STD     Y+12, R16
+//  144 nrCaract=1;
+        LDI     R16, 1
+        LDI     R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+//  145 }
+//  146 if(nrNeg)
+??floatTransmit_5:
+        TST     R25
+        BREQ    ??floatTransmit_6
+//  147 {
+//  148 buff[nrCaract]='-';
+        LDI     R17, 45
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 12
+        LD      R18, Y
+        LDD     R19, Y+1
+        ADD     R30, R18
+        ADC     R31, R19
+        ST      Z, R17
+//  149 nrCaract++;
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Y, R16
+        STD     Y+1, R17
+//  150 }
+//  151 for(i=nrCaract-1; i>=0; i--)
+??floatTransmit_6:
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 1
+        SBCI    R17, 0
+        STD     Y+2, R16
+        STD     Y+3, R17
+??floatTransmit_7:
+        LDD     R18, Y+2
+        LDD     R19, Y+3
+        TST     R19
+        BRMI    ??floatTransmit_8
+//  152 {
+//  153 USART_transmit(buff[i]);
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 12
+        LDD     R16, Y+2
+        LDD     R17, Y+3
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        CALL    USART_transmit
+//  154 }
+        LDD     R16, Y+2
+        LDD     R17, Y+3
+        SUBI    R16, 1
+        SBCI    R17, 0
+        STD     Y+2, R16
+        STD     Y+3, R17
+        RJMP    ??floatTransmit_7
+//  155 USART_transmit('.');
+??floatTransmit_8:
+        LDI     R16, 46
+        CALL    USART_transmit
+//  156 if (floatNr<0)
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_CMP_LT_L04
+        BRCC    ??floatTransmit_9
+//  157 floatNr*=-1;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 128
+        LDI     R23, 191
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_MUL_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  158 for (i=0; i<p2; i++)
+??floatTransmit_9:
+        LDI     R16, 0
+        LDI     R17, 0
+        STD     Y+2, R16
+        STD     Y+3, R17
+??floatTransmit_10:
+        LDD     R16, Y+2
+        LDD     R17, Y+3
+        LDD     R18, Y+8
+        LDD     R19, Y+9
+        CP      R16, R18
+        CPC     R17, R19
+        BRCC    ??floatTransmit_11
+//  159 {
+//  160 floatNr=floatNr-(long long)floatNr;
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F2SLL_L12
+        CALL    ?SLL2F_L12
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_SUB_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  161 floatNr*=10;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 32
+        LDI     R23, 65
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_MUL_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  162 nr=(int)floatNr;
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F2SL_L04
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        MOV     R20, R18
+        MOV     R21, R18
+        MOV     R22, R18
+        MOV     R23, R18
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//  163 USART_transmit(nr+'0');
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        SUBI    R16, 208
+        CALL    USART_transmit
+//  164 }
+        LDD     R16, Y+2
+        LDD     R17, Y+3
+        SUBI    R16, 255
+        SBCI    R17, 255
+        STD     Y+2, R16
+        STD     Y+3, R17
+        RJMP    ??floatTransmit_10
+//  165 }
+??floatTransmit_11:
+        ADIW    R29:R28, 42
+          CFI CFA_Y Y+16
+        LDI     R30, 16
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock4
+//  166 
+//  167 //transmiterea unui .ir de caractere pe seriala
+
+        RSEG CODE:CODE:NOROOT(1)
+//  168 void characterTransmit (unsigned int p1, unsigned int p2, void * p3)
+characterTransmit:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function characterTransmit
+//  169 {
+        FUNCALL characterTransmit, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE10_L09
+          CFI R9 Frame(CFA_Y, -1)
+          CFI R8 Frame(CFA_Y, -2)
+          CFI R7 Frame(CFA_Y, -3)
+          CFI R6 Frame(CFA_Y, -4)
+          CFI R5 Frame(CFA_Y, -5)
+          CFI R4 Frame(CFA_Y, -6)
+          CFI R27 Frame(CFA_Y, -7)
+          CFI R26 Frame(CFA_Y, -8)
+          CFI R25 Frame(CFA_Y, -9)
+          CFI R24 Frame(CFA_Y, -10)
+          CFI CFA_Y Y+10
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        MOVW    R5:R4, R21:R20
+//  170 unsigned char *x=(unsigned char *)(p3);
+        MOVW    R9:R8, R5:R4
+//  171 int index = 0;
+        CLR     R6
+        CLR     R7
+//  172 
+//  173 while(index<p2)
+??characterTransmit_0:
+        CP      R6, R26
+        CPC     R7, R27
+        BRCC    ??characterTransmit_1
+//  174 {
+//  175 USART_transmit(x[index]);
+        MOVW    R31:R30, R9:R8
+        ADD     R30, R6
+        ADC     R31, R7
+        LD      R16, Z
+        CALL    USART_transmit
+//  176 index++;
+        LDI     R16, 1
+        ADD     R6, R16
+        LDI     R16, 0
+        ADC     R7, R16
+        RJMP    ??characterTransmit_0
+//  177 }
+//  178 }
+??characterTransmit_1:
+        LDI     R30, 10
+        JMP     ?EPILOGUE_B10_L09
+          CFI EndBlock cfiBlock5
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_0`:
+        DD 0, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_0_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_1`:
+        DD 4294967295, 4294967295
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_ffffffff_ffffffff:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_1`
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_2`:
+        DD 10, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_a_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_2`
+
+        RSEG SWITCH:CODE:NOROOT(1)
+`?<Jumptable for myprint>_0`:
+        DW      0
+        DB      0
+        DW      (??myprint_1) /2
+        DW      4
+        DW      (??myprint_0) /2
+        DW      (??myprint_2) /2
+        DW      (??myprint_3) /2
+        DW      (??myprint_4) /2
+        DB      0
+
+        RSEG NEAR_F:CODE:NOROOT(0)
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+        END
+// 
+// 1 364 bytes in segment CODE
+//     6 bytes in segment INITTAB
+//    30 bytes in segment NEAR_F
+//    24 bytes in segment NEAR_I
+//    24 bytes in segment NEAR_ID
+//    16 bytes in segment SWITCH
+// 
+// 1 410 bytes of CODE memory (+ 30 bytes shared)
+//     0 bytes of DATA memory (+ 24 bytes shared)
+//
+//Errors: none
+//Warnings: none

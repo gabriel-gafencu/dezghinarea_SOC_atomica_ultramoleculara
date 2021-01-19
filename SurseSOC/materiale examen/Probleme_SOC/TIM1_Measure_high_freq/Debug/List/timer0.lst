@@ -1,0 +1,147 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        22/Dec/2015  18:44:09 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\Measure_high_freq\timer0.c   #
+#    Command line =  D:\soc2015\1305B\LucruExtra\Measure_high_freq\timer0.c   #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\Measure_hig #
+#                    h_freq\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\Measur #
+#                    e_high_freq\Debug\List\ -lA                              #
+#                    D:\soc2015\1305B\LucruExtra\Measure_high_freq\Debug\List #
+#                    \ --initializers_in_flash --no_cse --no_inline           #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\soc2015\1305B\LucruExtra\Measure_high_freq\Debug\List #
+#                    \timer0.lst                                              #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\Measure_high_freq\Debug\Obj\ #
+#                    timer0.r90                                               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\Measure_high_freq\timer0.c
+      1          #include"timer0.h"
+
+   \                                 In  segment ABSOLUTE, at 0x5c
+   \   union <unnamed> volatile __io _A_OCR0
+   \                     _A_OCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+      2          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      3          unsigned int tim0softCount;
+   \                     tim0softCount:
+   \   00000000                      DS8 2
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          void TIMER0_init()
+   \                     TIMER0_init:
+      6          {
+      7            TCCR0 = (1 << CS02) | (0 << CS01) | (1 << CS00) | (1 << WGM01) | (0 << WGM00);
+   \   00000000   E00D               LDI     R16, 13
+   \   00000002   BF03               OUT     0x33, R16
+      8            OCR0 = 196;
+   \   00000004   EC04               LDI     R16, 196
+   \   00000006   BF0C               OUT     0x3C, R16
+      9            TIMSK |= (1 << OCIE0);
+   \   00000008   B709               IN      R16, 0x39
+   \   0000000A   6002               ORI     R16, 0x02
+   \   0000000C   BF09               OUT     0x39, R16
+     10          }
+   \   0000000E   9508               RET
+   \   00000010                      REQUIRE _A_TCCR0
+   \   00000010                      REQUIRE _A_OCR0
+   \   00000010                      REQUIRE _A_TIMSK
+     11          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     12          __interrupt void isr_TIMER0_COMP_vect()
+   \                     isr_TIMER0_COMP_vect:
+     13          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     14            
+     15            tim0softCount++;
+   \   0000000C   ....               LDI     R30, LOW(tim0softCount)
+   \   0000000E   ....               LDI     R31, (tim0softCount) >> 8
+   \   00000010   8100               LD      R16, Z
+   \   00000012   8111               LDD     R17, Z+1
+   \   00000014   5F0F               SUBI    R16, 255
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   8300               ST      Z, R16
+   \   0000001A   8311               STD     Z+1, R17
+     16            if(tim0softCount > 20)
+   \   0000001C   91E0....           LDS     R30, tim0softCount
+   \   00000020   91F0....           LDS     R31, (tim0softCount + 1)
+   \   00000024   9775               SBIW    R31:R30, 21
+   \   00000026   F030               BRCS    ??isr_TIMER0_COMP_vect_0
+     17              tim0softCount = 0;
+   \   00000028   E000               LDI     R16, 0
+   \   0000002A   E010               LDI     R17, 0
+   \   0000002C   9300....           STS     tim0softCount, R16
+   \   00000030   9310....           STS     (tim0softCount + 1), R17
+     18          }
+   \                     ??isr_TIMER0_COMP_vect_0:
+   \   00000034   BF2F               OUT     0x3F, R18
+   \   00000036   9109               LD      R16, Y+
+   \   00000038   9119               LD      R17, Y+
+   \   0000003A   9129               LD      R18, Y+
+   \   0000003C   91E9               LD      R30, Y+
+   \   0000003E   91F9               LD      R31, Y+
+   \   00000040   9518               RETI
+
+   \                                 In  segment INTVEC, offset 0x4c, root
+   \                     `??isr_TIMER0_COMP_vect??INTVEC 76`:
+   \   0000004C   ........           JMP     isr_TIMER0_COMP_vect
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  TIMER0_init
+       5      2  isr_TIMER0_COMP_vect
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_TIMER0_COMP_vect??INTVEC 76
+      16  TIMER0_init
+       1  _A_OCR0
+       1  _A_TCCR0
+       1  _A_TIMSK
+      66  isr_TIMER0_COMP_vect
+       2  tim0softCount
+       6  -- Other
+
+ 
+  3 bytes in segment ABSOLUTE
+ 82 bytes in segment CODE
+  6 bytes in segment INITTAB
+  4 bytes in segment INTVEC
+  2 bytes in segment NEAR_Z
+ 
+ 82 bytes of CODE memory (+ 10 bytes shared)
+  2 bytes of DATA memory (+  3 bytes shared)
+
+Errors: none
+Warnings: none

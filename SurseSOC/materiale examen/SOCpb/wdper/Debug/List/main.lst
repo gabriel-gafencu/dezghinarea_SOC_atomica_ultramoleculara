@@ -1,0 +1,884 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        21/Dec/2014  13:08:25 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\wdper\main.c                                    #
+#    Command line =  D:\1307B\wdper\main.c --cpu=m16 -ms -o                   #
+#                    D:\1307B\wdper\Debug\Obj\ -lC                            #
+#                    D:\1307B\wdper\Debug\List\ -lA                           #
+#                    D:\1307B\wdper\Debug\List\ --initializers_in_flash       #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\1307B\wdper\Debug\List\main.lst                       #
+#    Object file  =  D:\1307B\wdper\Debug\Obj\main.r90                        #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\wdper\main.c
+      1          //calculati si trimiteti pe seriala in formatul xxxx.x ms valoarea tipica a wd
+      2          //in cazul utilizarii prescalerului WDP2-0=100
+      3          #include <iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x41
+   \   union <unnamed> volatile __io _A_WDTCR
+   \                     _A_WDTCR:
+   \   00000000                      DS8 1
+      4          #include <inavr.h>
+      5          #include "usart.h"
+      6          #include "fct.h"
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      7          __no_init unsigned int Timer1_currentValue;
+   \                     Timer1_currentValue:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      8          __no_init unsigned int Timer1_numberOverflows;
+   \                     Timer1_numberOverflows:
+   \   00000000                      DS8 2
+      9          #pragma vector = TIMER1_OVF_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     10          __interrupt void T1_OVF()
+   \                     T1_OVF:
+     11          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     12            Timer1_numberOverflows++;
+   \   0000000C   ....               LDI     R30, LOW(Timer1_numberOverflows)
+   \   0000000E   ....               LDI     R31, (Timer1_numberOverflows) >> 8
+   \   00000010   8100               LD      R16, Z
+   \   00000012   8111               LDD     R17, Z+1
+   \   00000014   5F0F               SUBI    R16, 255
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   8300               ST      Z, R16
+   \   0000001A   8311               STD     Z+1, R17
+     13          }
+   \   0000001C   BF2F               OUT     0x3F, R18
+   \   0000001E   9109               LD      R16, Y+
+   \   00000020   9119               LD      R17, Y+
+   \   00000022   9129               LD      R18, Y+
+   \   00000024   91E9               LD      R30, Y+
+   \   00000026   91F9               LD      R31, Y+
+   \   00000028   9518               RETI
+     14          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     15          unsigned char vect[10];
+   \                     vect:
+   \   00000000                      DS8 10
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+     16          int j =9;
+   \                     j:
+   \   00000000                      DS8 2
+   \   00000002                      REQUIRE `?<Initializer for j>`
+     17          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     18          unsigned char vectF[10];
+   \                     vectF:
+   \   00000000                      DS8 10
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+     19          int i=9;
+   \                     i:
+   \   00000000                      DS8 2
+   \   00000002                      REQUIRE `?<Initializer for i>`
+     20          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     21          int nrCifre(unsigned long nr)
+   \                     nrCifre:
+     22          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004   01C8               MOVW    R25:R24, R17:R16
+   \   00000006   01D9               MOVW    R27:R26, R19:R18
+     23           int nrC=0;
+   \   00000008   2444               CLR     R4
+   \   0000000A   2455               CLR     R5
+     24          
+     25           while(nr)
+   \                     ??nrCifre_0:
+   \   0000000C   2F08               MOV     R16, R24
+   \   0000000E   2B09               OR      R16, R25
+   \   00000010   2B0A               OR      R16, R26
+   \   00000012   2B0B               OR      R16, R27
+   \   00000014   F079               BREQ    ??nrCifre_1
+     26           {
+     27             nr/=10;
+   \   00000016   E04A               LDI     R20, 10
+   \   00000018   E050               LDI     R21, 0
+   \   0000001A   E060               LDI     R22, 0
+   \   0000001C   E070               LDI     R23, 0
+   \   0000001E   018C               MOVW    R17:R16, R25:R24
+   \   00000020   019D               MOVW    R19:R18, R27:R26
+   \   00000022   ........           CALL    ?UL_DIVMOD_L03
+   \   00000026   01C8               MOVW    R25:R24, R17:R16
+   \   00000028   01D9               MOVW    R27:R26, R19:R18
+     28            nrC++; 
+   \   0000002A   E001               LDI     R16, 1
+   \   0000002C   0E40               ADD     R4, R16
+   \   0000002E   E000               LDI     R16, 0
+   \   00000030   1E50               ADC     R5, R16
+   \   00000032   CFEC               RJMP    ??nrCifre_0
+     29           }
+     30           return nrC;
+   \                     ??nrCifre_1:
+   \   00000034   0182               MOVW    R17:R16, R5:R4
+   \   00000036   E0E6               LDI     R30, 6
+   \   00000038   ........           JMP     ?EPILOGUE_B6_L09
+     31            
+     32          }
+     33          
+     34          
+     35          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     36          void main( void )
+   \                     main:
+     37          {
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   9760               SBIW    R29:R28, 16
+     38            /*iniþializare usart*/
+     39            USART_initialize(BAUD_RATE);
+   \   00000006   E00C               LDI     R16, 12
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    USART_initialize
+     40            /*iniþializare Timer 1*/
+     41            /*Mod de funcþionare Normal*/
+     42            /*Setare prescaler */
+     43            TCCR1B|=(1<<CS10);
+   \   0000000E   B50E               IN      R16, 0x2E
+   \   00000010   6001               ORI     R16, 0x01
+   \   00000012   BD0E               OUT     0x2E, R16
+     44            /*Activare întrerupere*/
+     45            TIMSK|=(1<<TOIE1);
+   \   00000014   B709               IN      R16, 0x39
+   \   00000016   6004               ORI     R16, 0x04
+   \   00000018   BF09               OUT     0x39, R16
+     46            __enable_interrupt();
+   \   0000001A   9478               SEI
+     47            /*iniþializare Watchdog*/
+     48            /*Setare time-out de 32.5 ms*/
+     49            WDTCR|= (1<<WDP0);
+   \   0000001C   B501               IN      R16, 0x21
+   \   0000001E   6001               ORI     R16, 0x01
+   \   00000020   BD01               OUT     0x21, R16
+     50            WDTCR|= (1<<WDP1);
+                                    ^
+Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
+          only issued once)
+   \   00000022   B501               IN      R16, 0x21
+   \   00000024   6002               ORI     R16, 0x02
+   \   00000026   BD01               OUT     0x21, R16
+     51           
+     52            WDTCR|= (1<<WDP2);
+   \   00000028   B501               IN      R16, 0x21
+   \   0000002A   6004               ORI     R16, 0x04
+   \   0000002C   BD01               OUT     0x21, R16
+     53            int nrC=0;
+   \   0000002E   E000               LDI     R16, 0
+   \   00000030   E010               LDI     R17, 0
+   \   00000032   830A               STD     Y+2, R16
+   \   00000034   831B               STD     Y+3, R17
+     54            int rest=0;
+   \   00000036   E000               LDI     R16, 0
+   \   00000038   E010               LDI     R17, 0
+   \   0000003A   8308               ST      Y, R16
+   \   0000003C   8319               STD     Y+1, R17
+     55          
+     56            
+     57            if(Timer1_numberOverflows >0 || Timer1_currentValue>0)
+   \   0000003E   9100....           LDS     R16, Timer1_numberOverflows
+   \   00000042   9110....           LDS     R17, (Timer1_numberOverflows + 1)
+   \   00000046   2B01               OR      R16, R17
+   \   00000048   F439               BRNE    ??main_0
+   \   0000004A   9100....           LDS     R16, Timer1_currentValue
+   \   0000004E   9110....           LDS     R17, (Timer1_currentValue + 1)
+   \   00000052   2B01               OR      R16, R17
+   \   00000054   F409               BRNE    $+2+2
+   \   00000056   C1FF               RJMP    ??main_1
+     58            {
+     59              /*calculul perioadei efective de time-out a watchdog-ului*/
+     60              unsigned long number=Timer1_numberOverflows*65535+Timer1_currentValue;
+   \                     ??main_0:
+   \   00000058   9100....           LDS     R16, Timer1_numberOverflows
+   \   0000005C   9110....           LDS     R17, (Timer1_numberOverflows + 1)
+   \   00000060   E020               LDI     R18, 0
+   \   00000062   E030               LDI     R19, 0
+   \   00000064   EF4F               LDI     R20, 255
+   \   00000066   EF5F               LDI     R21, 255
+   \   00000068   E060               LDI     R22, 0
+   \   0000006A   E070               LDI     R23, 0
+   \   0000006C   ........           CALL    ?L_EC_MUL_L03
+   \   00000070   0168               MOVW    R13:R12, R17:R16
+   \   00000072   0179               MOVW    R15:R14, R19:R18
+   \   00000074   9100....           LDS     R16, Timer1_currentValue
+   \   00000078   9110....           LDS     R17, (Timer1_currentValue + 1)
+   \   0000007C   E020               LDI     R18, 0
+   \   0000007E   E030               LDI     R19, 0
+   \   00000080   0EC0               ADD     R12, R16
+   \   00000082   1ED1               ADC     R13, R17
+   \   00000084   1EE2               ADC     R14, R18
+   \   00000086   1EF3               ADC     R15, R19
+     61              /*calculul perioadei în ms*/
+     62              unsigned long parteIntreagaPeriod=(unsigned long)number/4000.0;
+                                                       ^
+Warning[Pa093]: implicit conversion from floating point to integer
+   \   00000088   0186               MOVW    R17:R16, R13:R12
+   \   0000008A   0197               MOVW    R19:R18, R15:R14
+   \   0000008C   ........           CALL    ?UL2F_L04
+   \   00000090   E040               LDI     R20, 0
+   \   00000092   E050               LDI     R21, 0
+   \   00000094   E76A               LDI     R22, 122
+   \   00000096   E475               LDI     R23, 69
+   \   00000098   ........           CALL    ?F_DIV_L04
+   \   0000009C   ........           CALL    ?F2UL_L04
+   \   000000A0   0148               MOVW    R9:R8, R17:R16
+   \   000000A2   0159               MOVW    R11:R10, R19:R18
+     63              unsigned long parteFractionaraPeriod=(number/4000.0-parteIntreagaPeriod)*10;
+                                                          ^
+Warning[Pa093]: implicit conversion from floating point to integer
+   \   000000A4   0186               MOVW    R17:R16, R13:R12
+   \   000000A6   0197               MOVW    R19:R18, R15:R14
+   \   000000A8   ........           CALL    ?UL2F_L04
+   \   000000AC   E040               LDI     R20, 0
+   \   000000AE   E050               LDI     R21, 0
+   \   000000B0   E76A               LDI     R22, 122
+   \   000000B2   E475               LDI     R23, 69
+   \   000000B4   ........           CALL    ?F_DIV_L04
+   \   000000B8   01C8               MOVW    R25:R24, R17:R16
+   \   000000BA   01D9               MOVW    R27:R26, R19:R18
+   \   000000BC   0184               MOVW    R17:R16, R9:R8
+   \   000000BE   0195               MOVW    R19:R18, R11:R10
+   \   000000C0   ........           CALL    ?UL2F_L04
+   \   000000C4   01A8               MOVW    R21:R20, R17:R16
+   \   000000C6   01B9               MOVW    R23:R22, R19:R18
+   \   000000C8   018C               MOVW    R17:R16, R25:R24
+   \   000000CA   019D               MOVW    R19:R18, R27:R26
+   \   000000CC   ........           CALL    ?F_SUB_L04
+   \   000000D0   E040               LDI     R20, 0
+   \   000000D2   E050               LDI     R21, 0
+   \   000000D4   E260               LDI     R22, 32
+   \   000000D6   E471               LDI     R23, 65
+   \   000000D8   ........           CALL    ?F_MUL_L04
+   \   000000DC   ........           CALL    ?F2UL_L04
+   \   000000E0   8708               STD     Y+8, R16
+   \   000000E2   8719               STD     Y+9, R17
+   \   000000E4   872A               STD     Y+10, R18
+   \   000000E6   873B               STD     Y+11, R19
+     64              vect[j--]=parteFractionaraPeriod%10+'0';
+   \   000000E8   E04A               LDI     R20, 10
+   \   000000EA   E050               LDI     R21, 0
+   \   000000EC   E060               LDI     R22, 0
+   \   000000EE   E070               LDI     R23, 0
+   \   000000F0   8508               LDD     R16, Y+8
+   \   000000F2   8519               LDD     R17, Y+9
+   \   000000F4   852A               LDD     R18, Y+10
+   \   000000F6   853B               LDD     R19, Y+11
+   \   000000F8   ........           CALL    ?UL_DIVMOD_L03
+   \   000000FC   5D40               SUBI    R20, 208
+   \   000000FE   9100....           LDS     R16, j
+   \   00000102   9110....           LDS     R17, (j + 1)
+   \   00000106   01F8               MOVW    R31:R30, R17:R16
+   \   00000108   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   0000010A   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   0000010C   8340               ST      Z, R20
+   \   0000010E   ....               LDI     R30, LOW(j)
+   \   00000110   ....               LDI     R31, (j) >> 8
+   \   00000112   8100               LD      R16, Z
+   \   00000114   8111               LDD     R17, Z+1
+   \   00000116   5001               SUBI    R16, 1
+   \   00000118   4010               SBCI    R17, 0
+   \   0000011A   8300               ST      Z, R16
+   \   0000011C   8311               STD     Z+1, R17
+     65              vect[j--]='.';
+   \   0000011E   E20E               LDI     R16, 46
+   \   00000120   9120....           LDS     R18, j
+   \   00000124   9130....           LDS     R19, (j + 1)
+   \   00000128   01F9               MOVW    R31:R30, R19:R18
+   \   0000012A   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   0000012C   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   0000012E   8300               ST      Z, R16
+   \   00000130   ....               LDI     R30, LOW(j)
+   \   00000132   ....               LDI     R31, (j) >> 8
+   \   00000134   8100               LD      R16, Z
+   \   00000136   8111               LDD     R17, Z+1
+   \   00000138   5001               SUBI    R16, 1
+   \   0000013A   4010               SBCI    R17, 0
+   \   0000013C   8300               ST      Z, R16
+   \   0000013E   8311               STD     Z+1, R17
+     66              
+     67               nrC=nrCifre(parteIntreagaPeriod);
+   \   00000140   0184               MOVW    R17:R16, R9:R8
+   \   00000142   0195               MOVW    R19:R18, R11:R10
+   \   00000144   ....               RCALL   nrCifre
+   \   00000146   830A               STD     Y+2, R16
+   \   00000148   831B               STD     Y+3, R17
+     68               
+     69               while(parteIntreagaPeriod)
+   \                     ??main_2:
+   \   0000014A   2D08               MOV     R16, R8
+   \   0000014C   2909               OR      R16, R9
+   \   0000014E   290A               OR      R16, R10
+   \   00000150   290B               OR      R16, R11
+   \   00000152   F121               BREQ    ??main_3
+     70               {
+     71                 vect[j--]=parteIntreagaPeriod%10+'0';
+   \   00000154   E04A               LDI     R20, 10
+   \   00000156   E050               LDI     R21, 0
+   \   00000158   E060               LDI     R22, 0
+   \   0000015A   E070               LDI     R23, 0
+   \   0000015C   0184               MOVW    R17:R16, R9:R8
+   \   0000015E   0195               MOVW    R19:R18, R11:R10
+   \   00000160   ........           CALL    ?UL_DIVMOD_L03
+   \   00000164   5D40               SUBI    R20, 208
+   \   00000166   9100....           LDS     R16, j
+   \   0000016A   9110....           LDS     R17, (j + 1)
+   \   0000016E   01F8               MOVW    R31:R30, R17:R16
+   \   00000170   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   00000172   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   00000174   8340               ST      Z, R20
+   \   00000176   ....               LDI     R30, LOW(j)
+   \   00000178   ....               LDI     R31, (j) >> 8
+   \   0000017A   8100               LD      R16, Z
+   \   0000017C   8111               LDD     R17, Z+1
+   \   0000017E   5001               SUBI    R16, 1
+   \   00000180   4010               SBCI    R17, 0
+   \   00000182   8300               ST      Z, R16
+   \   00000184   8311               STD     Z+1, R17
+     72                 parteIntreagaPeriod/=10;
+   \   00000186   E04A               LDI     R20, 10
+   \   00000188   E050               LDI     R21, 0
+   \   0000018A   E060               LDI     R22, 0
+   \   0000018C   E070               LDI     R23, 0
+   \   0000018E   0184               MOVW    R17:R16, R9:R8
+   \   00000190   0195               MOVW    R19:R18, R11:R10
+   \   00000192   ........           CALL    ?UL_DIVMOD_L03
+   \   00000196   0148               MOVW    R9:R8, R17:R16
+   \   00000198   0159               MOVW    R11:R10, R19:R18
+   \   0000019A   CFD7               RJMP    ??main_2
+     73               }
+     74                rest=4-nrC;
+   \                     ??main_3:
+   \   0000019C   E004               LDI     R16, 4
+   \   0000019E   E010               LDI     R17, 0
+   \   000001A0   812A               LDD     R18, Y+2
+   \   000001A2   813B               LDD     R19, Y+3
+   \   000001A4   1B02               SUB     R16, R18
+   \   000001A6   0B13               SBC     R17, R19
+   \   000001A8   8308               ST      Y, R16
+   \   000001AA   8319               STD     Y+1, R17
+     75                while(rest)
+   \                     ??main_4:
+   \   000001AC   8108               LD      R16, Y
+   \   000001AE   8119               LDD     R17, Y+1
+   \   000001B0   2B01               OR      R16, R17
+   \   000001B2   F0C1               BREQ    ??main_5
+     76                {
+     77                 vect[j--]='0';
+   \   000001B4   E300               LDI     R16, 48
+   \   000001B6   9120....           LDS     R18, j
+   \   000001BA   9130....           LDS     R19, (j + 1)
+   \   000001BE   01F9               MOVW    R31:R30, R19:R18
+   \   000001C0   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   000001C2   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   000001C4   8300               ST      Z, R16
+   \   000001C6   ....               LDI     R30, LOW(j)
+   \   000001C8   ....               LDI     R31, (j) >> 8
+   \   000001CA   8100               LD      R16, Z
+   \   000001CC   8111               LDD     R17, Z+1
+   \   000001CE   5001               SUBI    R16, 1
+   \   000001D0   4010               SBCI    R17, 0
+   \   000001D2   8300               ST      Z, R16
+   \   000001D4   8311               STD     Z+1, R17
+     78                 rest--;
+   \   000001D6   8108               LD      R16, Y
+   \   000001D8   8119               LDD     R17, Y+1
+   \   000001DA   5001               SUBI    R16, 1
+   \   000001DC   4010               SBCI    R17, 0
+   \   000001DE   8308               ST      Y, R16
+   \   000001E0   8319               STD     Y+1, R17
+   \   000001E2   CFE4               RJMP    ??main_4
+     79                  
+     80                }
+     81              
+     82                for(j=j+1;j<10;++j)
+   \                     ??main_5:
+   \   000001E4   ....               LDI     R30, LOW(j)
+   \   000001E6   ....               LDI     R31, (j) >> 8
+   \   000001E8   8100               LD      R16, Z
+   \   000001EA   8111               LDD     R17, Z+1
+   \   000001EC   5F0F               SUBI    R16, 255
+   \   000001EE   4F1F               SBCI    R17, 255
+   \   000001F0   8300               ST      Z, R16
+   \   000001F2   8311               STD     Z+1, R17
+   \                     ??main_6:
+   \   000001F4   91E0....           LDS     R30, j
+   \   000001F8   91F0....           LDS     R31, (j + 1)
+   \   000001FC   973A               SBIW    R31:R30, 10
+   \   000001FE   F49C               BRGE    ??main_7
+     83                {
+     84                  USART_transmit(vect[j]);
+   \   00000200   9100....           LDS     R16, j
+   \   00000204   9110....           LDS     R17, (j + 1)
+   \   00000208   01F8               MOVW    R31:R30, R17:R16
+   \   0000020A   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   0000020C   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   0000020E   8100               LD      R16, Z
+   \   00000210   ........           CALL    USART_transmit
+     85                }
+   \   00000214   ....               LDI     R30, LOW(j)
+   \   00000216   ....               LDI     R31, (j) >> 8
+   \   00000218   8100               LD      R16, Z
+   \   0000021A   8111               LDD     R17, Z+1
+   \   0000021C   5F0F               SUBI    R16, 255
+   \   0000021E   4F1F               SBCI    R17, 255
+   \   00000220   8300               ST      Z, R16
+   \   00000222   8311               STD     Z+1, R17
+   \   00000224   CFE7               RJMP    ??main_6
+     86                
+     87                USART_transmit('m');
+   \                     ??main_7:
+   \   00000226   E60D               LDI     R16, 109
+   \   00000228   ........           CALL    USART_transmit
+     88                USART_transmit('s');
+   \   0000022C   E703               LDI     R16, 115
+   \   0000022E   ........           CALL    USART_transmit
+     89                USART_transmit(' ');
+   \   00000232   E200               LDI     R16, 32
+   \   00000234   ........           CALL    USART_transmit
+     90                
+     91              
+     92                unsigned long time_per_clock=(unsigned long)(number*250/2097152); 
+   \   00000238   EF4A               LDI     R20, 250
+   \   0000023A   E050               LDI     R21, 0
+   \   0000023C   E060               LDI     R22, 0
+   \   0000023E   E070               LDI     R23, 0
+   \   00000240   0186               MOVW    R17:R16, R13:R12
+   \   00000242   0197               MOVW    R19:R18, R15:R14
+   \   00000244   ........           CALL    ?L_EC_MUL_L03
+   \   00000248   E145               LDI     R20, 21
+   \   0000024A   ........           CALL    ?UL_SHR_L03
+   \   0000024E   830C               STD     Y+4, R16
+   \   00000250   831D               STD     Y+5, R17
+   \   00000252   832E               STD     Y+6, R18
+   \   00000254   833F               STD     Y+7, R19
+     93                unsigned long parteIntreagaFrecv=(unsigned long)1000000/time_per_clock;
+   \   00000256   814C               LDD     R20, Y+4
+   \   00000258   815D               LDD     R21, Y+5
+   \   0000025A   816E               LDD     R22, Y+6
+   \   0000025C   817F               LDD     R23, Y+7
+   \   0000025E   E400               LDI     R16, 64
+   \   00000260   E412               LDI     R17, 66
+   \   00000262   E02F               LDI     R18, 15
+   \   00000264   E030               LDI     R19, 0
+   \   00000266   ........           CALL    ?UL_DIVMOD_L03
+   \   0000026A   0128               MOVW    R5:R4, R17:R16
+   \   0000026C   0139               MOVW    R7:R6, R19:R18
+     94                long double nrr=100000000/time_per_clock;
+                                   ^
+Warning[Pe177]: variable "nrr" was declared but never referenced
+   \   0000026E   814C               LDD     R20, Y+4
+   \   00000270   815D               LDD     R21, Y+5
+   \   00000272   816E               LDD     R22, Y+6
+   \   00000274   817F               LDD     R23, Y+7
+   \   00000276   E000               LDI     R16, 0
+   \   00000278   EE11               LDI     R17, 225
+   \   0000027A   EF25               LDI     R18, 245
+   \   0000027C   E035               LDI     R19, 5
+   \   0000027E   ........           CALL    ?UL_DIVMOD_L03
+   \   00000282   ........           CALL    ?UL2F_L04
+   \   00000286   870C               STD     Y+12, R16
+   \   00000288   871D               STD     Y+13, R17
+   \   0000028A   872E               STD     Y+14, R18
+   \   0000028C   873F               STD     Y+15, R19
+     95                unsigned long parteFractionaraFrecv=(unsigned long)(100000000/time_per_clock-100*parteIntreagaFrecv);
+   \   0000028E   814C               LDD     R20, Y+4
+   \   00000290   815D               LDD     R21, Y+5
+   \   00000292   816E               LDD     R22, Y+6
+   \   00000294   817F               LDD     R23, Y+7
+   \   00000296   E000               LDI     R16, 0
+   \   00000298   EE11               LDI     R17, 225
+   \   0000029A   EF25               LDI     R18, 245
+   \   0000029C   E035               LDI     R19, 5
+   \   0000029E   ........           CALL    ?UL_DIVMOD_L03
+   \   000002A2   01C8               MOVW    R25:R24, R17:R16
+   \   000002A4   01D9               MOVW    R27:R26, R19:R18
+   \   000002A6   E644               LDI     R20, 100
+   \   000002A8   E050               LDI     R21, 0
+   \   000002AA   E060               LDI     R22, 0
+   \   000002AC   E070               LDI     R23, 0
+   \   000002AE   0182               MOVW    R17:R16, R5:R4
+   \   000002B0   0193               MOVW    R19:R18, R7:R6
+   \   000002B2   ........           CALL    ?L_EC_MUL_L03
+   \   000002B6   1B80               SUB     R24, R16
+   \   000002B8   0B91               SBC     R25, R17
+   \   000002BA   0BA2               SBC     R26, R18
+   \   000002BC   0BB3               SBC     R27, R19
+     96              
+     97                vectF[i--]=parteFractionaraFrecv%10+'0';
+   \   000002BE   E04A               LDI     R20, 10
+   \   000002C0   E050               LDI     R21, 0
+   \   000002C2   E060               LDI     R22, 0
+   \   000002C4   E070               LDI     R23, 0
+   \   000002C6   018C               MOVW    R17:R16, R25:R24
+   \   000002C8   019D               MOVW    R19:R18, R27:R26
+   \   000002CA   ........           CALL    ?UL_DIVMOD_L03
+   \   000002CE   5D40               SUBI    R20, 208
+   \   000002D0   9100....           LDS     R16, i
+   \   000002D4   9110....           LDS     R17, (i + 1)
+   \   000002D8   01F8               MOVW    R31:R30, R17:R16
+   \   000002DA   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   000002DC   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   000002DE   8340               ST      Z, R20
+   \   000002E0   ....               LDI     R30, LOW(i)
+   \   000002E2   ....               LDI     R31, (i) >> 8
+   \   000002E4   8100               LD      R16, Z
+   \   000002E6   8111               LDD     R17, Z+1
+   \   000002E8   5001               SUBI    R16, 1
+   \   000002EA   4010               SBCI    R17, 0
+   \   000002EC   8300               ST      Z, R16
+   \   000002EE   8311               STD     Z+1, R17
+     98                parteFractionaraFrecv%=10;
+   \   000002F0   E04A               LDI     R20, 10
+   \   000002F2   E050               LDI     R21, 0
+   \   000002F4   E060               LDI     R22, 0
+   \   000002F6   E070               LDI     R23, 0
+   \   000002F8   018C               MOVW    R17:R16, R25:R24
+   \   000002FA   019D               MOVW    R19:R18, R27:R26
+   \   000002FC   ........           CALL    ?UL_DIVMOD_L03
+   \   00000300   01CA               MOVW    R25:R24, R21:R20
+   \   00000302   01DB               MOVW    R27:R26, R23:R22
+     99                vectF[i--]=parteFractionaraFrecv%10+'0';
+   \   00000304   E04A               LDI     R20, 10
+   \   00000306   E050               LDI     R21, 0
+   \   00000308   E060               LDI     R22, 0
+   \   0000030A   E070               LDI     R23, 0
+   \   0000030C   018C               MOVW    R17:R16, R25:R24
+   \   0000030E   019D               MOVW    R19:R18, R27:R26
+   \   00000310   ........           CALL    ?UL_DIVMOD_L03
+   \   00000314   5D40               SUBI    R20, 208
+   \   00000316   9100....           LDS     R16, i
+   \   0000031A   9110....           LDS     R17, (i + 1)
+   \   0000031E   01F8               MOVW    R31:R30, R17:R16
+   \   00000320   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   00000322   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   00000324   8340               ST      Z, R20
+   \   00000326   ....               LDI     R30, LOW(i)
+   \   00000328   ....               LDI     R31, (i) >> 8
+   \   0000032A   8100               LD      R16, Z
+   \   0000032C   8111               LDD     R17, Z+1
+   \   0000032E   5001               SUBI    R16, 1
+   \   00000330   4010               SBCI    R17, 0
+   \   00000332   8300               ST      Z, R16
+   \   00000334   8311               STD     Z+1, R17
+    100                vectF[i--]='.';
+   \   00000336   E20E               LDI     R16, 46
+   \   00000338   9120....           LDS     R18, i
+   \   0000033C   9130....           LDS     R19, (i + 1)
+   \   00000340   01F9               MOVW    R31:R30, R19:R18
+   \   00000342   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   00000344   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   00000346   8300               ST      Z, R16
+   \   00000348   ....               LDI     R30, LOW(i)
+   \   0000034A   ....               LDI     R31, (i) >> 8
+   \   0000034C   8100               LD      R16, Z
+   \   0000034E   8111               LDD     R17, Z+1
+   \   00000350   5001               SUBI    R16, 1
+   \   00000352   4010               SBCI    R17, 0
+   \   00000354   8300               ST      Z, R16
+   \   00000356   8311               STD     Z+1, R17
+    101                
+    102                
+    103                 nrC=nrCifre(parteIntreagaFrecv);
+   \   00000358   0182               MOVW    R17:R16, R5:R4
+   \   0000035A   0193               MOVW    R19:R18, R7:R6
+   \   0000035C   ....               RCALL   nrCifre
+   \   0000035E   830A               STD     Y+2, R16
+   \   00000360   831B               STD     Y+3, R17
+    104               
+    105               while(parteIntreagaFrecv)
+   \                     ??main_8:
+   \   00000362   2D04               MOV     R16, R4
+   \   00000364   2905               OR      R16, R5
+   \   00000366   2906               OR      R16, R6
+   \   00000368   2907               OR      R16, R7
+   \   0000036A   F121               BREQ    ??main_9
+    106               {
+    107                 vectF[i--]=parteIntreagaFrecv%10+'0';
+   \   0000036C   E04A               LDI     R20, 10
+   \   0000036E   E050               LDI     R21, 0
+   \   00000370   E060               LDI     R22, 0
+   \   00000372   E070               LDI     R23, 0
+   \   00000374   0182               MOVW    R17:R16, R5:R4
+   \   00000376   0193               MOVW    R19:R18, R7:R6
+   \   00000378   ........           CALL    ?UL_DIVMOD_L03
+   \   0000037C   5D40               SUBI    R20, 208
+   \   0000037E   9100....           LDS     R16, i
+   \   00000382   9110....           LDS     R17, (i + 1)
+   \   00000386   01F8               MOVW    R31:R30, R17:R16
+   \   00000388   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   0000038A   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   0000038C   8340               ST      Z, R20
+   \   0000038E   ....               LDI     R30, LOW(i)
+   \   00000390   ....               LDI     R31, (i) >> 8
+   \   00000392   8100               LD      R16, Z
+   \   00000394   8111               LDD     R17, Z+1
+   \   00000396   5001               SUBI    R16, 1
+   \   00000398   4010               SBCI    R17, 0
+   \   0000039A   8300               ST      Z, R16
+   \   0000039C   8311               STD     Z+1, R17
+    108                 parteIntreagaFrecv/=10;
+   \   0000039E   E04A               LDI     R20, 10
+   \   000003A0   E050               LDI     R21, 0
+   \   000003A2   E060               LDI     R22, 0
+   \   000003A4   E070               LDI     R23, 0
+   \   000003A6   0182               MOVW    R17:R16, R5:R4
+   \   000003A8   0193               MOVW    R19:R18, R7:R6
+   \   000003AA   ........           CALL    ?UL_DIVMOD_L03
+   \   000003AE   0128               MOVW    R5:R4, R17:R16
+   \   000003B0   0139               MOVW    R7:R6, R19:R18
+   \   000003B2   CFD7               RJMP    ??main_8
+    109               }
+    110                rest=4-nrC;
+   \                     ??main_9:
+   \   000003B4   E004               LDI     R16, 4
+   \   000003B6   E010               LDI     R17, 0
+   \   000003B8   812A               LDD     R18, Y+2
+   \   000003BA   813B               LDD     R19, Y+3
+   \   000003BC   1B02               SUB     R16, R18
+   \   000003BE   0B13               SBC     R17, R19
+   \   000003C0   8308               ST      Y, R16
+   \   000003C2   8319               STD     Y+1, R17
+    111                while(rest)
+   \                     ??main_10:
+   \   000003C4   8108               LD      R16, Y
+   \   000003C6   8119               LDD     R17, Y+1
+   \   000003C8   2B01               OR      R16, R17
+   \   000003CA   F0C1               BREQ    ??main_11
+    112                {
+    113                 vectF[i--]='0';
+   \   000003CC   E300               LDI     R16, 48
+   \   000003CE   9120....           LDS     R18, i
+   \   000003D2   9130....           LDS     R19, (i + 1)
+   \   000003D6   01F9               MOVW    R31:R30, R19:R18
+   \   000003D8   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   000003DA   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   000003DC   8300               ST      Z, R16
+   \   000003DE   ....               LDI     R30, LOW(i)
+   \   000003E0   ....               LDI     R31, (i) >> 8
+   \   000003E2   8100               LD      R16, Z
+   \   000003E4   8111               LDD     R17, Z+1
+   \   000003E6   5001               SUBI    R16, 1
+   \   000003E8   4010               SBCI    R17, 0
+   \   000003EA   8300               ST      Z, R16
+   \   000003EC   8311               STD     Z+1, R17
+    114                 rest--;
+   \   000003EE   8108               LD      R16, Y
+   \   000003F0   8119               LDD     R17, Y+1
+   \   000003F2   5001               SUBI    R16, 1
+   \   000003F4   4010               SBCI    R17, 0
+   \   000003F6   8308               ST      Y, R16
+   \   000003F8   8319               STD     Y+1, R17
+   \   000003FA   CFE4               RJMP    ??main_10
+    115                  
+    116                }
+    117              
+    118                for(i=i+1;i<10;++i)
+   \                     ??main_11:
+   \   000003FC   ....               LDI     R30, LOW(i)
+   \   000003FE   ....               LDI     R31, (i) >> 8
+   \   00000400   8100               LD      R16, Z
+   \   00000402   8111               LDD     R17, Z+1
+   \   00000404   5F0F               SUBI    R16, 255
+   \   00000406   4F1F               SBCI    R17, 255
+   \   00000408   8300               ST      Z, R16
+   \   0000040A   8311               STD     Z+1, R17
+   \                     ??main_12:
+   \   0000040C   91E0....           LDS     R30, i
+   \   00000410   91F0....           LDS     R31, (i + 1)
+   \   00000414   973A               SBIW    R31:R30, 10
+   \   00000416   F49C               BRGE    ??main_13
+    119                {
+    120                  USART_transmit(vectF[i]);
+   \   00000418   9100....           LDS     R16, i
+   \   0000041C   9110....           LDS     R17, (i + 1)
+   \   00000420   01F8               MOVW    R31:R30, R17:R16
+   \   00000422   ....               SUBI    R30, LOW((-(vectF) & 0xFFFF))
+   \   00000424   ....               SBCI    R31, (-(vectF) & 0xFFFF) >> 8
+   \   00000426   8100               LD      R16, Z
+   \   00000428   ........           CALL    USART_transmit
+    121                }
+   \   0000042C   ....               LDI     R30, LOW(i)
+   \   0000042E   ....               LDI     R31, (i) >> 8
+   \   00000430   8100               LD      R16, Z
+   \   00000432   8111               LDD     R17, Z+1
+   \   00000434   5F0F               SUBI    R16, 255
+   \   00000436   4F1F               SBCI    R17, 255
+   \   00000438   8300               ST      Z, R16
+   \   0000043A   8311               STD     Z+1, R17
+   \   0000043C   CFE7               RJMP    ??main_12
+    122                
+    123                USART_transmit('k');
+   \                     ??main_13:
+   \   0000043E   E60B               LDI     R16, 107
+   \   00000440   ........           CALL    USART_transmit
+    124                USART_transmit('H');
+   \   00000444   E408               LDI     R16, 72
+   \   00000446   ........           CALL    USART_transmit
+    125                USART_transmit('z');
+   \   0000044A   E70A               LDI     R16, 122
+   \   0000044C   ........           CALL    USART_transmit
+    126                USART_transmit(' ');
+   \   00000450   E200               LDI     R16, 32
+   \   00000452   ........           CALL    USART_transmit
+    127                
+    128                
+    129                
+    130            
+    131             
+    132            }
+    133            Timer1_numberOverflows=0;
+   \                     ??main_1:
+   \   00000456   E000               LDI     R16, 0
+   \   00000458   E010               LDI     R17, 0
+   \   0000045A   9300....           STS     Timer1_numberOverflows, R16
+   \   0000045E   9310....           STS     (Timer1_numberOverflows + 1), R17
+    134            Timer1_currentValue=0;
+   \   00000462   E000               LDI     R16, 0
+   \   00000464   E010               LDI     R17, 0
+   \   00000466   9300....           STS     Timer1_currentValue, R16
+   \   0000046A   9310....           STS     (Timer1_currentValue + 1), R17
+    135            TCNT1=0;
+   \   0000046E   E000               LDI     R16, 0
+   \   00000470   E010               LDI     R17, 0
+   \   00000472   BD1D               OUT     0x2D, R17
+   \   00000474   BD0C               OUT     0x2C, R16
+    136            /*Resetare WDT*/
+    137            asm("WDR");
+   \   00000476   95A8               WDR
+    138            /*Activare WDT*/
+    139            WDTCR|=(1<<WDE);
+   \   00000478   B501               IN      R16, 0x21
+   \   0000047A   6008               ORI     R16, 0x08
+   \   0000047C   BD01               OUT     0x21, R16
+    140            while(1)
+    141            {
+    142              Timer1_currentValue=TCNT1;
+   \                     ??main_14:
+   \   0000047E   B50C               IN      R16, 0x2C
+   \   00000480   B51D               IN      R17, 0x2D
+   \   00000482   9300....           STS     Timer1_currentValue, R16
+   \   00000486   9310....           STS     (Timer1_currentValue + 1), R17
+   \   0000048A   CFF9               RJMP    ??main_14
+   \   0000048C                      REQUIRE _A_TCCR1B
+   \   0000048C                      REQUIRE _A_TIMSK
+   \   0000048C                      REQUIRE _A_WDTCR
+   \   0000048C                      REQUIRE _A_TCNT1
+    143            }
+    144           
+    145          }
+
+   \                                 In  segment INTVEC, offset 0x20, root
+   \                     `??T1_OVF??INTVEC 32`:
+   \   00000020   ........           JMP     T1_OVF
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for j>`:
+   \   00000000   0009               DC16 9
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for i>`:
+   \   00000000   0009               DC16 9
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       5      2  T1_OVF
+      32      4  main
+                   32 2 -> USART_initialize
+                   32 2 -> USART_transmit
+                   32 2 -> nrCifre
+       6      4  nrCifre
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  ?<Initializer for i>
+       2  ?<Initializer for j>
+       4  ??T1_OVF??INTVEC 32
+      42  T1_OVF
+       2  Timer1_currentValue
+       2  Timer1_numberOverflows
+       1  _A_TCCR1B
+       2  _A_TCNT1
+       1  _A_TIMSK
+       1  _A_WDTCR
+       2  i
+       2  j
+    1164  main
+      60  nrCifre
+      10  vect
+      10  vectF
+      12  -- Other
+
+ 
+     5 bytes in segment ABSOLUTE
+ 1 266 bytes in segment CODE
+    12 bytes in segment INITTAB
+     4 bytes in segment INTVEC
+     4 bytes in segment NEAR_I
+     4 bytes in segment NEAR_ID
+     4 bytes in segment NEAR_N
+    20 bytes in segment NEAR_Z
+ 
+ 1 270 bytes of CODE memory (+ 16 bytes shared)
+    28 bytes of DATA memory (+  5 bytes shared)
+
+Errors: none
+Warnings: 4

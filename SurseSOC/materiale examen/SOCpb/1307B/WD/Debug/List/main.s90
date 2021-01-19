@@ -1,0 +1,171 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       22/Dec/2014  15:22:25 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\WD\main.c                                      /
+//    Command line =  D:\1307B\WD\main.c --cpu=m16 -ms -o                     /
+//                    D:\1307B\WD\Debug\Obj\ -lC D:\1307B\WD\Debug\List\ -lB  /
+//                    D:\1307B\WD\Debug\List\ --initializers_in_flash         /
+//                    --no_cse --no_inline --no_code_motion --no_cross_call   /
+//                    --no_clustering --no_tbaa --module_name= --debug        /
+//                    --no_ubrof_messages -DENABLE_BIT_DEFINITIONS -e         /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\WD\Debug\List\main.s90                         /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME ``
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_PORTD
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TCNT1
+        PUBWEAK _A_WDTCR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC flag
+        PUBLIC main
+
+// D:\1307B\WD\main.c
+//    1 #include <iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04cH
+// union <unnamed> volatile __io _A_TCNT1
+_A_TCNT1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,041H
+// union <unnamed> volatile __io _A_WDTCR
+_A_WDTCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,032H
+// union <unnamed> volatile __io _A_PORTD
+_A_PORTD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    2 #include <inavr.h>
+//    3 
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//    4 __no_init int flag;
+flag:
+        DS8 2
+
+        RSEG CODE:CODE:NOROOT(1)
+//    5 void main( void )
+main:
+//    6 {
+//    7  
+//    8   TCNT1=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        OUT     0x2D, R17
+        OUT     0x2C, R16
+//    9   TCCR1B = (1<<CS11);
+        LDI     R16, 2
+        OUT     0x2E, R16
+//   10   DDRD|=(1<<PD5);
+        SBI     0x11, 0x05
+//   11   if(flag)
+        LDS     R16, flag
+        LDS     R17, (flag + 1)
+        OR      R16, R17
+        BREQ    ??main_0
+//   12  {
+//   13   
+//   14 
+//   15    flag = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     flag, R16
+        STS     (flag + 1), R17
+//   16    PORTD=(0<<PD5);
+        LDI     R16, 0
+        OUT     0x12, R16
+//   17    WDTCR|=(1<<WDP1);
+        IN      R16, 0x21
+        ORI     R16, 0x02
+        OUT     0x21, R16
+        RJMP    ??main_1
+//   18   
+//   19    
+//   20   }
+//   21   else
+//   22   {
+//   23      flag = 1;
+??main_0:
+        LDI     R16, 1
+        LDI     R17, 0
+        STS     flag, R16
+        STS     (flag + 1), R17
+//   24      PORTD=(1<<PD5);
+        LDI     R16, 32
+        OUT     0x12, R16
+//   25      WDTCR =0;
+        LDI     R16, 0
+        OUT     0x21, R16
+//   26    
+//   27      
+//   28    
+//   29   }
+//   30 
+//   31   WDTCR|=(1<<WDE);
+??main_1:
+        IN      R16, 0x21
+        ORI     R16, 0x08
+        OUT     0x21, R16
+//   32    __watchdog_reset();
+        WDR
+//   33    
+//   34   while(1);
+??main_2:
+        RJMP    ??main_2
+        REQUIRE _A_TCNT1
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_DDRD
+        REQUIRE _A_PORTD
+        REQUIRE _A_WDTCR
+//   35 
+//   36 
+//   37 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//  6 bytes in segment ABSOLUTE
+// 80 bytes in segment CODE
+//  2 bytes in segment NEAR_N
+// 
+// 80 bytes of CODE memory
+//  2 bytes of DATA memory (+ 6 bytes shared)
+//
+//Errors: none
+//Warnings: none

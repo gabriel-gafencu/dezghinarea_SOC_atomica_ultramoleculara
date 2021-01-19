@@ -1,0 +1,109 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        08/Jan/2016  13:41:44 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  F:\Probleme_SOC\CRC\main.c                               #
+#    Command line =  F:\Probleme_SOC\CRC\main.c --cpu=m16 -ms -o              #
+#                    F:\Probleme_SOC\CRC\Debug\Obj\ -lC                       #
+#                    F:\Probleme_SOC\CRC\Debug\List\ -lA                      #
+#                    F:\Probleme_SOC\CRC\Debug\List\ --initializers_in_flash  #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  F:\Probleme_SOC\CRC\Debug\List\main.lst                  #
+#    Object file  =  F:\Probleme_SOC\CRC\Debug\Obj\main.r90                   #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+F:\Probleme_SOC\CRC\main.c
+      1          #include<iom16.h>
+      2          #include<inavr.h>
+      3          #include"crc.h"
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          unsigned char min(unsigned char x, unsigned char y)
+   \                     min:
+      6          {
+   \   00000000   2F20               MOV     R18, R16
+      7            if(x < y)
+   \   00000002   1721               CP      R18, R17
+   \   00000004   F410               BRCC    ??min_0
+      8              return x;
+   \   00000006   2F02               MOV     R16, R18
+   \   00000008   9508               RET
+      9            else
+     10              return y;
+   \                     ??min_0:
+   \   0000000A   2F01               MOV     R16, R17
+   \   0000000C   9508               RET
+     11          }
+     12          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     13          void main( void )
+   \                     main:
+     14          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+     15            unsigned int real_crc = *(__flash unsigned int*)(0x4000-2);
+                                ^
+Warning[Pe177]: variable "real_crc" was declared but never referenced
+   \   00000004   EFEE               LDI     R30, LOW(16382)
+   \   00000006   E3FF               LDI     R31, (16382) >> 8
+   \   00000008   9185               LPM     R24, Z+
+   \   0000000A   9194               LPM     R25, Z
+   \   0000000C   9731               SBIW    R31:R30, 1
+     16            unsigned int my_crc16 = crc16(CRC16_CCITT, 0, 0, (0x4000-2), MSBF);
+   \   0000000E   E001               LDI     R16, 1
+   \   00000010   930A               ST      -Y, R16
+   \   00000012   EF6E               LDI     R22, 254
+   \   00000014   E37F               LDI     R23, 63
+   \   00000016   E040               LDI     R20, 0
+   \   00000018   E050               LDI     R21, 0
+   \   0000001A   E020               LDI     R18, 0
+   \   0000001C   E030               LDI     R19, 0
+   \   0000001E   E201               LDI     R16, 33
+   \   00000020   E110               LDI     R17, 16
+   \   00000022   ........           CALL    crc16
+   \   00000026   01D8               MOVW    R27:R26, R17:R16
+     17            unsigned int mycrc16_t = crc16wtable(0, 0, (0x4000-2));
+   \   00000028   EF4E               LDI     R20, 254
+   \   0000002A   E35F               LDI     R21, 63
+   \   0000002C   E020               LDI     R18, 0
+   \   0000002E   E030               LDI     R19, 0
+   \   00000030   E000               LDI     R16, 0
+   \   00000032   E010               LDI     R17, 0
+   \   00000034   ........           CALL    crc16wtable
+     18            
+     19            while(1)
+   \                     ??main_0:
+   \   00000038   CFFF               RJMP    ??main_0
+     20              ;
+     21          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       5      2  main
+                   5 2 -> crc16
+                   4 2 -> crc16wtable
+       0      2  min
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      58  main
+      14  min
+
+ 
+ 72 bytes in segment CODE
+ 
+ 72 bytes of CODE memory
+
+Errors: none
+Warnings: 1

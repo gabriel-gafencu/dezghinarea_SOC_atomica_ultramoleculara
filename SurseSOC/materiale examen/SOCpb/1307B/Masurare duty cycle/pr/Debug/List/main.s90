@@ -1,0 +1,677 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       21/Dec/2014  15:33:44 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\Masurare duty cycle\pr\main.c                  /
+//    Command line =  "D:\1307B\Masurare duty cycle\pr\main.c" --cpu=m16 -ms  /
+//                    -o "D:\1307B\Masurare duty cycle\pr\Debug\Obj\" -lC     /
+//                    "D:\1307B\Masurare duty cycle\pr\Debug\List\" -lA       /
+//                    "D:\1307B\Masurare duty cycle\pr\Debug\List\"           /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\Masurare duty cycle\pr\Debug\List\main.s90     /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?L_EC_MUL_L03
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??timer0_ovf_int??INTVEC 36`
+        PUBWEAK _A_DDRB
+        PUBWEAK _A_PINB
+        PUBWEAK _A_TCCR0
+        PUBWEAK _A_TCNT0
+        PUBWEAK _A_TIMSK
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC cicli0
+        PUBLIC cicli1
+        PUBLIC cnt
+        PUBLIC cnt1
+        PUBLIC frecv1
+        PUBLIC frecv2
+        PUBLIC main
+        FUNCTION main,021a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC timer0_ovf_int
+        FUNCTION timer0_ovf_int,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 7, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+timer0_ovf_int      SYMBOL "timer0_ovf_int"
+`??timer0_ovf_int??INTVEC 36` SYMBOL "??INTVEC 36", timer0_ovf_int
+
+        EXTERN USART_initialize
+        FUNCTION USART_initialize,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\1307B\Masurare duty cycle\pr\main.c
+//    1 #include<inavr.h>
+//    2 #include<intrinsics.h>
+//    3 #include<iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,053H
+// union <unnamed> volatile __io _A_TCCR0
+_A_TCCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,052H
+// union <unnamed> volatile __io _A_TCNT0
+_A_TCNT0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,037H
+// union <unnamed> volatile __io _A_DDRB
+_A_DDRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,036H
+// union <unnamed> volatile __io _A_PINB
+_A_PINB:
+        DS8 1
+//    4 #include"usart.h"
+//    5 
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    6 long cnt,cicli1,cicli0,frecv1,frecv2,cnt1;
+cnt:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+cicli1:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+cicli0:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+frecv1:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+frecv2:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+cnt1:
+        DS8 4
+//    7 #pragma vector = TIMER0_OVF_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//    8 __interrupt void timer0_ovf_int()
+timer0_ovf_int:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function timer0_ovf_int
+//    9 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R20
+          CFI R20 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R19
+          CFI R19 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -6)
+          CFI CFA_Y Y+6
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -7)
+          CFI CFA_Y Y+7
+        IN      R20, 0x3F
+//   10  cnt++;
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        SUBI    R16, 255
+        SBCI    R17, 255
+        SBCI    R18, 255
+        SBCI    R19, 255
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   11 }
+        OUT     0x3F, R20
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+6
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+5
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+4
+        LD      R19, Y+
+          CFI R19 SameValue
+          CFI CFA_Y Y+3
+        LD      R20, Y+
+          CFI R20 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock0
+//   12 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   13 void main(void)
+main:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function main
+//   14 {
+        FUNCALL main, USART_initialize
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 1, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        ST      -Y, R24
+          CFI R24 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+//   15   char value ;
+//   16   __enable_interrupt();
+        SEI
+//   17   USART_initialize(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_initialize
+//   18   DDRB=0;//<<PB2);
+        LDI     R16, 0
+        OUT     0x17, R16
+//   19   TIMSK |= (1<<TOIE0);// intrerupere overflow
+        IN      R16, 0x39
+        ORI     R16, 0x01
+        OUT     0x39, R16
+//   20   TCCR0 = 0; // mod normal , fara prescaler , oc0 deconectat
+        LDI     R16, 0
+        OUT     0x33, R16
+//   21   while(1)
+//   22   {
+//   23     value = (PINB & (1<<PB2));
+??main_0:
+        IN      R16, 0x16
+        ANDI    R16, 0x04
+        MOV     R24, R16
+//   24     while( (PINB & (1<<PB2)) == value )
+??main_1:
+        IN      R16, 0x16
+        ANDI    R16, 0x04
+        CP      R16, R24
+        BREQ    ??main_1
+//   25     {
+//   26       ;
+//   27     }
+//   28     value^= 1<<PB2;
+        LDI     R16, 4
+        EOR     R24, R16
+//   29     TCCR0 |= (1<<CS00);
+        IN      R16, 0x33
+        ORI     R16, 0x01
+        OUT     0x33, R16
+//   30     while( (PINB & (1<<PB2)) == value )
+??main_2:
+        IN      R16, 0x16
+        ANDI    R16, 0x04
+        CP      R16, R24
+        BREQ    ??main_2
+//   31     {
+//   32       ;
+//   33     }
+//   34    
+//   35     cicli1 = TCNT0;
+        IN      R16, 0x32
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(cicli1)
+        LDI     R31, (cicli1) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   36     cnt1=cnt;
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDI     R30, LOW(cnt1)
+        LDI     R31, (cnt1) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   37     TCNT0 = 0;
+        LDI     R16, 0
+        OUT     0x32, R16
+//   38     cnt=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   39    
+//   40     value^= 1<<PB2;
+        LDI     R16, 4
+        EOR     R24, R16
+//   41     while( (PINB & (1<<PB2)) == value )
+??main_3:
+        IN      R16, 0x16
+        ANDI    R16, 0x04
+        CP      R16, R24
+        BREQ    ??main_3
+//   42     {
+//   43       ;
+//   44     }
+//   45    
+//   46    
+//   47     cicli0 = TCNT0;
+        IN      R16, 0x32
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(cicli0)
+        LDI     R31, (cicli0) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   48     cicli1 = (cnt1*0xFF+cicli1);
+        LDI     R20, 255
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(cnt1)
+        LDI     R31, (cnt1) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?L_EC_MUL_L03
+        LDI     R30, LOW(cicli1)
+        LDI     R31, (cicli1) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        ADD     R20, R16
+        ADC     R21, R17
+        ADC     R22, R18
+        ADC     R23, R19
+        ST      Z, R20
+        STD     Z+1, R21
+        STD     Z+2, R22
+        STD     Z+3, R23
+//   49     cicli0 = (cnt*0xFF+cicli0);
+        LDI     R20, 255
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?L_EC_MUL_L03
+        LDI     R30, LOW(cicli0)
+        LDI     R31, (cicli0) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        ADD     R20, R16
+        ADC     R21, R17
+        ADC     R22, R18
+        ADC     R23, R19
+        ST      Z, R20
+        STD     Z+1, R21
+        STD     Z+2, R22
+        STD     Z+3, R23
+//   50     
+//   51     if(!((value&1<<PB2)==1<<PB2))
+        BST     R24, 2
+        BRTS    ??main_4
+//   52     {
+//   53       cicli1^=cicli0;
+        LDI     R30, LOW(cicli0)
+        LDI     R31, (cicli0) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDI     R30, LOW(cicli1)
+        LDI     R31, (cicli1) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        EOR     R20, R16
+        EOR     R21, R17
+        EOR     R22, R18
+        EOR     R23, R19
+        ST      Z, R20
+        STD     Z+1, R21
+        STD     Z+2, R22
+        STD     Z+3, R23
+//   54       cicli0^=cicli1;
+        LDI     R30, LOW(cicli1)
+        LDI     R31, (cicli1) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDI     R30, LOW(cicli0)
+        LDI     R31, (cicli0) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        EOR     R20, R16
+        EOR     R21, R17
+        EOR     R22, R18
+        EOR     R23, R19
+        ST      Z, R20
+        STD     Z+1, R21
+        STD     Z+2, R22
+        STD     Z+3, R23
+//   55       cicli1^=cicli0;
+        LDI     R30, LOW(cicli0)
+        LDI     R31, (cicli0) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDI     R30, LOW(cicli1)
+        LDI     R31, (cicli1) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        EOR     R20, R16
+        EOR     R21, R17
+        EOR     R22, R18
+        EOR     R23, R19
+        ST      Z, R20
+        STD     Z+1, R21
+        STD     Z+2, R22
+        STD     Z+3, R23
+//   56    }
+//   57     TCCR0 = 0;
+??main_4:
+        LDI     R16, 0
+        OUT     0x33, R16
+//   58     USART_transmit('1');
+        LDI     R16, 49
+        CALL    USART_transmit
+//   59     USART_transmit(':');
+        LDI     R16, 58
+        CALL    USART_transmit
+//   60     //PRINTF((void*)(&cicli1),LONG);
+//   61     USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   62     USART_transmit('0');
+        LDI     R16, 48
+        CALL    USART_transmit
+//   63     USART_transmit(':');
+        LDI     R16, 58
+        CALL    USART_transmit
+//   64    // PRINTF((void*)(&cicli0),LONG);
+//   65     USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   66     cnt=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        RJMP    ??main_0
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_DDRB
+        REQUIRE _A_TIMSK
+        REQUIRE _A_TCCR0
+        REQUIRE _A_PINB
+        REQUIRE _A_TCNT0
+//   67     
+//   68   }
+//   69 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 36
+`??timer0_ovf_int??INTVEC 36`:
+        JMP     timer0_ovf_int
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        END
+//   70 
+//   71 
+//   72 
+//   73 
+//   74 
+// 
+//   5 bytes in segment ABSOLUTE
+// 510 bytes in segment CODE
+//   6 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//  24 bytes in segment NEAR_Z
+// 
+// 510 bytes of CODE memory (+ 10 bytes shared)
+//  24 bytes of DATA memory (+  5 bytes shared)
+//
+//Errors: none
+//Warnings: none

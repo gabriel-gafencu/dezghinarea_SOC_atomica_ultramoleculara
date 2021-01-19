@@ -1,0 +1,217 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        06/Jan/2015  21:47:04 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\Periodmetru\P2\main.c                           #
+#    Command line =  D:\1307B\Periodmetru\P2\main.c --cpu=m16 -ms -o          #
+#                    D:\1307B\Periodmetru\P2\Debug\Obj\ -lC                   #
+#                    D:\1307B\Periodmetru\P2\Debug\List\ -lA                  #
+#                    D:\1307B\Periodmetru\P2\Debug\List\                      #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\1307B\Periodmetru\P2\Debug\List\main.lst              #
+#    Object file  =  D:\1307B\Periodmetru\P2\Debug\Obj\main.r90               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\Periodmetru\P2\main.c
+      1          #include <inavr.h>
+      2          #include <iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x5b
+   \   union <unnamed> volatile __io _A_GICR
+   \                     _A_GICR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x55
+   \   union <unnamed> volatile __io _A_MCUCR
+   \                     _A_MCUCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x30
+   \   union <unnamed> volatile __io _A_PIND
+   \                     _A_PIND:
+   \   00000000                      DS8 1
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      3          unsigned int per;
+   \                     per:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      4          unsigned int nr_cicli;
+   \                     nr_cicli:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      5          unsigned int flag_per;
+   \                     flag_per:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      6          unsigned int x;
+   \                     `x`:
+   \   00000000                      DS8 2
+      7          #pragma vector=INT0_vect // functia care urmeaza trateaza intreruperea INT0
+      8          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      9          __interrupt void isr_INT0(void){
+   \                     isr_INT0:
+   \   00000000   932A               ST      -Y, R18
+   \   00000002   931A               ST      -Y, R17
+   \   00000004   930A               ST      -Y, R16
+   \   00000006   B72F               IN      R18, 0x3F
+     10          if((PIND&(1<<PD2))==4){
+   \   00000008   9B82               SBIS    0x10, 0x02
+   \   0000000A   C007               RJMP    ??isr_INT0_0
+     11          TCNT1=0;///reset timer
+   \   0000000C   E000               LDI     R16, 0
+   \   0000000E   E010               LDI     R17, 0
+   \   00000010   BD1D               OUT     0x2D, R17
+   \   00000012   BD0C               OUT     0x2C, R16
+     12          TCCR1B=(1<<CS12);//start timer cu prescaler de 256
+   \   00000014   E004               LDI     R16, 4
+   \   00000016   BD0E               OUT     0x2E, R16
+   \   00000018   C01A               RJMP    ??isr_INT0_1
+     13            }
+     14            else{
+     15          nr_cicli=TCNT1;//salveazã nr cicli
+   \                     ??isr_INT0_0:
+   \   0000001A   B50C               IN      R16, 0x2C
+   \   0000001C   B51D               IN      R17, 0x2D
+   \   0000001E   9300....           STS     nr_cicli, R16
+   \   00000022   9310....           STS     (nr_cicli + 1), R17
+     16          per=(nr_cicli/4)*256;//calculeazã perioada în microsecunde
+   \   00000026   9100....           LDS     R16, nr_cicli
+   \   0000002A   9110....           LDS     R17, (nr_cicli + 1)
+   \   0000002E   9516               LSR     R17
+   \   00000030   9507               ROR     R16
+   \   00000032   9516               LSR     R17
+   \   00000034   9507               ROR     R16
+   \   00000036   2F10               MOV     R17, R16
+   \   00000038   E000               LDI     R16, 0
+   \   0000003A   9300....           STS     per, R16
+   \   0000003E   9310....           STS     (per + 1), R17
+     17          flag_per=1;
+   \   00000042   E001               LDI     R16, 1
+   \   00000044   E010               LDI     R17, 0
+   \   00000046   9300....           STS     flag_per, R16
+   \   0000004A   9310....           STS     (flag_per + 1), R17
+     18            }
+     19          }
+   \                     ??isr_INT0_1:
+   \   0000004E   BF2F               OUT     0x3F, R18
+   \   00000050   9109               LD      R16, Y+
+   \   00000052   9119               LD      R17, Y+
+   \   00000054   9129               LD      R18, Y+
+   \   00000056   9518               RETI
+   \   00000058                      REQUIRE _A_PIND
+   \   00000058                      REQUIRE _A_TCNT1
+   \   00000058                      REQUIRE _A_TCCR1B
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     20          void main( void )
+   \                     main:
+     21          {
+     22          
+     23          // ini.ializare întrerupere externã
+     24          __enable_interrupt();
+   \   00000000   9478               SEI
+     25          MCUCR |=(1<<ISC00);
+   \   00000002   B705               IN      R16, 0x35
+   \   00000004   6001               ORI     R16, 0x01
+   \   00000006   BF05               OUT     0x35, R16
+     26          MCUCR &=~(1<<ISC01);
+   \   00000008   B705               IN      R16, 0x35
+   \   0000000A   7F0D               ANDI    R16, 0xFD
+   \   0000000C   BF05               OUT     0x35, R16
+     27          GICR |=(1<<INT0); //activare întrerupere externã
+   \   0000000E   B70B               IN      R16, 0x3B
+   \   00000010   6400               ORI     R16, 0x40
+   \   00000012   BF0B               OUT     0x3B, R16
+     28          while(1){
+     29          while(flag_per==0);//a.teapta masurare întrerupere
+   \                     ??main_0:
+   \   00000014   9100....           LDS     R16, flag_per
+   \   00000018   9110....           LDS     R17, (flag_per + 1)
+   \   0000001C   2B01               OR      R16, R17
+   \   0000001E   F3D1               BREQ    ??main_0
+     30          flag_per=0;//reseteaza flag
+   \   00000020   E000               LDI     R16, 0
+   \   00000022   E010               LDI     R17, 0
+   \   00000024   9300....           STS     flag_per, R16
+   \   00000028   9310....           STS     (flag_per + 1), R17
+     31          x=per;//se face ceva cu valoarea masurata
+   \   0000002C   9100....           LDS     R16, per
+   \   00000030   9110....           LDS     R17, (per + 1)
+   \   00000034   9300....           STS     `x`, R16
+   \   00000038   9310....           STS     (`x` + 1), R17
+   \   0000003C   CFEB               RJMP    ??main_0
+   \   0000003E                      REQUIRE _A_MCUCR
+   \   0000003E                      REQUIRE _A_GICR
+     32            }
+     33          
+     34          
+     35          }
+
+   \                                 In  segment INTVEC, offset 0x4, root
+   \                     `??isr_INT0??INTVEC 4`:
+   \   00000004   ........           JMP     isr_INT0
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       3      2  isr_INT0
+       0      2  main
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_INT0??INTVEC 4
+       1  _A_GICR
+       1  _A_MCUCR
+       1  _A_PIND
+       1  _A_TCCR1B
+       2  _A_TCNT1
+       2  flag_per
+      88  isr_INT0
+      62  main
+       2  nr_cicli
+       2  per
+       2  x
+       6  -- Other
+
+ 
+   6 bytes in segment ABSOLUTE
+ 150 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   8 bytes in segment NEAR_Z
+ 
+ 150 bytes of CODE memory (+ 10 bytes shared)
+   8 bytes of DATA memory (+  6 bytes shared)
+
+Errors: none
+Warnings: none

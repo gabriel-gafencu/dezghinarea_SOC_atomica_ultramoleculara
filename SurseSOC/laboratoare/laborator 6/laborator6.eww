@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\generare50Hz.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\problema_propusa.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\problema_rezolvata.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+

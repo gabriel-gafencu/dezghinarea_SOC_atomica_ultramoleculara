@@ -1,0 +1,536 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        09/Jan/2016  07:50:13 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\c #
+#                    rc.c                                                     #
+#    Command line =  "D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\ #
+#                    crc.c" --cpu=m16 -ms -o "D:\soc                          #
+#                    2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\Debug\Ob #
+#                    j\" -lC "D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_ #
+#                    functie\Debug\List\" -lA "D:\soc                         #
+#                    2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\Debug\Li #
+#                    st\" --initializers_in_flash --no_cse --no_inline        #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\D #
+#                    ebug\List\crc.lst                                        #
+#    Object file  =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\D #
+#                    ebug\Obj\crc.r90                                         #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\crc.c
+      1          #include"crc.h"
+      2          
+      3          
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          unsigned long crc32(unsigned long polinom32, unsigned long init_val_32, unsigned int adr_start,unsigned int len, enum BitOrder ord) 
+   \                     crc32:
+      6          { 
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   0148               MOVW    R9:R8, R17:R16
+   \   00000006   0159               MOVW    R11:R10, R19:R18
+   \   00000008   016A               MOVW    R13:R12, R21:R20
+   \   0000000A   017B               MOVW    R15:R14, R23:R22
+   \   0000000C   89E8               LDD     R30, Y+16
+   \   0000000E   89F9               LDD     R31, Y+17
+   \   00000010   898A               LDD     R24, Y+18
+   \   00000012   899B               LDD     R25, Y+19
+   \   00000014   89BC               LDD     R27, Y+20
+      7            //variabile pe 32 biþi 
+      8            unsigned long crc = init_val_32; 
+   \   00000016   0186               MOVW    R17:R16, R13:R12
+   \   00000018   0197               MOVW    R19:R18, R15:R14
+      9            unsigned long data = 0;
+   \   0000001A   E040               LDI     R20, 0
+   \   0000001C   E050               LDI     R21, 0
+   \   0000001E   E060               LDI     R22, 0
+   \   00000020   E070               LDI     R23, 0
+     10            while( len-- ) 
+   \                     ??crc32_0:
+   \   00000022   010C               MOVW    R1:R0, R25:R24
+   \   00000024   01C0               MOVW    R25:R24, R1:R0
+   \   00000026   9701               SBIW    R25:R24, 1
+   \   00000028   2801               OR      R0, R1
+   \   0000002A   F409               BRNE    $+2+2
+   \   0000002C   C04C               RJMP    ??crc32_1
+     11            { 
+     12              int i; 
+     13              //se extrage un octet din memoria flash
+     14              data = *(__flash char *)adr_start; 
+   \   0000002E   9044               LPM     R4, Z
+   \   00000030   2455               CLR     R5
+   \   00000032   2466               CLR     R6
+   \   00000034   2477               CLR     R7
+   \   00000036   01A2               MOVW    R21:R20, R5:R4
+   \   00000038   01B3               MOVW    R23:R22, R7:R6
+     15              if ( ord == MSBF ) 
+   \   0000003A   30B1               CPI     R27, 1
+   \   0000003C   F521               BRNE    ??crc32_2
+     16                //opþiunea cu shiftare spre MSB 
+     17              { 
+     18                //octetul extras este shiftat pânã la cel mai semnificativ bit 
+     19                data <<= 24; 
+   \   0000003E   2F74               MOV     R23, R20
+   \   00000040   E060               LDI     R22, 0
+   \   00000042   E050               LDI     R21, 0
+   \   00000044   E040               LDI     R20, 0
+     20                crc ^= data; 
+   \   00000046   2704               EOR     R16, R20
+   \   00000048   2715               EOR     R17, R21
+   \   0000004A   2726               EOR     R18, R22
+   \   0000004C   2737               EOR     R19, R23
+     21                adr_start++; 
+   \   0000004E   9631               ADIW    R31:R30, 1
+     22                for( i = 0; i < 8; ++i ) 
+   \   00000050   2400               CLR     R0
+   \   00000052   2411               CLR     R1
+   \                     ??crc32_3:
+   \   00000054   E0A8               LDI     R26, 8
+   \   00000056   160A               CP      R0, R26
+   \   00000058   E0A0               LDI     R26, 0
+   \   0000005A   061A               CPC     R1, R26
+   \   0000005C   F714               BRGE    ??crc32_0
+     23                { 
+     24                  //se verificã dacã cel mai semnificativ bit este 1 
+     25                  if( crc & 0x80000000 ) 
+   \   0000005E   FB37               BST     R19, 7
+   \   00000060   F44E               BRTC    ??crc32_4
+     26                    crc = (crc << 1) ^ polinom32; 
+   \   00000062   0F00               LSL     R16
+   \   00000064   1F11               ROL     R17
+   \   00000066   1F22               ROL     R18
+   \   00000068   1F33               ROL     R19
+   \   0000006A   2508               EOR     R16, R8
+   \   0000006C   2519               EOR     R17, R9
+   \   0000006E   252A               EOR     R18, R10
+   \   00000070   253B               EOR     R19, R11
+   \   00000072   C004               RJMP    ??crc32_5
+     27                  else crc = crc << 1; 
+   \                     ??crc32_4:
+   \   00000074   0F00               LSL     R16
+   \   00000076   1F11               ROL     R17
+   \   00000078   1F22               ROL     R18
+   \   0000007A   1F33               ROL     R19
+     28                } 
+   \                     ??crc32_5:
+   \   0000007C   E0A1               LDI     R26, 1
+   \   0000007E   0E0A               ADD     R0, R26
+   \   00000080   E0A0               LDI     R26, 0
+   \   00000082   1E1A               ADC     R1, R26
+   \   00000084   CFE7               RJMP    ??crc32_3
+     29              } 
+     30              else 
+     31                //opþiunea cu shiftare spre LSB 
+     32                //parametrul polinom32 al funcþiei trebuie sã aibã biþii inversaþi în prealabil 
+     33              { 
+     34                crc ^= data; 
+   \                     ??crc32_2:
+   \   00000086   2704               EOR     R16, R20
+   \   00000088   2715               EOR     R17, R21
+   \   0000008A   2726               EOR     R18, R22
+   \   0000008C   2737               EOR     R19, R23
+     35                adr_start++; 
+   \   0000008E   9631               ADIW    R31:R30, 1
+     36                for( i = 0; i < 8; ++i ) 
+   \   00000090   2400               CLR     R0
+   \   00000092   2411               CLR     R1
+   \                     ??crc32_6:
+   \   00000094   E0A8               LDI     R26, 8
+   \   00000096   160A               CP      R0, R26
+   \   00000098   E0A0               LDI     R26, 0
+   \   0000009A   061A               CPC     R1, R26
+   \   0000009C   F614               BRGE    ??crc32_0
+     37                { 
+     38                  //se verificã dacã cel mai puþin semnificativ bit este 1 
+     39                  if( crc & 0x00000001 ) 
+   \   0000009E   FB00               BST     R16, 0
+   \   000000A0   F44E               BRTC    ??crc32_7
+     40                    crc = (crc >> 1) ^ polinom32; 
+   \   000000A2   9536               LSR     R19
+   \   000000A4   9527               ROR     R18
+   \   000000A6   9517               ROR     R17
+   \   000000A8   9507               ROR     R16
+   \   000000AA   2508               EOR     R16, R8
+   \   000000AC   2519               EOR     R17, R9
+   \   000000AE   252A               EOR     R18, R10
+   \   000000B0   253B               EOR     R19, R11
+   \   000000B2   C004               RJMP    ??crc32_8
+     41                  else 
+     42                    crc = crc >> 1; 
+   \                     ??crc32_7:
+   \   000000B4   9536               LSR     R19
+   \   000000B6   9527               ROR     R18
+   \   000000B8   9517               ROR     R17
+   \   000000BA   9507               ROR     R16
+     43                } 
+   \                     ??crc32_8:
+   \   000000BC   E0A1               LDI     R26, 1
+   \   000000BE   0E0A               ADD     R0, R26
+   \   000000C0   E0A0               LDI     R26, 0
+   \   000000C2   1E1A               ADC     R1, R26
+   \   000000C4   CFE7               RJMP    ??crc32_6
+     44              } 
+     45            } 
+     46            return crc; 
+   \                     ??crc32_1:
+   \   000000C6   E1E5               LDI     R30, 21
+   \   000000C8   ........           JMP     ?EPILOGUE_B16_L09
+     47          }
+     48          
+     49          
+     50          //implementare ce utilizeazã un tabel cu valori pre-calculate ale funcþiei CRC 
+
+   \                                 In  segment NEAR_F, align 1, keep-with-next
+     51          __flash unsigned long crc32tab[256] = { 
+   \                     crc32tab:
+   \   00000000   000000001DB7       DD 0, 79764919, 159529838, 222504665, 319059676, 398814059, 445009330
+   \              04C13B6E0982
+   \              26D90D4376DC
+   \              13046B6B17C5
+   \              4DB21A86    
+   \   0000001C   50051E47EDB8       DD 507990021, 638119352, 583659535, 797628118, 726387553, 890018660
+   \              2608F00F22C9
+   \              D6D62F8ACB61
+   \              2B4B9B64350C
+   \   00000034   86D331CDA00A       DD 835552979, 1015980042, 944750013, 1276238704, 1221641927, 1167319070
+   \              3C8EBDBD384F
+   \              DB704C11C6C7
+   \              48D0E01E4593
+   \   0000004C   FDA94152ADAC       DD 1095957929, 1595256236, 1540665371, 1452775106, 1381403509
+   \              5F15B01B5BD4
+   \              96C256978B75
+   \              5256        
+   \   00000060   36C86A192B7F       DD 1780037320, 1859660671, 1671105958, 1733955601, 2031960084
+   \              6ED80DA6639B
+   \              1011675A4014
+   \              791D        
+   \   00000074   5DA37DDC7B7A       DD 2111593891, 1889500026, 1952343757, 2552477408, 2632100695
+   \              709F66CD745E
+   \              B6E09823AB57
+   \              9CE2        
+   \   00000088   8D8E91A19039       DD 2443283854, 2506133561, 2334638140, 2414271883, 2191915858
+   \              9560C03C8B27
+   \              DD8B8FE6FB52
+   \              82A5        
+   \   0000009C   E6E586645B58       DD 2254759653, 3190512472, 3135915759, 3081330742, 3009969537
+   \              BE2B46EFBAEA
+   \              6036B7A97D81
+   \              B368        
+   \   000000B0   2D84AD2F3033       DD 2905550212, 2850959411, 2762807018, 2691435357, 3560074640
+   \              A9EE16EAA4AD
+   \              0B5DA06C6D90
+   \              D432        
+   \   000000C4   7027D0F356FE       DD 3505614887, 3719321342, 3648080713, 3342211916, 3287746299
+   \              DDB04B49D971
+   \              1B4CC73606FB
+   \              C3F7        
+   \   000000D8   2022CEB43D95       DD 3467911202, 3396681109, 4063920168, 4143685023, 4223187782
+   \              CA758028F23A
+   \              9D9FF6FBBB46
+   \              FBB8        
+   \   000000EC   A6F1FF79F6F4       DD 4286162673, 3779000052, 3858754371, 3904687514, 3967668269
+   \              E13EEB43E5FF
+   \              CD9AE8BCD02D
+   \              EC7D        
+   \   00000100   707734866DC0       DD 881225847, 809987520, 1023691545, 969234094, 662832811, 591600412
+   \              30474B193D04
+   \              56AE39C506AB
+   \              27821B1C2343
+   \   00000118   3DC52E002072       DD 771767749, 717299826, 311336399, 374308984, 453813921, 533576470
+   \              2AC19DCF128E
+   \              8078164FA6A1
+   \              1B0CBB161FCD
+   \   00000130   EB13018AF6A4       DD 25881363, 88864420, 134795389, 214552010, 2023205639, 2086057648
+   \              054BD07D0808
+   \              CDCA0CC9AB07
+   \              7897B6B07C56
+   \   00000148   906971158DDE       DD 1897238633, 1976864222, 1804852699, 1867694188, 1645340341
+   \              75D4DDDB6B93
+   \              C06C6F52E6B5
+   \              6211        
+   \   0000015C   FB0266D046BF       DD 1724971778, 1587496639, 1516133128, 1461550545, 1406951526
+   \              5E9F5B085A5E
+   \              7DD1571D6066
+   \              53DC        
+   \   00000170   30634D9B2DD4       DD 1302016099, 1230646740, 1142491917, 1087903418, 2896545431
+   \              495A0B0D4419
+   \              16BA40D8C697
+   \              ACA5        
+   \   00000184   DB20A864FDF9       DD 2825181984, 2770861561, 2716262478, 3215044683, 3143675388
+   \              A527E04EA1E6
+   \              B04BBFA1ADFC
+   \              BB60        
+   \   00000198   8B25B6239692       DD 3055782693, 3001194130, 2326604591, 2389456536, 2200899649
+   \              B2E22B2F8AAD
+   \              36988E6C1041
+   \              832F        
+   \   000001AC   0DF687EE5DF3       DD 2280525302, 2578013683, 2640855108, 2418763421, 2498394922
+   \              99A940449D68
+   \              669D902B7B2A
+   \              94EA        
+   \   000001C0   1DE7E0B40050       DD 3769900519, 3832873040, 3912640137, 3992402750, 4088425275
+   \              E4752689E936
+   \              3B3EEDF76B3B
+   \              F3B0        
+   \   000001D4   768CF7715055       DD 4151408268, 4197601365, 4277358050, 3334271071, 3263032808
+   \              FA324DE2FEF3
+   \              F05FC6BCEDE8
+   \              C27D        
+   \   000001E8   CB31CF3ED686       DD 3476998961, 3422541446, 3585640067, 3514407732, 3694837229
+   \              CBFF8683D5B8
+   \              9B34D179BDED
+   \              DC3A        
+   \   000001FC   A05AD8FBE0EE       DD 3640369242, 1762451694, 1842216281, 1619975040, 1682949687
+   \              690CFD596DCD
+   \              DB80608EC637
+   \              644F        
+   \   00000210   96327A088B85       DD 2047383090, 2127137669, 1938468188, 2001449195, 1325665622
+   \              7EC9AD5C738A
+   \              B0EB774B0D56
+   \              4F04        
+   \   00000224   10E14BC53638       DD 1271206113, 1183200824, 1111960463, 1543535498, 1489069629
+   \              46862B8F4247
+   \              7B8A5C00663D
+   \              58C1        
+   \   00000238   40E455825D53       DD 1434599652, 1363369299, 622672798, 568075817, 748617968, 677256519
+   \              51433B9E251D
+   \              262921DC00F0
+   \              2C9F1D47285E
+   \   00000250   4D42361950F5       DD 907627842, 853037301, 1067152940, 995781531, 51762726, 131386257
+   \              32D8762C3F9B
+   \              6B9B3B5AD626
+   \              0315CB9107D4
+   \   00000268   ED480A97F0FF       DD 177728840, 240578815, 269590778, 349224269, 429104020, 491947555
+   \              0E56A0FA1011
+   \              BD4D14D09B94
+   \              199386231D52
+   \   00000280   560EF12F4BB9       DD 4046411278, 4126034873, 4172115296, 4234965207, 3794477266
+   \              F5EE6D60F8AD
+   \              70D7FC6C20D2
+   \              E22B        
+   \   00000294   3D65E6EA1BBC       DD 3874110821, 3953728444, 4016571915, 3609705398, 3555108353
+   \              EBA9060BEF68
+   \              BBB6D727A601
+   \              D3E6        
+   \   000002A8   80D8DEA59D6F       DD 3735388376, 3664026991, 3290680682, 3236090077, 3449943556
+   \              DA64CD6AC423
+   \              D0DDC0E2F604
+   \              CDA1        
+   \   000002BC   EBB3C9608D7E       DD 3378572211, 3174993278, 3120533705, 3032266256, 2961025959
+   \              BD3E90C9B9FF
+   \              B610B4BCABA7
+   \              B07D        
+   \   000002D0   FBA2AE3AE615       DD 2923101090, 2868635157, 2813903052, 2742672763, 2604032198
+   \              AAFBC0CCA7B8
+   \              DD7BA37960C6
+   \              9B36        
+   \   000002E4   7D719FF75BA8       DD 2683796849, 2461293480, 2524268063, 2284983834, 2364738477
+   \              92B4461F9675
+   \              161A88320BAD
+   \              8CF3        
+   \   000002F8   2D7481B030C3       DD 2175806836, 2238787779, 1569362073, 1498123566, 1409854455
+   \              857190995D8A
+   \              8D2E594BABF7
+   \              5408        
+   \   0000030C   B64050C9E645       DD 1355396672, 1317987909, 1246755826, 1192025387, 1137557660
+   \              4E8EFBF24A4F
+   \              DD2B470CC09C
+   \              43CD        
+   \   00000320   7D217B826096       DD 2072149281, 2135122070, 1912620623, 1992383480, 1753615357
+   \              7F43464F7200
+   \              5BF876C10BFD
+   \              6886        
+   \   00000334   164A6C473093       DD 1816598090, 1627664531, 1707420964, 295390185, 358241886, 404320391
+   \              61042D2465C5
+   \              4BE9119B565E
+   \              155A70871819
+   \   0000034C   6D301CD83D35       DD 483945776, 43990325, 106832002, 186451547, 266083308, 932423249
+   \              029F2082065E
+   \              065B0B1D1BEC
+   \              0FDCA6513793
+   \   00000364   BBE633529D3F       DD 861060070, 1041341759, 986742920, 613929101, 542559546, 756411363
+   \              3E1180883AD0
+   \              D08D2497CD3A
+   \              2056EBE32D15
+   \   0000037C   F65429D42679       DD 701822548, 3316196985, 3244833742, 3425377559, 3370778784
+   \              C5A93BCEC168
+   \              1D17CC2B00A0
+   \              C8EA        
+   \   00000390   50A5D6AD4D12       DD 3601682597, 3530312978, 3744426955, 3689838204, 3819031489
+   \              D26C6BCBDF2F
+   \              767CDBEECBC1
+   \              E3A1        
+   \   000003A4   D676E760F0AF       DD 3881883254, 3928223919, 4007849240, 4037393693, 4100235434
+   \              EA23ED18EEE2
+   \              BD1DF0A5A0AA
+   \              F464        
+   \   000003B8   8673F9279BC4       DD 4180117107, 4259748804, 2310601993, 2373574846, 2151335527
+   \              FDE6FD0989B8
+   \              E0BE8D79C667
+   \              803A        
+   \   000003CC   DBD084FB8BD5       DD 2231098320, 2596047829, 2659030626, 2470359227, 2550115596
+   \              9ABC96629E7D
+   \              B0BB933EAD0C
+   \              97FF        
+   \   000003E0   10B1AFB00D06       DD 2947551409, 2876312838, 2788305887, 2733848168, 3165939309
+   \              AB712BDFA632
+   \              3668A2F3666D
+   \              BCB4        
+   \   000003F4   7BDAB8755D03       DD 3094707162, 3040238851, 2985771188
+   \              B53640B4B1F7
+     52            0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b, 
+     53            0x1a864db2, 0x1e475005, 0x2608edb8, 0x22c9f00f, 0x2f8ad6d6, 0x2b4bcb61, 
+     54            0x350c9b64, 0x31cd86d3, 0x3c8ea00a, 0x384fbdbd, 0x4c11db70, 0x48d0c6c7,
+     55            0x4593e01e, 0x4152fda9, 0x5f15adac, 0x5bd4b01b, 0x569796c2, 0x52568b75, 
+     56            0x6a1936c8, 0x6ed82b7f, 0x639b0da6, 0x675a1011, 0x791d4014, 0x7ddc5da3, 
+     57            0x709f7b7a, 0x745e66cd, 0x9823b6e0, 0x9ce2ab57, 0x91a18d8e, 0x95609039, 
+     58            0x8b27c03c, 0x8fe6dd8b, 0x82a5fb52, 0x8664e6e5, 0xbe2b5b58, 0xbaea46ef, 
+     59            0xb7a96036, 0xb3687d81, 0xad2f2d84, 0xa9ee3033, 0xa4ad16ea, 0xa06c0b5d, 
+     60            0xd4326d90, 0xd0f37027, 0xddb056fe, 0xd9714b49, 0xc7361b4c, 0xc3f706fb, 
+     61            0xceb42022, 0xca753d95, 0xf23a8028, 0xf6fb9d9f, 0xfbb8bb46, 0xff79a6f1, 
+     62            0xe13ef6f4, 0xe5ffeb43, 0xe8bccd9a, 0xec7dd02d, 0x34867077, 0x30476dc0, 
+     63            0x3d044b19, 0x39c556ae, 0x278206ab, 0x23431b1c, 0x2e003dc5, 0x2ac12072, 
+     64            0x128e9dcf, 0x164f8078, 0x1b0ca6a1, 0x1fcdbb16, 0x018aeb13, 0x054bf6a4,
+     65            0x0808d07d, 0x0cc9cdca, 0x7897ab07, 0x7c56b6b0, 0x71159069, 0x75d48dde, 
+     66            0x6b93dddb, 0x6f52c06c, 0x6211e6b5, 0x66d0fb02, 0x5e9f46bf, 0x5a5e5b08, 
+     67            0x571d7dd1, 0x53dc6066, 0x4d9b3063, 0x495a2dd4, 0x44190b0d, 0x40d816ba, 
+     68            0xaca5c697, 0xa864db20, 0xa527fdf9, 0xa1e6e04e, 0xbfa1b04b, 0xbb60adfc, 
+     69            0xb6238b25, 0xb2e29692, 0x8aad2b2f, 0x8e6c3698, 0x832f1041, 0x87ee0df6, 
+     70            0x99a95df3, 0x9d684044, 0x902b669d, 0x94ea7b2a, 0xe0b41de7, 0xe4750050, 
+     71            0xe9362689, 0xedf73b3e, 0xf3b06b3b, 0xf771768c, 0xfa325055, 0xfef34de2, 
+     72            0xc6bcf05f, 0xc27dede8, 0xcf3ecb31, 0xcbffd686, 0xd5b88683, 0xd1799b34, 
+     73            0xdc3abded, 0xd8fba05a, 0x690ce0ee, 0x6dcdfd59, 0x608edb80, 0x644fc637, 
+     74            0x7a089632, 0x7ec98b85, 0x738aad5c, 0x774bb0eb, 0x4f040d56, 0x4bc510e1, 
+     75            0x46863638, 0x42472b8f, 0x5c007b8a, 0x58c1663d, 0x558240e4, 0x51435d53, 
+     76            0x251d3b9e, 0x21dc2629, 0x2c9f00f0, 0x285e1d47, 0x36194d42, 0x32d850f5, 
+     77            0x3f9b762c, 0x3b5a6b9b, 0x0315d626, 0x07d4cb91, 0x0a97ed48, 0x0e56f0ff, 
+     78            0x1011a0fa, 0x14d0bd4d, 0x19939b94, 0x1d528623, 0xf12f560e, 0xf5ee4bb9, 
+     79            0xf8ad6d60, 0xfc6c70d7, 0xe22b20d2, 0xe6ea3d65, 0xeba91bbc, 0xef68060b, 
+     80            0xd727bbb6, 0xd3e6a601, 0xdea580d8, 0xda649d6f, 0xc423cd6a, 0xc0e2d0dd, 
+     81            0xcda1f604, 0xc960ebb3, 0xbd3e8d7e, 0xb9ff90c9, 0xb4bcb610, 0xb07daba7, 
+     82            0xae3afba2, 0xaafbe615, 0xa7b8c0cc, 0xa379dd7b, 0x9b3660c6, 0x9ff77d71, 
+     83            0x92b45ba8, 0x9675461f, 0x8832161a, 0x8cf30bad, 0x81b02d74, 0x857130c3, 
+     84            0x5d8a9099, 0x594b8d2e, 0x5408abf7, 0x50c9b640, 0x4e8ee645, 0x4a4ffbf2, 
+     85            0x470cdd2b, 0x43cdc09c, 0x7b827d21, 0x7f436096, 0x7200464f, 0x76c15bf8, 
+     86            0x68860bfd, 0x6c47164a, 0x61043093, 0x65c52d24, 0x119b4be9, 0x155a565e, 
+     87            0x18197087, 0x1cd86d30, 0x029f3d35, 0x065e2082, 0x0b1d065b, 0x0fdc1bec, 
+     88            0x3793a651, 0x3352bbe6, 0x3e119d3f, 0x3ad08088, 0x2497d08d, 0x2056cd3a, 
+     89            0x2d15ebe3, 0x29d4f654, 0xc5a92679, 0xc1683bce, 0xcc2b1d17, 0xc8ea00a0, 
+     90            0xd6ad50a5, 0xd26c4d12, 0xdf2f6bcb, 0xdbee767c, 0xe3a1cbc1, 0xe760d676, 
+     91            0xea23f0af, 0xeee2ed18, 0xf0a5bd1d, 0xf464a0aa, 0xf9278673, 0xfde69bc4, 
+     92            0x89b8fd09, 0x8d79e0be, 0x803ac667, 0x84fbdbd0, 0x9abc8bd5, 0x9e7d9662, 
+     93            0x933eb0bb, 0x97ffad0c, 0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668, 
+     94            0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4, };
+     95          
+     96          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     97          unsigned long crc32wtable(unsigned int init_val_32, unsigned int adr_start, unsigned int len) 
+   \                     crc32wtable:
+     98          { 
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   0108               MOVW    R1:R0, R17:R16
+   \   00000006   01C9               MOVW    R25:R24, R19:R18
+     99            unsigned int counter; 
+    100            unsigned long crc = init_val_32; 
+   \   00000008   0180               MOVW    R17:R16, R1:R0
+   \   0000000A   E020               LDI     R18, 0
+   \   0000000C   E030               LDI     R19, 0
+    101            for( counter = 0; counter < len; counter++) 
+   \   0000000E   E060               LDI     R22, 0
+   \   00000010   E070               LDI     R23, 0
+   \                     ??crc32wtable_0:
+   \   00000012   1764               CP      R22, R20
+   \   00000014   0775               CPC     R23, R21
+   \   00000016   F528               BRCC    ??crc32wtable_1
+    102              crc = (crc<<8) ^ crc32tab[((crc>>24) ^ *(__flash char *)adr_start++) & 0xff]; 
+   \   00000018   0128               MOVW    R5:R4, R17:R16
+   \   0000001A   0139               MOVW    R7:R6, R19:R18
+   \   0000001C   2C76               MOV     R7, R6
+   \   0000001E   2C65               MOV     R6, R5
+   \   00000020   2C54               MOV     R5, R4
+   \   00000022   2444               CLR     R4
+   \   00000024   2F03               MOV     R16, R19
+   \   00000026   E010               LDI     R17, 0
+   \   00000028   E020               LDI     R18, 0
+   \   0000002A   E030               LDI     R19, 0
+   \   0000002C   01FC               MOVW    R31:R30, R25:R24
+   \   0000002E   9124               LPM     R18, Z
+   \   00000030   E030               LDI     R19, 0
+   \   00000032   2702               EOR     R16, R18
+   \   00000034   2713               EOR     R17, R19
+   \   00000036   0F00               LSL     R16
+   \   00000038   1F11               ROL     R17
+   \   0000003A   0F00               LSL     R16
+   \   0000003C   1F11               ROL     R17
+   \   0000003E   01F8               MOVW    R31:R30, R17:R16
+   \   00000040   ....               SUBI    R30, LOW((-(crc32tab) & 0xFFFF))
+   \   00000042   ....               SBCI    R31, (-(crc32tab) & 0xFFFF) >> 8
+   \   00000044   9105               LPM     R16, Z+
+   \   00000046   9115               LPM     R17, Z+
+   \   00000048   9125               LPM     R18, Z+
+   \   0000004A   9134               LPM     R19, Z
+   \   0000004C   9733               SBIW    R31:R30, 3
+   \   0000004E   2640               EOR     R4, R16
+   \   00000050   2651               EOR     R5, R17
+   \   00000052   2662               EOR     R6, R18
+   \   00000054   2673               EOR     R7, R19
+   \   00000056   0182               MOVW    R17:R16, R5:R4
+   \   00000058   0193               MOVW    R19:R18, R7:R6
+   \   0000005A   9601               ADIW    R25:R24, 1
+   \   0000005C   5F6F               SUBI    R22, 255
+   \   0000005E   4F7F               SBCI    R23, 255
+   \   00000060   CFD8               RJMP    ??crc32wtable_0
+    103            return crc;
+   \                     ??crc32wtable_1:
+   \   00000062   E0E8               LDI     R30, 8
+   \   00000064   ........           JMP     ?EPILOGUE_B8_L09
+    104          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+      21      2  crc32
+       8      2  crc32wtable
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     204  crc32
+    1024  crc32tab
+     104  crc32wtable
+
+ 
+   308 bytes in segment CODE
+ 1 024 bytes in segment NEAR_F
+ 
+ 1 332 bytes of CODE memory
+
+Errors: none
+Warnings: none

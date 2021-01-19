@@ -1,0 +1,299 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        11/Jan/2016  18:49:47 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\ma #
+#                    in.c                                                     #
+#    Command line =  D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\ma #
+#                    in.c --cpu=m16 -ms -o D:\SOC2015\TEMP\SOC_pachet_examen\ #
+#                    Gen_FqPWM_var3_5-95\Debug\Obj\ -lC                       #
+#                    D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\De #
+#                    bug\List\ -lA D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPW #
+#                    M_var3_5-95\Debug\List\ --initializers_in_flash          #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\De #
+#                    bug\List\main.lst                                        #
+#    Object file  =  D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\De #
+#                    bug\Obj\main.r90                                         #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\SOC2015\TEMP\SOC_pachet_examen\Gen_FqPWM_var3_5-95\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x5c
+   \   union <unnamed> volatile __io _A_OCR0
+   \                     _A_OCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4f
+   \   union <unnamed> volatile __io _A_TCCR1A
+   \                     _A_TCCR1A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x46
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          #include "usart.h"
+      4          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      5          unsigned char changeFlag;
+   \                     changeFlag:
+   \   00000000                      DS8 1
+      6          
+      7          #pragma vector = TIMER0_COMP_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      8          __interrupt void isr_TIMER0_COMP_vect()
+   \                     isr_TIMER0_COMP_vect:
+      9          {
+   \   00000000   931A               ST      -Y, R17
+   \   00000002   930A               ST      -Y, R16
+   \   00000004   B71F               IN      R17, 0x3F
+     10            changeFlag = 1;
+   \   00000006   E001               LDI     R16, 1
+   \   00000008   9300....           STS     changeFlag, R16
+     11          }
+   \   0000000C   BF1F               OUT     0x3F, R17
+   \   0000000E   9109               LD      R16, Y+
+   \   00000010   9119               LD      R17, Y+
+   \   00000012   9518               RETI
+     12          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     13          void main( void )
+   \                     main:
+     14          {
+   \   00000000   ........           CALL    ?PROLOGUE7_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+     15            USART_init(BAUD_RATE);
+   \   00000004   E00C               LDI     R16, 12
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   ........           CALL    USART_init
+     16            DDRD |= (1 << PD5) | (1 << PD1);
+   \   0000000C   B301               IN      R16, 0x11
+   \   0000000E   6202               ORI     R16, 0x22
+   \   00000010   BB01               OUT     0x11, R16
+     17            
+     18            TCCR0 |= (1 << WGM01) | (1 << CS02) | (1 << CS00);
+   \   00000012   B703               IN      R16, 0x33
+   \   00000014   600D               ORI     R16, 0x0D
+   \   00000016   BF03               OUT     0x33, R16
+     19            OCR0 = 138;
+   \   00000018   E80A               LDI     R16, 138
+   \   0000001A   BF0C               OUT     0x3C, R16
+     20            TIMSK |= (1 << OCIE0);
+   \   0000001C   B709               IN      R16, 0x39
+   \   0000001E   6002               ORI     R16, 0x02
+   \   00000020   BF09               OUT     0x39, R16
+     21            __enable_interrupt();
+   \   00000022   9478               SEI
+     22            
+     23            TCCR1A |= (1 << COM1A1) | (1 << WGM11);
+   \   00000024   B50F               IN      R16, 0x2F
+   \   00000026   6802               ORI     R16, 0x82
+   \   00000028   BD0F               OUT     0x2F, R16
+     24            TCCR1B |= (1 << WGM13) | (1 << WGM12) | (1 << CS10);
+   \   0000002A   B50E               IN      R16, 0x2E
+   \   0000002C   6109               ORI     R16, 0x19
+   \   0000002E   BD0E               OUT     0x2E, R16
+     25            ICR1 = 200;
+   \   00000030   EC08               LDI     R16, 200
+   \   00000032   E010               LDI     R17, 0
+   \   00000034   BD17               OUT     0x27, R17
+   \   00000036   BD06               OUT     0x26, R16
+     26            
+     27            unsigned char direction = 1;
+   \   00000038   2466               CLR     R6
+   \   0000003A   9463               INC     R6
+     28            unsigned int duty = 5;
+   \   0000003C   E005               LDI     R16, 5
+   \   0000003E   2E40               MOV     R4, R16
+   \   00000040   2455               CLR     R5
+     29            while(1)
+     30            {
+     31              if(changeFlag == 1)
+   \                     ??main_0:
+   \   00000042   9100....           LDS     R16, changeFlag
+   \   00000046   3001               CPI     R16, 1
+   \   00000048   F7E1               BRNE    ??main_0
+     32              {
+     33                changeFlag = 0;
+   \   0000004A   E000               LDI     R16, 0
+   \   0000004C   9300....           STS     changeFlag, R16
+     34                if(direction == 1) duty += 3;
+   \   00000050   E001               LDI     R16, 1
+   \   00000052   1660               CP      R6, R16
+   \   00000054   F429               BRNE    ??main_1
+   \   00000056   E003               LDI     R16, 3
+   \   00000058   0E40               ADD     R4, R16
+   \   0000005A   E000               LDI     R16, 0
+   \   0000005C   1E50               ADC     R5, R16
+   \   0000005E   C004               RJMP    ??main_2
+     35                else duty -= 3;
+   \                     ??main_1:
+   \   00000060   EF0D               LDI     R16, 253
+   \   00000062   0E40               ADD     R4, R16
+   \   00000064   EF0F               LDI     R16, 255
+   \   00000066   1E50               ADC     R5, R16
+     36                
+     37                if(duty >= 95) direction = 0;
+   \                     ??main_2:
+   \   00000068   E50F               LDI     R16, 95
+   \   0000006A   1640               CP      R4, R16
+   \   0000006C   E000               LDI     R16, 0
+   \   0000006E   0650               CPC     R5, R16
+   \   00000070   F008               BRCS    ??main_3
+   \   00000072   2466               CLR     R6
+     38                if(duty <= 5) direction = 1;
+   \                     ??main_3:
+   \   00000074   E006               LDI     R16, 6
+   \   00000076   1640               CP      R4, R16
+   \   00000078   E000               LDI     R16, 0
+   \   0000007A   0650               CPC     R5, R16
+   \   0000007C   F410               BRCC    ??main_4
+   \   0000007E   2466               CLR     R6
+   \   00000080   9463               INC     R6
+     39                
+     40                unsigned long aux = ICR1;
+   \                     ??main_4:
+   \   00000082   B586               IN      R24, 0x26
+   \   00000084   B597               IN      R25, 0x27
+   \   00000086   E0A0               LDI     R26, 0
+   \   00000088   E0B0               LDI     R27, 0
+     41                aux = aux * duty / 100;
+   \   0000008A   0182               MOVW    R17:R16, R5:R4
+   \   0000008C   E020               LDI     R18, 0
+   \   0000008E   E030               LDI     R19, 0
+   \   00000090   01AC               MOVW    R21:R20, R25:R24
+   \   00000092   01BD               MOVW    R23:R22, R27:R26
+   \   00000094   ........           CALL    ?L_EC_MUL_L03
+   \   00000098   E644               LDI     R20, 100
+   \   0000009A   E050               LDI     R21, 0
+   \   0000009C   E060               LDI     R22, 0
+   \   0000009E   E070               LDI     R23, 0
+   \   000000A0   ........           CALL    ?UL_DIVMOD_L03
+   \   000000A4   01C8               MOVW    R25:R24, R17:R16
+   \   000000A6   01D9               MOVW    R27:R26, R19:R18
+     42                OCR1A = aux;
+   \   000000A8   018C               MOVW    R17:R16, R25:R24
+   \   000000AA   BD1B               OUT     0x2B, R17
+   \   000000AC   BD0A               OUT     0x2A, R16
+     43                
+     44                USART_transmit('<');
+   \   000000AE   E30C               LDI     R16, 60
+   \   000000B0   ........           CALL    USART_transmit
+     45                USART_transmit('F');
+   \   000000B4   E406               LDI     R16, 70
+   \   000000B6   ........           CALL    USART_transmit
+     46                USART_transmit('U');
+   \   000000BA   E505               LDI     R16, 85
+   \   000000BC   ........           CALL    USART_transmit
+     47                USART_transmit('=');
+   \   000000C0   E30D               LDI     R16, 61
+   \   000000C2   ........           CALL    USART_transmit
+     48                USART_transmit_uint(duty);
+   \   000000C6   0182               MOVW    R17:R16, R5:R4
+   \   000000C8   ........           CALL    USART_transmit_uint
+     49                USART_transmit('>');
+   \   000000CC   E30E               LDI     R16, 62
+   \   000000CE   ........           CALL    USART_transmit
+     50                USART_transmit('\r');
+   \   000000D2   E00D               LDI     R16, 13
+   \   000000D4   ........           CALL    USART_transmit
+     51                USART_transmit('\n');
+   \   000000D8   E00A               LDI     R16, 10
+   \   000000DA   ........           CALL    USART_transmit
+   \   000000DE   CFB1               RJMP    ??main_0
+   \   000000E0                      REQUIRE _A_DDRD
+   \   000000E0                      REQUIRE _A_TCCR0
+   \   000000E0                      REQUIRE _A_OCR0
+   \   000000E0                      REQUIRE _A_TIMSK
+   \   000000E0                      REQUIRE _A_TCCR1A
+   \   000000E0                      REQUIRE _A_TCCR1B
+   \   000000E0                      REQUIRE _A_ICR1
+   \   000000E0                      REQUIRE _A_OCR1A
+     52              }
+     53            }
+     54          }
+
+   \                                 In  segment INTVEC, offset 0x4c, root
+   \                     `??isr_TIMER0_COMP_vect??INTVEC 76`:
+   \   0000004C   ........           JMP     isr_TIMER0_COMP_vect
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       2      2  isr_TIMER0_COMP_vect
+       7      4  main
+                   7 2 -> USART_init
+                   7 2 -> USART_transmit
+                   7 2 -> USART_transmit_uint
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_TIMER0_COMP_vect??INTVEC 76
+       1  _A_DDRD
+       2  _A_ICR1
+       1  _A_OCR0
+       2  _A_OCR1A
+       1  _A_TCCR0
+       1  _A_TCCR1A
+       1  _A_TCCR1B
+       1  _A_TIMSK
+       1  changeFlag
+      20  isr_TIMER0_COMP_vect
+     224  main
+       6  -- Other
+
+ 
+  10 bytes in segment ABSOLUTE
+ 244 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   1 byte  in segment NEAR_Z
+ 
+ 244 bytes of CODE memory (+ 10 bytes shared)
+   1 byte  of DATA memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

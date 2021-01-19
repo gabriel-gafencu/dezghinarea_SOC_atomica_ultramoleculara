@@ -1,0 +1,42 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[Trace1]
+Enabled=0
+ShowSource=1
+[DebugChecksum]
+Checksum=-156176617
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[watch_formats]
+Fmt0={W}0:adrStr	4	0
+Fmt1={W}0:aux	4	0
+Fmt2={W}0:funcAdress	4	0
+Fmt3={W}0:my_crc16	4	0
+Fmt4={W}0:my_crc16_calc	4	0
+Fmt5={W}0:my_crc16_tab	4	0
+Fmt6={W}0:mycrc16_t	4	0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Count=0
+[Aliases]
+A0=_ "D:\soc 2015\TEMP\SOC_pachet_examen\CRC_SRAM_sir_seriala\crc.c" ""
+A1=_ "D:\soc 2015\TEMP\SOC_pachet_examen\CRC_SRAM_sir_seriala\main.c" ""
+A2=_ "D:\soc 2015\TEMP\SOC_pachet_examen\CRC_SRAM_sir_seriala\usart.c" ""
+Count=3
+SuppressDialog=0

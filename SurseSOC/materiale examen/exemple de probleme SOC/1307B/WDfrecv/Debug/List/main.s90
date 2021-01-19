@@ -1,0 +1,395 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       05/Jan/2015  18:10:56 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\WDfrecv\main.c                                 /
+//    Command line =  D:\1307B\WDfrecv\main.c --cpu=m16 -ms -o                /
+//                    D:\1307B\WDfrecv\Debug\Obj\ -lC                         /
+//                    D:\1307B\WDfrecv\Debug\List\ -lA                        /
+//                    D:\1307B\WDfrecv\Debug\List\ --initializers_in_flash    /
+//                    --no_cse --no_inline --no_code_motion --no_cross_call   /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\1307B\WDfrecv\Debug\List\main.s90                    /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        PUBLIC HI
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_MCUCSR
+        PUBWEAK _A_PORTD
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TCNT1
+        PUBWEAK _A_WDTCR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC main
+        FUNCTION main,0a1a01H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC timer1_INIT
+        FUNCTION timer1_INIT,0201H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        EXTERN USART_initialize
+        FUNCTION USART_initialize,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\1307B\WDfrecv\main.c
+//    1 #include <iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,054H
+// union <unnamed> volatile __io _A_MCUCSR
+_A_MCUCSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04cH
+// union <unnamed> volatile __io _A_TCNT1
+_A_TCNT1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,041H
+// union <unnamed> volatile __io _A_WDTCR
+_A_WDTCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,032H
+// union <unnamed> volatile __io _A_PORTD
+_A_PORTD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    2 #include <inavr.h>
+//    3 #include "usart.h"
+//    4 
+//    5 //generare frecventa de 5KHz cu fu=66%;
+//    6 //perioada de transmitere a unui char pe seriala ~ 500us
+//    7 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    8 void timer1_INIT()
+timer1_INIT:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function timer1_INIT
+//    9 {
+//   10   /*
+//   11   Modul Normal: WGM13:10=0000;
+//   12   Cu prescaler: CS12:10=010;
+//   13   */
+//   14   TCCR1B|=(1<<CS11);
+        IN      R16, 0x2E
+        ORI     R16, 0x02
+        OUT     0x2E, R16
+//   15   TCNT1=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        OUT     0x2D, R17
+        OUT     0x2C, R16
+//   16  
+//   17 }
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_TCNT1
+//   18 
+//   19 
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//   20 __no_init unsigned int HI;
+HI:
+        DS8 2
+//   21 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   22 void main()
+main:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function main
+//   23 {
+        FUNCALL main, USART_initialize
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, timer1_INIT
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, timer1_INIT
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        ST      -Y, R25
+          CFI R25 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R24
+          CFI R24 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+//   24   int nrChars=0;
+        LDI     R24, 0
+        LDI     R25, 0
+//   25   USART_initialize(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_initialize
+//   26   DDRD  |=(1<<PD5);
+        SBI     0x11, 0x05
+//   27   
+//   28   if(HI==1)
+        LDS     R16, HI
+        LDS     R17, (HI + 1)
+        CPI     R16, 1
+        LDI     R18, 0
+        CPC     R17, R18
+        BRNE    ??main_0
+//   29   {
+//   30     PORTD |=(HI<<PD5);
+        LDS     R16, HI
+        LDS     R17, (HI + 1)
+        SWAP    R16
+        ANDI    R16, 0xF0
+        LSL     R16
+        IN      R17, 0x12
+        OR      R17, R16
+        OUT     0x12, R17
+        RJMP    ??main_1
+//   31   }
+//   32   else
+//   33   {
+//   34     PORTD &=~(HI<<PD5);
+??main_0:
+        LDS     R16, HI
+        LDS     R17, (HI + 1)
+        SWAP    R16
+        ANDI    R16, 0xF0
+        LSL     R16
+        COM     R16
+        IN      R17, 0x12
+        AND     R17, R16
+        OUT     0x12, R17
+//   35     
+//   36   }
+//   37  
+//   38   //TCNT1=0;
+//   39   
+//   40    if((MCUCSR>>WDRF)&1)
+??main_1:
+        IN      R16, 0x34
+        MOV     R17, R16
+        SBRS    R17, 3
+        RJMP    ??main_2
+//   41   {
+//   42       
+//   43    if(HI==1)
+        LDS     R16, HI
+        LDS     R17, (HI + 1)
+        CPI     R16, 1
+        LDI     R18, 0
+        CPC     R17, R18
+        BRNE    ??main_3
+//   44    {
+//   45      
+//   46    timer1_INIT();
+        RCALL   timer1_INIT
+//   47    while(TCNT1<2750);    //8430
+??main_4:
+        IN      R16, 0x2C
+        IN      R17, 0x2D
+        CPI     R16, 190
+        LDI     R18, 10
+        CPC     R17, R18
+        BRCS    ??main_4
+//   48   /*nrChars=11;
+//   49    while(nrChars)
+//   50    {
+//   51     USART_transmit('*');
+//   52     nrChars--;
+//   53    }*/
+//   54      
+//   55    WDTCR|= (1<<WDP0);
+        IN      R16, 0x21
+        ORI     R16, 0x01
+        OUT     0x21, R16
+//   56    WDTCR|= (0<<WDP1);
+        IN      R16, 0x21
+        OUT     0x21, R16
+//   57    WDTCR|= (0<<WDP2); 
+        IN      R16, 0x21
+        OUT     0x21, R16
+//   58    HI=0;  
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     HI, R16
+        STS     (HI + 1), R17
+        RJMP    ??main_2
+//   59    }
+//   60    else
+//   61    {
+//   62      
+//   63      timer1_INIT();
+??main_3:
+        RCALL   timer1_INIT
+//   64      while(TCNT1<5750); //4160
+??main_5:
+        IN      R16, 0x2C
+        IN      R17, 0x2D
+        CPI     R16, 118
+        LDI     R18, 22
+        CPC     R17, R18
+        BRCS    ??main_5
+//   65      /* nrChars=22;
+//   66       while(nrChars--)
+//   67       {
+//   68         USART_transmit('*'); 
+//   69       }*/
+//   70       WDTCR|= (0<<WDP0);
+        IN      R16, 0x21
+        OUT     0x21, R16
+//   71       WDTCR|= (1<<WDP1);
+        IN      R16, 0x21
+        ORI     R16, 0x02
+        OUT     0x21, R16
+//   72       WDTCR|= (0<<WDP2);
+        IN      R16, 0x21
+        OUT     0x21, R16
+//   73       HI=1;
+        LDI     R16, 1
+        LDI     R17, 0
+        STS     HI, R16
+        STS     (HI + 1), R17
+//   74     }
+//   75   }
+//   76   
+//   77   asm("WDR");
+??main_2:
+        WDR
+//   78   WDTCR|=(1<<WDE);  
+        IN      R16, 0x21
+        ORI     R16, 0x08
+        OUT     0x21, R16
+//   79   while(1)
+??main_6:
+        RJMP    ??main_6
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_DDRD
+        REQUIRE _A_PORTD
+        REQUIRE _A_MCUCSR
+        REQUIRE _A_TCNT1
+        REQUIRE _A_WDTCR
+//   80    {
+//   81        
+//   82    }
+//   83 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//   7 bytes in segment ABSOLUTE
+// 210 bytes in segment CODE
+//   2 bytes in segment NEAR_N
+// 
+// 210 bytes of CODE memory
+//   2 bytes of DATA memory (+ 7 bytes shared)
+//
+//Errors: none
+//Warnings: 1

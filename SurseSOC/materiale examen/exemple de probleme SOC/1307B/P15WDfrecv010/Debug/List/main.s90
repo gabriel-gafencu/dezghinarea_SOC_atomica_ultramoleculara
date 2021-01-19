@@ -1,0 +1,1037 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       03/Jan/2015  15:17:21 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\P15WDfrecv010\main.c                           /
+//    Command line =  D:\1307B\P15WDfrecv010\main.c --cpu=m16 -ms -o          /
+//                    D:\1307B\P15WDfrecv010\Debug\Obj\ -lC                   /
+//                    D:\1307B\P15WDfrecv010\Debug\List\ -lA                  /
+//                    D:\1307B\P15WDfrecv010\Debug\List\                      /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\P15WDfrecv010\Debug\List\main.s90              /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B16_L09
+        EXTERN ?F2UL_L04
+        EXTERN ?F_DIV_L04
+        EXTERN ?F_MUL_L04
+        EXTERN ?F_SUB_L04
+        EXTERN ?L_EC_MUL_L03
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?PROLOGUE4_L09
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?UL2F_L04
+        EXTERN ?UL_DIVMOD_L03
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??T1_OVF??INTVEC 32`
+        PUBLIC T1_OVF
+        FUNCTION T1_OVF,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 5, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC Timer1_currentValue
+        PUBLIC Timer1_numberOverflows
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TCNT1
+        PUBWEAK _A_TIMSK
+        PUBWEAK _A_WDTCR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC buffer
+        PUBLIC frecv
+        PUBLIC index
+        PUBLIC main
+        FUNCTION main,0a1a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC number
+        PUBLIC parteFractionara
+        PUBLIC period
+        PUBLIC printFrecv
+        FUNCTION printFrecv,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC time_per_clock
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+T1_OVF              SYMBOL "T1_OVF"
+`??T1_OVF??INTVEC 32` SYMBOL "??INTVEC 32", T1_OVF
+
+        EXTERN USART_initialize
+        FUNCTION USART_initialize,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\1307B\P15WDfrecv010\main.c
+//    1 #include <iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04cH
+// union <unnamed> volatile __io _A_TCNT1
+_A_TCNT1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,041H
+// union <unnamed> volatile __io _A_WDTCR
+_A_WDTCR:
+        DS8 1
+//    2 #include <inavr.h>
+//    3 #include "usart.h"
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//    4 __no_init unsigned int Timer1_currentValue;
+Timer1_currentValue:
+        DS8 2
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//    5 __no_init unsigned int Timer1_numberOverflows;
+Timer1_numberOverflows:
+        DS8 2
+//    6 #pragma vector = TIMER1_OVF_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//    7 __interrupt void T1_OVF()
+T1_OVF:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function T1_OVF
+//    8 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        IN      R18, 0x3F
+//    9 Timer1_numberOverflows++;
+        LDI     R30, LOW(Timer1_numberOverflows)
+        LDI     R31, (Timer1_numberOverflows) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   10 }
+        OUT     0x3F, R18
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+4
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+3
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock0
+//   11 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   12 void printFrecv(unsigned long frecv)
+printFrecv:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function printFrecv
+//   13 {
+        FUNCALL printFrecv, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFrecv, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFrecv, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFrecv, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFrecv, USART_transmit
+        LOCFRAME CSTACK, 19, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        SBIW    R29:R28, 3
+          CFI CFA_Y Y+19
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//   14     unsigned long parteIntreaga=(unsigned long)frecv;
+        MOVW    R13:R12, R5:R4
+        MOVW    R15:R14, R7:R6
+//   15     unsigned long parteFractionara=(frecv-parteIntreaga*1000000)*1000;
+        LDI     R20, 64
+        LDI     R21, 66
+        LDI     R22, 15
+        LDI     R23, 0
+        MOVW    R17:R16, R13:R12
+        MOVW    R19:R18, R15:R14
+        CALL    ?L_EC_MUL_L03
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        SUB     R16, R20
+        SBC     R17, R21
+        SBC     R18, R22
+        SBC     R19, R23
+        LDI     R20, 232
+        LDI     R21, 3
+        LDI     R22, 0
+        LDI     R23, 0
+        CALL    ?L_EC_MUL_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//   16     unsigned char buffer[3]={'\0'};
+        LDI     R30, LOW(`?<Constant {0}>`)
+        LDI     R31, (`?<Constant {0}>`) >> 8
+        LPM     R16, Z+
+        LPM     R17, Z+
+        LPM     R18, Z
+        SBIW    R31:R30, 2
+        ST      Y, R16
+        STD     Y+1, R17
+        STD     Y+2, R18
+//   17     int index=0;
+        CLR     R8
+        CLR     R9
+//   18   
+//   19      USART_transmit(parteIntreaga%10+'0');
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R13:R12
+        MOVW    R19:R18, R15:R14
+        CALL    ?UL_DIVMOD_L03
+        MOV     R16, R20
+        SUBI    R16, 208
+        CALL    USART_transmit
+//   20      USART_transmit('.');
+        LDI     R16, 46
+        CALL    USART_transmit
+//   21      
+//   22      while(parteFractionara)
+??printFrecv_0:
+        MOV     R16, R24
+        OR      R16, R25
+        OR      R16, R26
+        OR      R16, R27
+        BREQ    ??printFrecv_1
+//   23      {
+//   24       buffer[index++]=parteFractionara%10+'0';
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R8
+        ADC     R31, R9
+        ST      Z, R20
+        LDI     R16, 1
+        ADD     R8, R16
+        LDI     R16, 0
+        ADC     R9, R16
+//   25       parteFractionara/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?UL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printFrecv_0
+//   26        
+//   27      }
+//   28      index-=1;
+??printFrecv_1:
+        LDI     R16, 255
+        ADD     R8, R16
+        LDI     R16, 255
+        ADC     R9, R16
+//   29      while(index)
+??printFrecv_2:
+        MOV     R16, R8
+        OR      R16, R9
+        BREQ    ??printFrecv_3
+//   30      {
+//   31      USART_transmit(buffer[index--]);
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R8
+        ADC     R31, R9
+        LD      R16, Z
+        CALL    USART_transmit
+        LDI     R16, 255
+        ADD     R8, R16
+        LDI     R16, 255
+        ADC     R9, R16
+        RJMP    ??printFrecv_2
+//   32      }
+//   33      USART_transmit(0x0d);
+??printFrecv_3:
+        LDI     R16, 13
+        CALL    USART_transmit
+//   34      USART_transmit(0x0a);
+        LDI     R16, 10
+        CALL    USART_transmit
+//   35    
+//   36   
+//   37      
+//   38 }
+        ADIW    R29:R28, 3
+          CFI CFA_Y Y+16
+        LDI     R30, 16
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock1
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   39 unsigned long number;
+number:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   40 unsigned long period;
+period:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   41 unsigned long time_per_clock;
+time_per_clock:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   42 unsigned long frecv;
+frecv:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   43 unsigned long parteFractionara;
+parteFractionara:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   44 int index;
+index:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   45 unsigned char buffer[3];
+buffer:
+        DS8 3
+
+        RSEG CODE:CODE:NOROOT(1)
+//   46 int main( void )
+main:
+          CFI Block cfiBlock2 Using cfiCommon1
+          CFI Function main
+//   47 {
+        FUNCALL main, USART_initialize
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE4_L09
+          CFI R27 Frame(CFA_Y, -1)
+          CFI R26 Frame(CFA_Y, -2)
+          CFI R25 Frame(CFA_Y, -3)
+          CFI R24 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+//   48   /*iniþializare usart*/
+//   49   USART_initialize(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_initialize
+//   50   /*iniþializare Timer 1*/
+//   51   /*Mod de funcþionare Normal*/
+//   52   /*Setare prescaler */
+//   53   TCCR1B|=(1<<CS10);
+        IN      R16, 0x2E
+        ORI     R16, 0x01
+        OUT     0x2E, R16
+//   54   /*Activare întrerupere*/
+//   55   TIMSK|=(1<<TOIE1);
+        IN      R16, 0x39
+        ORI     R16, 0x04
+        OUT     0x39, R16
+//   56   __enable_interrupt();
+        SEI
+//   57   /*iniþializare Watchdog*/
+//   58   /*Setare time-out de 65 ms*/
+//   59   WDTCR|= (1<<WDP1);
+        IN      R16, 0x21
+        ORI     R16, 0x02
+        OUT     0x21, R16
+//   60   if(Timer1_numberOverflows >0 || Timer1_currentValue>0)
+        LDS     R16, Timer1_numberOverflows
+        LDS     R17, (Timer1_numberOverflows + 1)
+        OR      R16, R17
+        BRNE    ??main_0
+        LDS     R16, Timer1_currentValue
+        LDS     R17, (Timer1_currentValue + 1)
+        OR      R16, R17
+        BRNE    $+2+2
+        RJMP    ??main_1
+//   61   {
+//   62     /*calculul perioadei efective de time-out a watchdog-ului*/
+//   63      number=Timer1_numberOverflows*65535+Timer1_currentValue;
+??main_0:
+        LDS     R16, Timer1_numberOverflows
+        LDS     R17, (Timer1_numberOverflows + 1)
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R20, 255
+        LDI     R21, 255
+        LDI     R22, 0
+        LDI     R23, 0
+        CALL    ?L_EC_MUL_L03
+        LDS     R20, Timer1_currentValue
+        LDS     R21, (Timer1_currentValue + 1)
+        LDI     R22, 0
+        LDI     R23, 0
+        ADD     R16, R20
+        ADC     R17, R21
+        ADC     R18, R22
+        ADC     R19, R23
+        LDI     R30, LOW(number)
+        LDI     R31, (number) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   64     /*calculul perioadei în us*/
+//   65      period=number*0.25;
+        LDI     R30, LOW(number)
+        LDI     R31, (number) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL2F_L04
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 128
+        LDI     R23, 62
+        CALL    ?F_MUL_L04
+        CALL    ?F2UL_L04
+        LDI     R30, LOW(period)
+        LDI     R31, (period) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   66     /*calculul perioadei unui ciclu de clock al watchdog-ului*/
+//   67      time_per_clock=(unsigned long)((period*1000000)/65536);
+        LDI     R20, 64
+        LDI     R21, 66
+        LDI     R22, 15
+        LDI     R23, 0
+        LDI     R30, LOW(period)
+        LDI     R31, (period) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?L_EC_MUL_L03
+        MOV     R16, R18
+        MOV     R17, R19
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(time_per_clock)
+        LDI     R31, (time_per_clock) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   68     /*calculul frecvenþei în MHz*/
+//   69     frecv=(unsigned long)((1000000./time_per_clock));
+        LDI     R30, LOW(time_per_clock)
+        LDI     R31, (time_per_clock) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        LDI     R16, 0
+        LDI     R17, 36
+        LDI     R18, 116
+        LDI     R19, 73
+        CALL    ?F_DIV_L04
+        CALL    ?F2UL_L04
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   70     parteFractionara=((1000000./time_per_clock) - frecv)*1000;
+        LDI     R30, LOW(time_per_clock)
+        LDI     R31, (time_per_clock) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        LDI     R16, 0
+        LDI     R17, 36
+        LDI     R18, 116
+        LDI     R19, 73
+        CALL    ?F_DIV_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_SUB_L04
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 122
+        LDI     R23, 68
+        CALL    ?F_MUL_L04
+        CALL    ?F2UL_L04
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   71     
+//   72     while(frecv)
+??main_2:
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        OR      R16, R17
+        OR      R16, R18
+        OR      R16, R19
+        BREQ    ??main_3
+//   73     {
+//   74      USART_transmit(frecv%10+'0'); 
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        MOV     R16, R20
+        SUBI    R16, 208
+        CALL    USART_transmit
+//   75      frecv/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        LDI     R30, LOW(frecv)
+        LDI     R31, (frecv) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        RJMP    ??main_2
+//   76     }
+//   77     
+//   78    
+//   79     USART_transmit('.');
+??main_3:
+        LDI     R16, 46
+        CALL    USART_transmit
+//   80      
+//   81      if(parteFractionara)
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        OR      R16, R17
+        OR      R16, R18
+        OR      R16, R19
+        BREQ    ??main_4
+//   82      {
+//   83        
+//   84        while(parteFractionara)
+??main_5:
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        OR      R16, R17
+        OR      R16, R18
+        OR      R16, R19
+        BREQ    ??main_6
+//   85      {
+//   86       buffer[index++]=parteFractionara%10+'0';
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        LDS     R16, index
+        LDS     R17, (index + 1)
+        MOVW    R31:R30, R17:R16
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        ST      Z, R20
+        LDI     R30, LOW(index)
+        LDI     R31, (index) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   87       parteFractionara/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        RJMP    ??main_5
+//   88        
+//   89      }
+//   90        
+//   91      }
+//   92      else
+//   93      {
+//   94       index=3; 
+??main_4:
+        LDI     R16, 3
+        LDI     R17, 0
+        STS     index, R16
+        STS     (index + 1), R17
+//   95      }
+//   96      
+//   97      index-=1;
+??main_6:
+        LDI     R30, LOW(index)
+        LDI     R31, (index) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 1
+        SBCI    R17, 0
+        ST      Z, R16
+        STD     Z+1, R17
+//   98      while(index)
+??main_7:
+        LDS     R16, index
+        LDS     R17, (index + 1)
+        OR      R16, R17
+        BREQ    ??main_8
+//   99      {
+//  100      USART_transmit(buffer[index--]);
+        LDS     R16, index
+        LDS     R17, (index + 1)
+        MOVW    R25:R24, R17:R16
+        SBIW    R25:R24, 1
+        STS     index, R24
+        STS     (index + 1), R25
+        MOVW    R31:R30, R17:R16
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        LD      R16, Z
+        CALL    USART_transmit
+        RJMP    ??main_7
+//  101      }
+//  102      USART_transmit(buffer[0]);
+??main_8:
+        LDS     R16, buffer
+        CALL    USART_transmit
+//  103      USART_transmit('M');
+        LDI     R16, 77
+        CALL    USART_transmit
+//  104      USART_transmit('H');
+        LDI     R16, 72
+        CALL    USART_transmit
+//  105      USART_transmit('z');
+        LDI     R16, 122
+        CALL    USART_transmit
+//  106      USART_transmit(0x0d);
+        LDI     R16, 13
+        CALL    USART_transmit
+//  107      USART_transmit(0x0a);
+        LDI     R16, 10
+        CALL    USART_transmit
+//  108      
+//  109      
+//  110     
+//  111     
+//  112     
+//  113     
+//  114   }
+//  115   Timer1_numberOverflows=0;
+??main_1:
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     Timer1_numberOverflows, R16
+        STS     (Timer1_numberOverflows + 1), R17
+//  116   Timer1_currentValue=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     Timer1_currentValue, R16
+        STS     (Timer1_currentValue + 1), R17
+//  117   TCNT1=0;
+        LDI     R16, 0
+        LDI     R17, 0
+        OUT     0x2D, R17
+        OUT     0x2C, R16
+//  118   /*Resetare WDT*/
+//  119   asm("WDR");
+        WDR
+//  120   /*Activare WDT*/
+//  121   WDTCR|=(1<<WDE);
+        IN      R16, 0x21
+        ORI     R16, 0x08
+        OUT     0x21, R16
+//  122   while(1)
+//  123   {
+//  124     Timer1_currentValue=TCNT1;
+??main_9:
+        IN      R16, 0x2C
+        IN      R17, 0x2D
+        STS     Timer1_currentValue, R16
+        STS     (Timer1_currentValue + 1), R17
+        RJMP    ??main_9
+          CFI EndBlock cfiBlock2
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_TIMSK
+        REQUIRE _A_WDTCR
+        REQUIRE _A_TCNT1
+//  125   }
+//  126 return 0;
+//  127 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 32
+`??T1_OVF??INTVEC 32`:
+        JMP     T1_OVF
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_F:CODE:NOROOT(0)
+`?<Constant {0}>`:
+        DC8 0, 0, 0
+
+        END
+// 
+//     5 bytes in segment ABSOLUTE
+// 1 018 bytes in segment CODE
+//     6 bytes in segment INITTAB
+//     4 bytes in segment INTVEC
+//     3 bytes in segment NEAR_F
+//     4 bytes in segment NEAR_N
+//    25 bytes in segment NEAR_Z
+// 
+// 1 021 bytes of CODE memory (+ 10 bytes shared)
+//    29 bytes of DATA memory (+  5 bytes shared)
+//
+//Errors: none
+//Warnings: 3

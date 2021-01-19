@@ -1,0 +1,4 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+20:37:56	709/709	---MCZ	404	error ('Not%20Found')	text/html	date:Sat,%2016%20Jan%202016%2018:26:29%20GMT	http://depa.usst.edu.cn/robots.txt		(from )
+20:37:59	17545/17545	---MCZ	200	added ('OK')	text/html	etag:%22f2302ff718cdcd1:0%22	http://depa.usst.edu.cn/chenjq/www2/software/crc/CRC_Javascript/CRCcalculation.htm	D:/Inbox/CRC%20Calculator/CRC%20Calculator/depa.usst.edu.cn/chenjq/www2/software/crc/CRC_Javascript/CRCcalculation.html	(from )
+20:38:01	2935/2935	---M--	200	added ('OK')	image/gif	etag:%227f1048f718cdcd1:0%22	http://depa.usst.edu.cn/chenjq/www2/software/crc/img/cjqb01.gif	D:/Inbox/CRC%20Calculator/CRC%20Calculator/depa.usst.edu.cn/chenjq/www2/software/crc/img/cjqb01.gif	(from http://depa.usst.edu.cn/chenjq/www2/software/crc/CRC_Javascript/CRCcalculation.htm)

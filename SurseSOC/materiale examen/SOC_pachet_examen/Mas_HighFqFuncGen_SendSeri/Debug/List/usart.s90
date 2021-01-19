@@ -1,0 +1,858 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       11/Jan/2016  19:18:52 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Sen /
+//                    dSeri\usart.c                                           /
+//    Command line =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Sen /
+//                    dSeri\usart.c --cpu=m16 -ms -o                          /
+//                    D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Sen /
+//                    dSeri\Debug\Obj\ -lC D:\SOC2015\TEMP\SOC_pachet_examen\ /
+//                    Mas_HighFqFuncGen_SendSeri\Debug\List\ -lA              /
+//                    D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Sen /
+//                    dSeri\Debug\List\ --initializers_in_flash --no_cse      /
+//                    --no_inline --no_code_motion --no_cross_call            /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Sen /
+//                    dSeri\Debug\List\usart.s90                              /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME usart
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B16_L09
+        EXTERN ?EPILOGUE_B4_L09
+        EXTERN ?EPILOGUE_B6_L09
+        EXTERN ?LL_CMP_L12
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?PROLOGUE4_L09
+        EXTERN ?PROLOGUE6_L09
+        EXTERN ?Register_R10_is_cg_reg
+        EXTERN ?Register_R11_is_cg_reg
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?SLL_SHR_L12
+        EXTERN ?S_EC_MUL_L02
+        EXTERN ?ULL_DIV_L12
+        EXTERN ?ULL_MOD_L12
+        EXTERN ?US_DIVMOD_L02
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBLIC USART_init
+        FUNCTION USART_init,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_receive
+        FUNCTION USART_receive,0203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_receive_hexa_adress
+        FUNCTION USART_receive_hexa_adress,021201H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC USART_transmit
+        FUNCTION USART_transmit,0203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_transmit_uint
+        FUNCTION USART_transmit_uint,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 20, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC USART_transmit_ulonglong
+        FUNCTION USART_transmit_ulonglong,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 38, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBWEAK _A_UBRRH
+        PUBWEAK _A_UBRRL
+        PUBWEAK _A_UCSRA
+        PUBWEAK _A_UCSRB
+        PUBWEAK _A_UDR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBWEAK __Constant_0_0
+        PUBWEAK __Constant_a_0
+        PUBLIC hexadecimalTransmit
+        FUNCTION hexadecimalTransmit,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 25, STACK
+        LOCFRAME RSTACK, 4, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+// D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_SendSeri\usart.c
+//    1 #include "usart.h"
+
+        ASEGN ABSOLUTE:DATA:NOROOT,040H
+// union <unnamed> volatile __io _A_UBRRH
+_A_UBRRH:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02cH
+// union <unnamed> volatile __io _A_UDR
+_A_UDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02bH
+// union <unnamed> volatile __io _A_UCSRA
+_A_UCSRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02aH
+// union <unnamed> volatile __io _A_UCSRB
+_A_UCSRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,029H
+// union <unnamed> volatile __io _A_UBRRL
+_A_UBRRL:
+        DS8 1
+//    2 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    3 void USART_init(int baud_rate)
+USART_init:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function USART_init
+//    4 {
+//    5   UBRRH = (baud_rate>>8); //setez baudrate-ul
+        MOVW    R19:R18, R17:R16
+        MOV     R18, R19
+        LSL     R19
+        SBC     R19, R19
+        OUT     0x20, R18
+//    6   UBRRL = baud_rate;
+        MOV     R18, R16
+        OUT     0x09, R18
+//    7   UCSRB |= (1<<RXEN) | (1<<TXEN); //enable receive & transmit
+        IN      R18, 0x0A
+        ORI     R18, 0x18
+        OUT     0x0A, R18
+//    8 }
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_UBRRH
+        REQUIRE _A_UBRRL
+        REQUIRE _A_UCSRB
+//    9 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   10 void USART_transmit(unsigned char c)
+USART_transmit:
+??USART_transmit_0:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function USART_transmit
+//   11 {
+//   12   while( !(UCSRA & (1<<UDRE)) )
+        SBIS    0x0B, 0x05
+        RJMP    ??USART_transmit_0
+//   13     ;
+//   14   UDR = c;
+        OUT     0x0C, R16
+//   15 }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+//   16 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   17 unsigned char USART_receive(void)
+USART_receive:
+??USART_receive_0:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function USART_receive
+//   18 {
+//   19   while( !(UCSRA & (1<<RXC)) )
+        SBIS    0x0B, 0x07
+        RJMP    ??USART_receive_0
+//   20     ;
+//   21   return UDR;
+        IN      R16, 0x0C
+        RET
+          CFI EndBlock cfiBlock2
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+//   22 }
+//   23 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   24 void USART_transmit_uint(unsigned int n)
+USART_transmit_uint:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function USART_transmit_uint
+//   25 {
+        FUNCALL USART_transmit_uint, USART_transmit
+        LOCFRAME CSTACK, 20, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE4_L09
+          CFI R27 Frame(CFA_Y, -1)
+          CFI R26 Frame(CFA_Y, -2)
+          CFI R25 Frame(CFA_Y, -3)
+          CFI R24 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        SBIW    R29:R28, 16
+          CFI CFA_Y Y+20
+        MOVW    R25:R24, R17:R16
+//   26   unsigned char aux[16];
+//   27   int index = 0;
+        LDI     R26, 0
+        LDI     R27, 0
+//   28   while(n)
+??USART_transmit_uint_0:
+        MOV     R16, R24
+        OR      R16, R25
+        BREQ    ??USART_transmit_uint_1
+//   29   {
+//   30     aux[index++] = n % 10 + '0';
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R25:R24
+        CALL    ?US_DIVMOD_L02
+        SUBI    R20, 208
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R26
+        ADC     R31, R27
+        ST      Z, R20
+        ADIW    R27:R26, 1
+//   31     n /= 10; 
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R25:R24
+        CALL    ?US_DIVMOD_L02
+        MOVW    R25:R24, R17:R16
+        RJMP    ??USART_transmit_uint_0
+//   32   }
+//   33   index--;
+??USART_transmit_uint_1:
+        SBIW    R27:R26, 1
+//   34   while(index >= 0)
+??USART_transmit_uint_2:
+        TST     R27
+        BRMI    ??USART_transmit_uint_3
+//   35   {
+//   36     USART_transmit(aux[index--]);
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R26
+        ADC     R31, R27
+        LD      R16, Z
+        RCALL   USART_transmit
+        SBIW    R27:R26, 1
+        RJMP    ??USART_transmit_uint_2
+//   37   }
+//   38 }
+??USART_transmit_uint_3:
+        ADIW    R29:R28, 16
+          CFI CFA_Y Y+4
+        LDI     R30, 4
+        JMP     ?EPILOGUE_B4_L09
+          CFI EndBlock cfiBlock3
+//   39 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   40 void USART_transmit_ulonglong(unsigned long long n)
+USART_transmit_ulonglong:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function USART_transmit_ulonglong
+//   41 {
+        FUNCALL USART_transmit_ulonglong, USART_transmit
+        LOCFRAME CSTACK, 38, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        SBIW    R29:R28, 22
+          CFI CFA_Y Y+38
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//   42   unsigned char aux[20];
+//   43   int index = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+//   44   while(n)
+??USART_transmit_ulonglong_0:
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??USART_transmit_ulonglong_1
+//   45   {
+//   46     aux[index++] = n % 10 + '0';
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_MOD_L12
+        SUBI    R16, 208
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        LD      R18, Y
+        LDD     R19, Y+1
+        ADD     R30, R18
+        ADC     R31, R19
+        ST      Z, R16
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Y, R16
+        STD     Y+1, R17
+//   47     n /= 10; 
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        CALL    ?ULL_DIV_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        RJMP    ??USART_transmit_ulonglong_0
+//   48   }
+//   49   index--;
+??USART_transmit_ulonglong_1:
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 1
+        SBCI    R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+//   50   while(index >= 0)
+??USART_transmit_ulonglong_2:
+        LD      R16, Y
+        LDD     R17, Y+1
+        TST     R17
+        BRMI    ??USART_transmit_ulonglong_3
+//   51   {
+//   52     USART_transmit(aux[index--]);
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        LD      R16, Y
+        LDD     R17, Y+1
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        RCALL   USART_transmit
+        LD      R16, Y
+        LDD     R17, Y+1
+        SUBI    R16, 1
+        SBCI    R17, 0
+        ST      Y, R16
+        STD     Y+1, R17
+        RJMP    ??USART_transmit_ulonglong_2
+//   53   }
+//   54 }
+??USART_transmit_ulonglong_3:
+        ADIW    R29:R28, 22
+          CFI CFA_Y Y+16
+        LDI     R30, 16
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock4
+//   55 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   56 void hexadecimalTransmit(unsigned int numarDecimal)
+hexadecimalTransmit:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function hexadecimalTransmit
+//   57 {
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 25, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 25, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL hexadecimalTransmit, USART_transmit
+        LOCFRAME CSTACK, 25, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        SBIW    R29:R28, 9
+          CFI CFA_Y Y+25
+        ST      Y, R16
+        STD     Y+1, R17
+//   58   unsigned int numarCaractere = 0;
+        CLR     R6
+        CLR     R7
+//   59   unsigned int auxaux = numarDecimal;
+        LD      R26, Y
+        LDD     R27, Y+1
+//   60   while(auxaux != 0)
+??hexadecimalTransmit_0:
+        MOV     R16, R26
+        OR      R16, R27
+        BREQ    ??hexadecimalTransmit_1
+//   61   {
+//   62     numarCaractere++;
+        LDI     R16, 1
+        ADD     R6, R16
+        LDI     R16, 0
+        ADC     R7, R16
+//   63     auxaux /= 10;
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R27:R26
+        CALL    ?US_DIVMOD_L02
+        MOVW    R27:R26, R17:R16
+        RJMP    ??hexadecimalTransmit_0
+//   64   } 
+//   65   
+//   66   long long x = numarDecimal;
+??hexadecimalTransmit_1:
+        LD      R8, Y
+        LDD     R9, Y+1
+        CLR     R10
+        CLR     R11
+        CLR     R12
+        CLR     R13
+        CLR     R14
+        CLR     R15
+//   67   int index=0;
+        CLR     R4
+        CLR     R5
+//   68   USART_transmit('0');
+        LDI     R16, 48
+        RCALL   USART_transmit
+//   69   USART_transmit('x');
+        LDI     R16, 120
+        RCALL   USART_transmit
+//   70   unsigned char aux[7];
+//   71   while(x!=0)
+??hexadecimalTransmit_2:
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    ?LL_CMP_L12
+        BREQ    ??hexadecimalTransmit_3
+//   72   {
+//   73     aux[index]=x&0x0F;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOV     R17, R16
+        ANDI    R17, 0x0F
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R4
+        ADC     R31, R5
+        ST      Z, R17
+//   74     if(aux[index]<=9)
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R4
+        ADC     R31, R5
+        LD      R16, Z
+        CPI     R16, 10
+        BRCC    ??hexadecimalTransmit_4
+//   75     {
+//   76       aux[index]+='0';
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R4
+        ADC     R31, R5
+        LD      R16, Z
+        SUBI    R16, 208
+        ST      Z, R16
+        RJMP    ??hexadecimalTransmit_5
+//   77     }
+//   78     else
+//   79     {
+//   80       aux[index]=aux[index]+'A'-10;
+??hexadecimalTransmit_4:
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R4
+        ADC     R31, R5
+        LD      R16, Z
+        SUBI    R16, 201
+        ST      Z, R16
+//   81     }
+//   82     index++;
+??hexadecimalTransmit_5:
+        LDI     R16, 1
+        ADD     R4, R16
+        LDI     R16, 0
+        ADC     R5, R16
+//   83     x>>=4;
+        LDI     R30, 4
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOV     R24, R30
+        CALL    ?SLL_SHR_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        RJMP    ??hexadecimalTransmit_2
+//   84   }
+//   85   while(numarCaractere>0 && index>0)
+??hexadecimalTransmit_3:
+        MOV     R16, R6
+        OR      R16, R7
+        BREQ    ??hexadecimalTransmit_6
+        LDI     R16, 1
+        CP      R4, R16
+        LDI     R16, 0
+        CPC     R5, R16
+        BRLT    ??hexadecimalTransmit_6
+//   86   {
+//   87     USART_transmit(aux[index-1]);
+        MOVW    R31:R30, R29:R28
+        ADIW    R31:R30, 2
+        ADD     R30, R4
+        ADC     R31, R5
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        RCALL   USART_transmit
+//   88     index--;
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+//   89     numarCaractere--;
+        LDI     R16, 255
+        ADD     R6, R16
+        LDI     R16, 255
+        ADC     R7, R16
+        RJMP    ??hexadecimalTransmit_3
+//   90   }
+//   91 }
+??hexadecimalTransmit_6:
+        ADIW    R29:R28, 9
+          CFI CFA_Y Y+16
+        LDI     R30, 16
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock5
+//   92 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   93 unsigned int USART_receive_hexa_adress() // format : 0x????
+USART_receive_hexa_adress:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function USART_receive_hexa_adress
+//   94 {
+        FUNCALL USART_receive_hexa_adress, USART_receive
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL USART_receive_hexa_adress, USART_receive
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL USART_receive_hexa_adress, USART_receive
+        LOCFRAME CSTACK, 6, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE6_L09
+          CFI R5 Frame(CFA_Y, -1)
+          CFI R4 Frame(CFA_Y, -2)
+          CFI R27 Frame(CFA_Y, -3)
+          CFI R26 Frame(CFA_Y, -4)
+          CFI R25 Frame(CFA_Y, -5)
+          CFI R24 Frame(CFA_Y, -6)
+          CFI CFA_Y Y+6
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+//   95   unsigned int myNo = 0;
+        CLR     R4
+        CLR     R5
+//   96   unsigned char recC = USART_receive(); // 0
+        RCALL   USART_receive
+        MOV     R24, R16
+//   97   recC = USART_receive();               // x
+        RCALL   USART_receive
+        MOV     R24, R16
+//   98   
+//   99   unsigned int i;
+//  100   for(i = 0; i < 4; i++)
+        LDI     R26, 0
+        LDI     R27, 0
+??USART_receive_hexa_adress_0:
+        CPI     R26, 4
+        LDI     R16, 0
+        CPC     R27, R16
+        BRCC    ??USART_receive_hexa_adress_1
+//  101   {
+//  102     recC = USART_receive();
+        RCALL   USART_receive
+        MOV     R24, R16
+//  103     if(recC <= '9')
+        CPI     R24, 58
+        BRCC    ??USART_receive_hexa_adress_2
+//  104       myNo = myNo * 16 + (recC - '0');
+        LDI     R16, 16
+        LDI     R17, 0
+        MOVW    R21:R20, R5:R4
+        CALL    ?S_EC_MUL_L02
+        MOVW    R5:R4, R17:R16
+        MOV     R30, R24
+        LDI     R31, 0
+        SBIW    R31:R30, 48
+        ADD     R4, R30
+        ADC     R5, R31
+//  105     if(recC >= 'A')
+??USART_receive_hexa_adress_2:
+        CPI     R24, 65
+        BRCS    ??USART_receive_hexa_adress_3
+//  106       myNo = myNo * 16 + (recC - 'A' + 10);
+        LDI     R16, 16
+        LDI     R17, 0
+        MOVW    R21:R20, R5:R4
+        CALL    ?S_EC_MUL_L02
+        MOVW    R5:R4, R17:R16
+        MOV     R30, R24
+        LDI     R31, 0
+        SBIW    R31:R30, 55
+        ADD     R4, R30
+        ADC     R5, R31
+//  107   }
+??USART_receive_hexa_adress_3:
+        ADIW    R27:R26, 1
+        RJMP    ??USART_receive_hexa_adress_0
+//  108   return myNo;
+??USART_receive_hexa_adress_1:
+        MOVW    R17:R16, R5:R4
+        LDI     R30, 6
+        JMP     ?EPILOGUE_B6_L09
+          CFI EndBlock cfiBlock6
+//  109 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_0`:
+        DD 0, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_0_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_1`:
+        DD 10, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_a_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_1`
+
+        END
+// 
+//   5 bytes in segment ABSOLUTE
+// 676 bytes in segment CODE
+//   6 bytes in segment INITTAB
+//  16 bytes in segment NEAR_I
+//  16 bytes in segment NEAR_ID
+// 
+// 676 bytes of CODE memory (+ 22 bytes shared)
+//   0 bytes of DATA memory (+ 21 bytes shared)
+//
+//Errors: none
+//Warnings: none

@@ -1,0 +1,339 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       09/Jan/2016  07:09:21 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_ser /
+//                    iala\main.c                                             /
+//    Command line =  "D:\soc 2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_se /
+//                    riala\main.c" --cpu=m16 -ms -o "D:\soc                  /
+//                    2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_seriala\De /
+//                    bug\Obj\" -lC "D:\soc 2015\TEMP\SOC_pachet_examen\CRC16 /
+//                    _FLASH_2adr_seriala\Debug\List\" -lA "D:\soc            /
+//                    2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_seriala\De /
+//                    bug\List\" --initializers_in_flash --no_cse             /
+//                    --no_inline --no_code_motion --no_cross_call            /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_ser /
+//                    iala\Debug\List\main.s90                                /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?PROLOGUE10_L09
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+
+        PUBWEAK _A_DDRD
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC main
+        FUNCTION main,021a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 11, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        EXTERN USART_init
+        FUNCTION USART_init,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_receive_hexa_adress
+        FUNCTION USART_receive_hexa_adress,0200H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN crc16
+        FUNCTION crc16,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN crc16wtable
+        FUNCTION crc16wtable,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN hexadecimalTransmit
+        FUNCTION hexadecimalTransmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\soc 2015\TEMP\SOC_pachet_examen\CRC16_FLASH_2adr_seriala\main.c
+//    1 #include<iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    2 #include<inavr.h>
+//    3 #include"crc.h"
+//    4 #include"usart.h"
+//    5 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    6 void main( void )
+main:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function main
+//    7 {
+        FUNCALL main, USART_init
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_receive_hexa_adress
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_receive_hexa_adress
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, crc16
+        LOCFRAME CSTACK, 11, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, crc16wtable
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, hexadecimalTransmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE10_L09
+          CFI R9 Frame(CFA_Y, -1)
+          CFI R8 Frame(CFA_Y, -2)
+          CFI R7 Frame(CFA_Y, -3)
+          CFI R6 Frame(CFA_Y, -4)
+          CFI R5 Frame(CFA_Y, -5)
+          CFI R4 Frame(CFA_Y, -6)
+          CFI R27 Frame(CFA_Y, -7)
+          CFI R26 Frame(CFA_Y, -8)
+          CFI R25 Frame(CFA_Y, -9)
+          CFI R24 Frame(CFA_Y, -10)
+          CFI CFA_Y Y+10
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+//    8   USART_init(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_init
+//    9   DDRD |= (1 << PD1);
+        SBI     0x11, 0x01
+//   10   
+//   11   unsigned int startAdress, finalAdress;
+//   12   unsigned int memLen;
+//   13   unsigned int my_crc16_calc;
+//   14   unsigned int my_crc16_tab;
+//   15   
+//   16   while(1)
+//   17   {
+//   18     startAdress = USART_receive_hexa_adress();
+??main_0:
+        CALL    USART_receive_hexa_adress
+        MOVW    R25:R24, R17:R16
+//   19     finalAdress = USART_receive_hexa_adress();
+        CALL    USART_receive_hexa_adress
+        MOVW    R27:R26, R17:R16
+//   20     memLen = finalAdress - startAdress;
+        MOVW    R17:R16, R27:R26
+        SUB     R16, R24
+        SBC     R17, R25
+        MOVW    R7:R6, R17:R16
+//   21     
+//   22     my_crc16_calc = crc16(CRC16_CCITT, 0, startAdress, memLen, MSBF);
+        LDI     R16, 1
+        ST      -Y, R16
+          CFI CFA_Y Y+11
+        MOVW    R23:R22, R7:R6
+        MOVW    R21:R20, R25:R24
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R16, 33
+        LDI     R17, 16
+        CALL    crc16
+          CFI CFA_Y Y+10
+        MOVW    R5:R4, R17:R16
+//   23     my_crc16_tab = crc16wtable(0, startAdress, memLen);
+        MOVW    R21:R20, R7:R6
+        MOVW    R19:R18, R25:R24
+        LDI     R16, 0
+        LDI     R17, 0
+        CALL    crc16wtable
+        MOVW    R9:R8, R17:R16
+//   24     
+//   25     USART_transmit('C');
+        LDI     R16, 67
+        CALL    USART_transmit
+//   26     USART_transmit('R');
+        LDI     R16, 82
+        CALL    USART_transmit
+//   27     USART_transmit('C');
+        LDI     R16, 67
+        CALL    USART_transmit
+//   28     USART_transmit('1');
+        LDI     R16, 49
+        CALL    USART_transmit
+//   29     USART_transmit('6');
+        LDI     R16, 54
+        CALL    USART_transmit
+//   30     USART_transmit(':');
+        LDI     R16, 58
+        CALL    USART_transmit
+//   31     USART_transmit(' ');
+        LDI     R16, 32
+        CALL    USART_transmit
+//   32     hexadecimalTransmit(my_crc16_calc);
+        MOVW    R17:R16, R5:R4
+        CALL    hexadecimalTransmit
+//   33     USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   34     USART_transmit('\n');
+        LDI     R16, 10
+        CALL    USART_transmit
+        RJMP    ??main_0
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_DDRD
+//   35   }
+//   36 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//   1 byte  in segment ABSOLUTE
+// 132 bytes in segment CODE
+// 
+// 132 bytes of CODE memory
+//   0 bytes of DATA memory (+ 1 byte shared)
+//
+//Errors: none
+//Warnings: 1

@@ -1,0 +1,231 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        22/Dec/2015  17:07:30 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\main.c      #
+#    Command line =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\main.c      #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\GenF_MOD14_ #
+#                    1%sec\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\GenF_MO #
+#                    D14_1%sec\Debug\List\ -lA D:\soc2015\1305B\LucruExtra\Ge #
+#                    nF_MOD14_1%sec\Debug\List\ --initializers_in_flash       #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\List\ #
+#                    main.lst                                                 #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\Obj\m #
+#                    ain.r90                                                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\main.c
+      1          #include "timer1.h"
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x46
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          #include "usart.h"
+      3          
+      4          extern unsigned int softCount;
+      5          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      6          void main( void )
+   \                     main:
+      7          { 
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+      8            USART_init(BAUD_RATE);
+   \   00000004   E00C               LDI     R16, 12
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   ........           CALL    USART_init
+      9            DDRD |= (1 << PD1);
+   \   0000000C   9A89               SBI     0x11, 0x01
+     10            DDRD &= ~(1 << PD0);
+   \   0000000E   9888               CBI     0x11, 0x00
+     11            
+     12            TIMSK |= (1 << TOIE0);
+   \   00000010   B709               IN      R16, 0x39
+   \   00000012   6001               ORI     R16, 0x01
+   \   00000014   BF09               OUT     0x39, R16
+     13            __enable_interrupt();
+   \   00000016   9478               SEI
+     14            
+     15            DDRD |= (1 << PD5);
+   \   00000018   9A8D               SBI     0x11, 0x05
+     16            TIMER1_init();
+   \   0000001A   ........           CALL    TIMER1_init
+     17            TIMER0_init();
+   \   0000001E   ........           CALL    TIMER0_init
+     18            
+     19            unsigned int direction = 1;
+   \   00000022   2477               CLR     R7
+   \   00000024   2466               CLR     R6
+   \   00000026   9463               INC     R6
+     20            unsigned int duty = 5;
+   \   00000028   E005               LDI     R16, 5
+   \   0000002A   2E40               MOV     R4, R16
+   \   0000002C   2455               CLR     R5
+     21            unsigned long int aux;
+     22            while(1)
+     23            {
+     24              if(softCount == 0)
+   \                     ??main_0:
+   \   0000002E   9100....           LDS     R16, softCount
+   \   00000032   9110....           LDS     R17, (softCount + 1)
+   \   00000036   2B01               OR      R16, R17
+   \   00000038   F7D1               BRNE    ??main_0
+     25              {
+     26                softCount++;
+   \   0000003A   ....               LDI     R30, LOW(softCount)
+   \   0000003C   ....               LDI     R31, (softCount) >> 8
+   \   0000003E   8100               LD      R16, Z
+   \   00000040   8111               LDD     R17, Z+1
+   \   00000042   5F0F               SUBI    R16, 255
+   \   00000044   4F1F               SBCI    R17, 255
+   \   00000046   8300               ST      Z, R16
+   \   00000048   8311               STD     Z+1, R17
+     27                if(duty >= 95) 
+   \   0000004A   E50F               LDI     R16, 95
+   \   0000004C   1640               CP      R4, R16
+   \   0000004E   E000               LDI     R16, 0
+   \   00000050   0650               CPC     R5, R16
+   \   00000052   F010               BRCS    ??main_1
+     28                  direction = 0;
+   \   00000054   2466               CLR     R6
+   \   00000056   2477               CLR     R7
+     29                if(duty <= 5) 
+   \                     ??main_1:
+   \   00000058   E006               LDI     R16, 6
+   \   0000005A   1640               CP      R4, R16
+   \   0000005C   E000               LDI     R16, 0
+   \   0000005E   0650               CPC     R5, R16
+   \   00000060   F418               BRCC    ??main_2
+     30                  direction = 1;
+   \   00000062   2477               CLR     R7
+   \   00000064   2466               CLR     R6
+   \   00000066   9463               INC     R6
+     31                if(direction == 1) duty++;
+   \                     ??main_2:
+   \   00000068   E001               LDI     R16, 1
+   \   0000006A   1660               CP      R6, R16
+   \   0000006C   E000               LDI     R16, 0
+   \   0000006E   0670               CPC     R7, R16
+   \   00000070   F429               BRNE    ??main_3
+   \   00000072   E001               LDI     R16, 1
+   \   00000074   0E40               ADD     R4, R16
+   \   00000076   E000               LDI     R16, 0
+   \   00000078   1E50               ADC     R5, R16
+   \   0000007A   C004               RJMP    ??main_4
+     32                else duty--;
+   \                     ??main_3:
+   \   0000007C   EF0F               LDI     R16, 255
+   \   0000007E   0E40               ADD     R4, R16
+   \   00000080   EF0F               LDI     R16, 255
+   \   00000082   1E50               ADC     R5, R16
+     33                aux = ICR1;
+   \                     ??main_4:
+   \   00000084   B506               IN      R16, 0x26
+   \   00000086   B517               IN      R17, 0x27
+   \   00000088   E020               LDI     R18, 0
+   \   0000008A   E030               LDI     R19, 0
+   \   0000008C   01C8               MOVW    R25:R24, R17:R16
+   \   0000008E   01D9               MOVW    R27:R26, R19:R18
+     34                aux = aux * duty / 100;
+   \   00000090   0182               MOVW    R17:R16, R5:R4
+   \   00000092   E020               LDI     R18, 0
+   \   00000094   E030               LDI     R19, 0
+   \   00000096   01AC               MOVW    R21:R20, R25:R24
+   \   00000098   01BD               MOVW    R23:R22, R27:R26
+   \   0000009A   ........           CALL    ?L_EC_MUL_L03
+   \   0000009E   E644               LDI     R20, 100
+   \   000000A0   E050               LDI     R21, 0
+   \   000000A2   E060               LDI     R22, 0
+   \   000000A4   E070               LDI     R23, 0
+   \   000000A6   ........           CALL    ?UL_DIVMOD_L03
+   \   000000AA   01C8               MOVW    R25:R24, R17:R16
+   \   000000AC   01D9               MOVW    R27:R26, R19:R18
+     35                OCR1A = aux;
+   \   000000AE   018C               MOVW    R17:R16, R25:R24
+   \   000000B0   BD1B               OUT     0x2B, R17
+   \   000000B2   BD0A               OUT     0x2A, R16
+     36                
+     37                USART_transmit('<');
+   \   000000B4   E30C               LDI     R16, 60
+   \   000000B6   ........           CALL    USART_transmit
+     38                USART_transmit('F');
+   \   000000BA   E406               LDI     R16, 70
+   \   000000BC   ........           CALL    USART_transmit
+     39                USART_transmit('U');
+   \   000000C0   E505               LDI     R16, 85
+   \   000000C2   ........           CALL    USART_transmit
+     40                USART_transmit(':');
+   \   000000C6   E30A               LDI     R16, 58
+   \   000000C8   ........           CALL    USART_transmit
+     41                USART_transmit_uint(duty);
+   \   000000CC   0182               MOVW    R17:R16, R5:R4
+   \   000000CE   ........           CALL    USART_transmit_uint
+     42                USART_transmit('>');
+   \   000000D2   E30E               LDI     R16, 62
+   \   000000D4   ........           CALL    USART_transmit
+   \   000000D8   CFAA               RJMP    ??main_0
+   \   000000DA                      REQUIRE _A_DDRD
+   \   000000DA                      REQUIRE _A_TIMSK
+   \   000000DA                      REQUIRE _A_ICR1
+   \   000000DA                      REQUIRE _A_OCR1A
+     43              }
+     44            }
+     45          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       8      4  main
+                   8 2 -> TIMER0_init
+                   8 2 -> TIMER1_init
+                   8 2 -> USART_init
+                   8 2 -> USART_transmit
+                   8 2 -> USART_transmit_uint
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  _A_DDRD
+       2  _A_ICR1
+       2  _A_OCR1A
+       1  _A_TIMSK
+     218  main
+
+ 
+   6 bytes in segment ABSOLUTE
+ 218 bytes in segment CODE
+ 
+ 218 bytes of CODE memory
+   0 bytes of DATA memory (+ 6 bytes shared)
+
+Errors: none
+Warnings: none

@@ -1,0 +1,360 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        11/Jan/2016  19:35:45 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\main.c                                              #
+#    Command line =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\main.c --cpu=m16 -ms -o                             #
+#                    D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\Debug\Obj\ -lC D:\SOC2015\TEMP\SOC_pachet_examen\Ma #
+#                    s_HighFqFuncGen_SendSeri\Debug\List\ -lA                 #
+#                    D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\Debug\List\ --initializers_in_flash --no_cse        #
+#                    --no_inline --no_code_motion --no_cross_call             #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\Debug\List\main.lst                                 #
+#    Object file  =  D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_Send #
+#                    Seri\Debug\Obj\main.r90                                  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\SOC2015\TEMP\SOC_pachet_examen\Mas_HighFqFuncGen_SendSeri\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x5c
+   \   union <unnamed> volatile __io _A_OCR0
+   \                     _A_OCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          #include "usart.h"
+      4          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      5          unsigned int nrOvf;
+   \                     nrOvf:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      6          unsigned int softCount;
+   \                     softCount:
+   \   00000000                      DS8 2
+      7          
+      8          #pragma vector = TIMER0_COMP_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      9          __interrupt void isr_TIMER0_COMP_vect()
+   \                     isr_TIMER0_COMP_vect:
+     10          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     11            softCount++;
+   \   0000000C   ....               LDI     R30, LOW(softCount)
+   \   0000000E   ....               LDI     R31, (softCount) >> 8
+   \   00000010   8100               LD      R16, Z
+   \   00000012   8111               LDD     R17, Z+1
+   \   00000014   5F0F               SUBI    R16, 255
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   8300               ST      Z, R16
+   \   0000001A   8311               STD     Z+1, R17
+     12          }
+   \   0000001C   BF2F               OUT     0x3F, R18
+   \   0000001E   9109               LD      R16, Y+
+   \   00000020   9119               LD      R17, Y+
+   \   00000022   9129               LD      R18, Y+
+   \   00000024   91E9               LD      R30, Y+
+   \   00000026   91F9               LD      R31, Y+
+   \   00000028   9518               RETI
+     13          
+     14          #pragma vector = TIMER1_OVF_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     15          __interrupt void isr_TIMER1_OVF_vect()
+   \                     isr_TIMER1_OVF_vect:
+     16          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     17            nrOvf++;
+   \   0000000C   ....               LDI     R30, LOW(nrOvf)
+   \   0000000E   ....               LDI     R31, (nrOvf) >> 8
+   \   00000010   8100               LD      R16, Z
+   \   00000012   8111               LDD     R17, Z+1
+   \   00000014   5F0F               SUBI    R16, 255
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   8300               ST      Z, R16
+   \   0000001A   8311               STD     Z+1, R17
+     18          }
+   \   0000001C   BF2F               OUT     0x3F, R18
+   \   0000001E   9109               LD      R16, Y+
+   \   00000020   9119               LD      R17, Y+
+   \   00000022   9129               LD      R18, Y+
+   \   00000024   91E9               LD      R30, Y+
+   \   00000026   91F9               LD      R31, Y+
+   \   00000028   9518               RETI
+     19          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     20          void main( void )
+   \                     main:
+     21          {
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   9728               SBIW    R29:R28, 8
+     22            USART_init(BAUD_RATE);
+   \   00000006   E00C               LDI     R16, 12
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    USART_init
+     23            DDRD |= (1 << PD1);
+   \   0000000E   9A89               SBI     0x11, 0x01
+     24            
+     25            TCCR0 |= (1 << WGM01) | (1 << CS02) | (1 << CS00);
+   \   00000010   B703               IN      R16, 0x33
+   \   00000012   600D               ORI     R16, 0x0D
+   \   00000014   BF03               OUT     0x33, R16
+     26            TIMSK |= (1 << OCIE0);
+   \   00000016   B709               IN      R16, 0x39
+   \   00000018   6002               ORI     R16, 0x02
+   \   0000001A   BF09               OUT     0x39, R16
+     27            OCR0 = 247;
+   \   0000001C   EF07               LDI     R16, 247
+   \   0000001E   BF0C               OUT     0x3C, R16
+     28            
+     29            TCCR1B |= (1 << CS12) | (1 << CS11);
+   \   00000020   B50E               IN      R16, 0x2E
+   \   00000022   6006               ORI     R16, 0x06
+   \   00000024   BD0E               OUT     0x2E, R16
+     30            TIMSK |= (1 << TOIE1);
+   \   00000026   B709               IN      R16, 0x39
+   \   00000028   6004               ORI     R16, 0x04
+   \   0000002A   BF09               OUT     0x39, R16
+     31             __enable_interrupt();
+   \   0000002C   9478               SEI
+     32            
+     33            unsigned long long fq;
+     34            while(1)
+     35            {
+     36              if(softCount == 16)
+   \                     ??main_0:
+   \   0000002E   9100....           LDS     R16, softCount
+   \   00000032   9110....           LDS     R17, (softCount + 1)
+   \   00000036   3100               CPI     R16, 16
+   \   00000038   E020               LDI     R18, 0
+   \   0000003A   0712               CPC     R17, R18
+   \   0000003C   F7C1               BRNE    ??main_0
+     37              {     
+     38                fq = nrOvf;
+   \   0000003E   9100....           LDS     R16, nrOvf
+   \   00000042   9110....           LDS     R17, (nrOvf + 1)
+   \   00000046   E020               LDI     R18, 0
+   \   00000048   E030               LDI     R19, 0
+   \   0000004A   E040               LDI     R20, 0
+   \   0000004C   E050               LDI     R21, 0
+   \   0000004E   E060               LDI     R22, 0
+   \   00000050   E070               LDI     R23, 0
+   \   00000052   0148               MOVW    R9:R8, R17:R16
+   \   00000054   0159               MOVW    R11:R10, R19:R18
+   \   00000056   016A               MOVW    R13:R12, R21:R20
+   \   00000058   017B               MOVW    R15:R14, R23:R22
+     39                fq = fq * 65536 + TCNT1;
+   \   0000005A   B50C               IN      R16, 0x2C
+   \   0000005C   B51D               IN      R17, 0x2D
+   \   0000005E   E020               LDI     R18, 0
+   \   00000060   E030               LDI     R19, 0
+   \   00000062   E040               LDI     R20, 0
+   \   00000064   E050               LDI     R21, 0
+   \   00000066   E060               LDI     R22, 0
+   \   00000068   E070               LDI     R23, 0
+   \   0000006A   8308               ST      Y, R16
+   \   0000006C   8319               STD     Y+1, R17
+   \   0000006E   832A               STD     Y+2, R18
+   \   00000070   833B               STD     Y+3, R19
+   \   00000072   834C               STD     Y+4, R20
+   \   00000074   835D               STD     Y+5, R21
+   \   00000076   836E               STD     Y+6, R22
+   \   00000078   837F               STD     Y+7, R23
+   \   0000007A   0184               MOVW    R17:R16, R9:R8
+   \   0000007C   0195               MOVW    R19:R18, R11:R10
+   \   0000007E   01A6               MOVW    R21:R20, R13:R12
+   \   00000080   01B7               MOVW    R23:R22, R15:R14
+   \   00000082   ....               LDI     R26, LOW(__Constant_10000_0)
+   \   00000084   ....               LDI     R27, (__Constant_10000_0) >> 8
+   \   00000086   ........           CALL    ?LL_MUL_L12
+   \   0000008A   01FE               MOVW    R31:R30, R29:R28
+   \   0000008C   ........           CALL    ?LL_ADD_L12
+   \   00000090   0148               MOVW    R9:R8, R17:R16
+   \   00000092   0159               MOVW    R11:R10, R19:R18
+   \   00000094   016A               MOVW    R13:R12, R21:R20
+   \   00000096   017B               MOVW    R15:R14, R23:R22
+     40                
+     41                USART_transmit('<');
+   \   00000098   E30C               LDI     R16, 60
+   \   0000009A   ........           CALL    USART_transmit
+     42                USART_transmit('F');
+   \   0000009E   E406               LDI     R16, 70
+   \   000000A0   ........           CALL    USART_transmit
+     43                USART_transmit('Q');
+   \   000000A4   E501               LDI     R16, 81
+   \   000000A6   ........           CALL    USART_transmit
+     44                USART_transmit('=');
+   \   000000AA   E30D               LDI     R16, 61
+   \   000000AC   ........           CALL    USART_transmit
+     45                USART_transmit_ulonglong(fq);
+   \   000000B0   0184               MOVW    R17:R16, R9:R8
+   \   000000B2   0195               MOVW    R19:R18, R11:R10
+   \   000000B4   01A6               MOVW    R21:R20, R13:R12
+   \   000000B6   01B7               MOVW    R23:R22, R15:R14
+   \   000000B8   ........           CALL    USART_transmit_ulonglong
+     46                USART_transmit('H');
+   \   000000BC   E408               LDI     R16, 72
+   \   000000BE   ........           CALL    USART_transmit
+     47                USART_transmit('z');
+   \   000000C2   E70A               LDI     R16, 122
+   \   000000C4   ........           CALL    USART_transmit
+     48                USART_transmit('>');
+   \   000000C8   E30E               LDI     R16, 62
+   \   000000CA   ........           CALL    USART_transmit
+     49                USART_transmit('\r');
+   \   000000CE   E00D               LDI     R16, 13
+   \   000000D0   ........           CALL    USART_transmit
+     50                USART_transmit('\n');
+   \   000000D4   E00A               LDI     R16, 10
+   \   000000D6   ........           CALL    USART_transmit
+     51                
+     52                softCount = 0;
+   \   000000DA   E000               LDI     R16, 0
+   \   000000DC   E010               LDI     R17, 0
+   \   000000DE   9300....           STS     softCount, R16
+   \   000000E2   9310....           STS     (softCount + 1), R17
+     53                nrOvf = 0;
+   \   000000E6   E000               LDI     R16, 0
+   \   000000E8   E010               LDI     R17, 0
+   \   000000EA   9300....           STS     nrOvf, R16
+   \   000000EE   9310....           STS     (nrOvf + 1), R17
+     54                TCNT1 = 0;
+   \   000000F2   E000               LDI     R16, 0
+   \   000000F4   E010               LDI     R17, 0
+   \   000000F6   BD1D               OUT     0x2D, R17
+   \   000000F8   BD0C               OUT     0x2C, R16
+   \   000000FA   CF99               RJMP    ??main_0
+   \   000000FC                      REQUIRE _A_DDRD
+   \   000000FC                      REQUIRE _A_TCCR0
+   \   000000FC                      REQUIRE _A_TIMSK
+   \   000000FC                      REQUIRE _A_OCR0
+   \   000000FC                      REQUIRE _A_TCCR1B
+   \   000000FC                      REQUIRE _A_TCNT1
+     55              }
+     56            }
+     57          }
+
+   \                                 In  segment INTVEC, offset 0x20, root
+   \                     `??isr_TIMER1_OVF_vect??INTVEC 32`:
+   \   00000020   ........           JMP     isr_TIMER1_OVF_vect
+
+   \                                 In  segment INTVEC, offset 0x4c, root
+   \                     `??isr_TIMER0_COMP_vect??INTVEC 76`:
+   \   0000004C   ........           JMP     isr_TIMER0_COMP_vect
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for 64 Bit Constant>_0`:
+   \   00000000   000000010000       DD 65536, 0
+   \              0000        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     __Constant_10000_0:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       5      2  isr_TIMER0_COMP_vect
+       5      2  isr_TIMER1_OVF_vect
+      24      4  main
+                   24 2 -> USART_init
+                   24 2 -> USART_transmit
+                   24 2 -> USART_transmit_ulonglong
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       8  ?<Initializer for 64 Bit Constant>_0
+       4  ??isr_TIMER0_COMP_vect??INTVEC 76
+       4  ??isr_TIMER1_OVF_vect??INTVEC 32
+       1  _A_DDRD
+       1  _A_OCR0
+       1  _A_TCCR0
+       1  _A_TCCR1B
+       2  _A_TCNT1
+       1  _A_TIMSK
+       8  __Constant_10000_0
+      42  isr_TIMER0_COMP_vect
+      42  isr_TIMER1_OVF_vect
+     252  main
+       2  nrOvf
+       2  softCount
+      12  -- Other
+
+ 
+   7 bytes in segment ABSOLUTE
+ 336 bytes in segment CODE
+  12 bytes in segment INITTAB
+   8 bytes in segment INTVEC
+   8 bytes in segment NEAR_I
+   8 bytes in segment NEAR_ID
+   4 bytes in segment NEAR_Z
+ 
+ 336 bytes of CODE memory (+ 28 bytes shared)
+   4 bytes of DATA memory (+ 15 bytes shared)
+
+Errors: none
+Warnings: none

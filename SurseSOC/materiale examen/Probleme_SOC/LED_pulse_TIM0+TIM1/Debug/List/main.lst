@@ -1,0 +1,270 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        29/Dec/2015  18:25:00 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\main.c   #
+#    Command line =  D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\main.c   #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\LED_pulse_T #
+#                    IM0+TIM1\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\LED_ #
+#                    pulse_TIM0+TIM1\Debug\List\ -lA                          #
+#                    D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\Debug\Li #
+#                    st\ --initializers_in_flash --no_cse --no_inline         #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\Debug\Li #
+#                    st\main.lst                                              #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\Debug\Ob #
+#                    j\main.r90                                               #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\LED_pulse_TIM0+TIM1\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x5c
+   \   union <unnamed> volatile __io _A_OCR0
+   \                     _A_OCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4f
+   \   union <unnamed> volatile __io _A_TCCR1A
+   \                     _A_TCCR1A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x46
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      4          unsigned int softFlag;
+   \                     softFlag:
+   \   00000000                      DS8 2
+      5          
+      6          #pragma vector = TIMER0_COMP_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      7          __interrupt void isr_TIMER0_COMP_vect()
+   \                     isr_TIMER0_COMP_vect:
+      8          {
+   \   00000000   932A               ST      -Y, R18
+   \   00000002   931A               ST      -Y, R17
+   \   00000004   930A               ST      -Y, R16
+   \   00000006   B72F               IN      R18, 0x3F
+      9            softFlag = 1;
+   \   00000008   E001               LDI     R16, 1
+   \   0000000A   E010               LDI     R17, 0
+   \   0000000C   9300....           STS     softFlag, R16
+   \   00000010   9310....           STS     (softFlag + 1), R17
+     10          }
+   \   00000014   BF2F               OUT     0x3F, R18
+   \   00000016   9109               LD      R16, Y+
+   \   00000018   9119               LD      R17, Y+
+   \   0000001A   9129               LD      R18, Y+
+   \   0000001C   9518               RETI
+     11          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     12          void main( void )
+   \                     main:
+     13          {
+   \   00000000   ........           CALL    ?PROLOGUE3_L09
+     14            TCCR0 = (1 << WGM01) | (0 << WGM00) | (1 << CS02) | (0 << CS01) | (1 << CS00);
+   \   00000004   E00D               LDI     R16, 13
+   \   00000006   BF03               OUT     0x33, R16
+     15            OCR0 = 206;
+   \   00000008   EC0E               LDI     R16, 206
+   \   0000000A   BF0C               OUT     0x3C, R16
+     16            TIMSK |= (1 << OCIE0);
+   \   0000000C   B709               IN      R16, 0x39
+   \   0000000E   6002               ORI     R16, 0x02
+   \   00000010   BF09               OUT     0x39, R16
+     17            __enable_interrupt();
+   \   00000012   9478               SEI
+     18            
+     19            TCCR1A |= (1 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+   \   00000014   B50F               IN      R16, 0x2F
+   \   00000016   6802               ORI     R16, 0x82
+   \   00000018   BD0F               OUT     0x2F, R16
+     20            TCCR1B |= (1 << WGM13) | (1 << WGM12) | (0 << CS12) | (1 << CS11) | (0 << CS10);
+   \   0000001A   B50E               IN      R16, 0x2E
+   \   0000001C   610A               ORI     R16, 0x1A
+   \   0000001E   BD0E               OUT     0x2E, R16
+     21            ICR1 = 502;
+   \   00000020   EF06               LDI     R16, 246
+   \   00000022   E011               LDI     R17, 1
+   \   00000024   BD17               OUT     0x27, R17
+   \   00000026   BD06               OUT     0x26, R16
+     22            OCR1A = 502 * 5 / 100;
+   \   00000028   E109               LDI     R16, 25
+   \   0000002A   E010               LDI     R17, 0
+   \   0000002C   BD1B               OUT     0x2B, R17
+   \   0000002E   BD0A               OUT     0x2A, R16
+     23            
+     24            unsigned char direction = 1;
+   \   00000030   E0A1               LDI     R26, 1
+     25            unsigned int duty = 5;
+   \   00000032   E085               LDI     R24, 5
+   \   00000034   E090               LDI     R25, 0
+     26            unsigned long aux;
+     27            
+     28            DDRD = (1 << PD5);
+   \   00000036   E240               LDI     R20, 32
+   \   00000038   BB41               OUT     0x11, R20
+     29            
+     30            while(1)
+     31            {
+     32              if(softFlag == 1)
+   \                     ??main_0:
+   \   0000003A   9140....           LDS     R20, softFlag
+   \   0000003E   9150....           LDS     R21, (softFlag + 1)
+   \   00000042   3041               CPI     R20, 1
+   \   00000044   E060               LDI     R22, 0
+   \   00000046   0756               CPC     R21, R22
+   \   00000048   F7C1               BRNE    ??main_0
+     33              {
+     34                softFlag = 0;
+   \   0000004A   E040               LDI     R20, 0
+   \   0000004C   E050               LDI     R21, 0
+   \   0000004E   9340....           STS     softFlag, R20
+   \   00000052   9350....           STS     (softFlag + 1), R21
+     35                if(direction == 0)
+   \   00000056   23AA               TST     R26
+   \   00000058   F411               BRNE    ??main_1
+     36                {
+     37                  duty = duty - 5;
+   \   0000005A   9705               SBIW    R25:R24, 5
+   \   0000005C   C001               RJMP    ??main_2
+     38                }
+     39                else
+     40                {
+     41                  duty = duty + 5;
+   \                     ??main_1:
+   \   0000005E   9605               ADIW    R25:R24, 5
+     42          
+     43                }
+     44                if(duty > 95)
+   \                     ??main_2:
+   \   00000060   3680               CPI     R24, 96
+   \   00000062   E040               LDI     R20, 0
+   \   00000064   0794               CPC     R25, R20
+   \   00000066   F008               BRCS    ??main_3
+     45                  direction = 0;
+   \   00000068   E0A0               LDI     R26, 0
+     46                if(duty < 5)
+   \                     ??main_3:
+   \   0000006A   3085               CPI     R24, 5
+   \   0000006C   E040               LDI     R20, 0
+   \   0000006E   0794               CPC     R25, R20
+   \   00000070   F408               BRCC    ??main_4
+     47                  direction = 1;
+   \   00000072   E0A1               LDI     R26, 1
+     48                
+     49                aux = ICR1;
+   \                     ??main_4:
+   \   00000074   B546               IN      R20, 0x26
+   \   00000076   B557               IN      R21, 0x27
+   \   00000078   E060               LDI     R22, 0
+   \   0000007A   E070               LDI     R23, 0
+   \   0000007C   018A               MOVW    R17:R16, R21:R20
+   \   0000007E   019B               MOVW    R19:R18, R23:R22
+     50                aux = aux * duty / 100;
+   \   00000080   01AC               MOVW    R21:R20, R25:R24
+   \   00000082   E060               LDI     R22, 0
+   \   00000084   E070               LDI     R23, 0
+   \   00000086   ........           CALL    ?L_EC_MUL_L03
+   \   0000008A   E644               LDI     R20, 100
+   \   0000008C   E050               LDI     R21, 0
+   \   0000008E   E060               LDI     R22, 0
+   \   00000090   E070               LDI     R23, 0
+   \   00000092   ........           CALL    ?UL_DIVMOD_L03
+     51                OCR1A = aux;
+   \   00000096   01A8               MOVW    R21:R20, R17:R16
+   \   00000098   BD5B               OUT     0x2B, R21
+   \   0000009A   BD4A               OUT     0x2A, R20
+   \   0000009C   CFCE               RJMP    ??main_0
+   \   0000009E                      REQUIRE _A_TCCR0
+   \   0000009E                      REQUIRE _A_OCR0
+   \   0000009E                      REQUIRE _A_TIMSK
+   \   0000009E                      REQUIRE _A_TCCR1A
+   \   0000009E                      REQUIRE _A_TCCR1B
+   \   0000009E                      REQUIRE _A_ICR1
+   \   0000009E                      REQUIRE _A_OCR1A
+   \   0000009E                      REQUIRE _A_DDRD
+     52              }
+     53            }
+     54          }
+
+   \                                 In  segment INTVEC, offset 0x4c, root
+   \                     `??isr_TIMER0_COMP_vect??INTVEC 76`:
+   \   0000004C   ........           JMP     isr_TIMER0_COMP_vect
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       3      2  isr_TIMER0_COMP_vect
+       3      4  main
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_TIMER0_COMP_vect??INTVEC 76
+       1  _A_DDRD
+       2  _A_ICR1
+       1  _A_OCR0
+       2  _A_OCR1A
+       1  _A_TCCR0
+       1  _A_TCCR1A
+       1  _A_TCCR1B
+       1  _A_TIMSK
+      30  isr_TIMER0_COMP_vect
+     158  main
+       2  softFlag
+       6  -- Other
+
+ 
+  10 bytes in segment ABSOLUTE
+ 188 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   2 bytes in segment NEAR_Z
+ 
+ 188 bytes of CODE memory (+ 10 bytes shared)
+   2 bytes of DATA memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

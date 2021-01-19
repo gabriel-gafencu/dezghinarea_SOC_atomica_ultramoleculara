@@ -1,0 +1,515 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       23/Dec/2015  14:45:16 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc2015\1305B\LucruExtra\INT0_Measure_Low_freq\main. /
+//                    c                                                       /
+//    Command line =  D:\soc2015\1305B\LucruExtra\INT0_Measure_Low_freq\main. /
+//                    c --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\INT0_Mea /
+//                    sure_Low_freq\Debug\Obj\ -lC                            /
+//                    D:\soc2015\1305B\LucruExtra\INT0_Measure_Low_freq\Debug /
+//                    \List\ -lA D:\soc2015\1305B\LucruExtra\INT0_Measure_Low /
+//                    _freq\Debug\List\ --initializers_in_flash --no_cse      /
+//                    --no_inline --no_code_motion --no_cross_call            /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\soc2015\1305B\LucruExtra\INT0_Measure_Low_freq\Debug /
+//                    \List\main.s90                                          /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??isr_INT0_vect??INTVEC 4`
+        PUBWEAK `??isr_TIMER0_COMP_vect??INTVEC 76`
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_GICR
+        PUBWEAK _A_MCUCR
+        PUBWEAK _A_OCR0
+        PUBWEAK _A_TCCR0
+        PUBWEAK _A_TIMSK
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC events
+        PUBLIC isr_INT0_vect
+        FUNCTION isr_INT0_vect,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 5, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC isr_TIMER0_COMP_vect
+        FUNCTION isr_TIMER0_COMP_vect,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 5, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC main
+        FUNCTION main,021a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC softCount
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+isr_INT0_vect       SYMBOL "isr_INT0_vect"
+`??isr_INT0_vect??INTVEC 4` SYMBOL "??INTVEC 4", isr_INT0_vect
+isr_TIMER0_COMP_vect SYMBOL "isr_TIMER0_COMP_vect"
+`??isr_TIMER0_COMP_vect??INTVEC 76` SYMBOL "??INTVEC 76", isr_TIMER0_COMP_vect
+
+        EXTERN USART_init
+        FUNCTION USART_init,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit_uint
+        FUNCTION USART_transmit_uint,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\soc2015\1305B\LucruExtra\INT0_Measure_Low_freq\main.c
+//    1 #include<iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,05cH
+// union <unnamed> volatile __io _A_OCR0
+_A_OCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,05bH
+// union <unnamed> volatile __io _A_GICR
+_A_GICR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,055H
+// union <unnamed> volatile __io _A_MCUCR
+_A_MCUCR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,053H
+// union <unnamed> volatile __io _A_TCCR0
+_A_TCCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    2 #include<inavr.h>
+//    3 #include"usart.h"
+//    4 
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    5 unsigned int softCount;
+softCount:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    6 unsigned int events;
+events:
+        DS8 2
+//    7 
+//    8 #pragma vector = TIMER0_COMP_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//    9 __interrupt void isr_TIMER0_COMP_vect()
+isr_TIMER0_COMP_vect:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function isr_TIMER0_COMP_vect
+//   10 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        IN      R18, 0x3F
+//   11   softCount++;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   12   if(softCount > 20)
+        LDS     R30, softCount
+        LDS     R31, (softCount + 1)
+        SBIW    R31:R30, 21
+        BRCS    ??isr_TIMER0_COMP_vect_0
+//   13     softCount = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     softCount, R16
+        STS     (softCount + 1), R17
+//   14 }
+??isr_TIMER0_COMP_vect_0:
+        OUT     0x3F, R18
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+4
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+3
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock0
+//   15 
+//   16 #pragma vector = INT0_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//   17 __interrupt void isr_INT0_vect()
+isr_INT0_vect:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function isr_INT0_vect
+//   18 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        IN      R18, 0x3F
+//   19   events++; 
+        LDI     R30, LOW(events)
+        LDI     R31, (events) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   20 }
+        OUT     0x3F, R18
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+4
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+3
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock1
+//   21 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   22 void main( void )
+main:
+          CFI Block cfiBlock2 Using cfiCommon1
+          CFI Function main
+//   23 {
+//   24   GICR |= (1 << INT0);
+        FUNCALL main, USART_init
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_uint
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        IN      R16, 0x3B
+        ORI     R16, 0x40
+        OUT     0x3B, R16
+//   25   MCUCR |= (1 << ISC01) | (1 << ISC00);
+        IN      R16, 0x35
+        ORI     R16, 0x03
+        OUT     0x35, R16
+//   26   DDRD |= (0 << PD2);
+        IN      R16, 0x11
+        OUT     0x11, R16
+//   27   
+//   28   USART_init(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_init
+//   29   DDRD |= (1 << PD1) | (0 << PD0);
+        SBI     0x11, 0x01
+//   30   
+//   31   TCCR0 |= (1 << WGM01) | (0 << WGM00) | (1 << CS02) | (0 << CS01) | (1 << CS00);
+        IN      R16, 0x33
+        ORI     R16, 0x0D
+        OUT     0x33, R16
+//   32   OCR0 = 196;
+        LDI     R16, 196
+        OUT     0x3C, R16
+//   33   TIMSK |= (1 << OCIE0);
+        IN      R16, 0x39
+        ORI     R16, 0x02
+        OUT     0x39, R16
+//   34   __enable_interrupt();
+        SEI
+//   35   
+//   36   while(1)
+//   37   {
+//   38     if(softCount == 0)
+??main_0:
+        LDS     R16, softCount
+        LDS     R17, (softCount + 1)
+        OR      R16, R17
+        BRNE    ??main_0
+//   39     {
+//   40       softCount++;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   41       USART_transmit_uint(events);
+        LDS     R16, events
+        LDS     R17, (events + 1)
+        CALL    USART_transmit_uint
+//   42       USART_transmit('H');
+        LDI     R16, 72
+        CALL    USART_transmit
+//   43       USART_transmit('z');
+        LDI     R16, 122
+        CALL    USART_transmit
+//   44       USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   45       USART_transmit('\n');
+        LDI     R16, 10
+        CALL    USART_transmit
+//   46       events = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     events, R16
+        STS     (events + 1), R17
+        RJMP    ??main_0
+          CFI EndBlock cfiBlock2
+        REQUIRE _A_GICR
+        REQUIRE _A_MCUCR
+        REQUIRE _A_DDRD
+        REQUIRE _A_TCCR0
+        REQUIRE _A_OCR0
+        REQUIRE _A_TIMSK
+//   47     }
+//   48   }
+//   49 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 4
+`??isr_INT0_vect??INTVEC 4`:
+        JMP     isr_INT0_vect
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 76
+`??isr_TIMER0_COMP_vect??INTVEC 76`:
+        JMP     isr_TIMER0_COMP_vect
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        END
+// 
+//   6 bytes in segment ABSOLUTE
+// 230 bytes in segment CODE
+//   6 bytes in segment INITTAB
+//   8 bytes in segment INTVEC
+//   4 bytes in segment NEAR_Z
+// 
+// 230 bytes of CODE memory (+ 14 bytes shared)
+//   4 bytes of DATA memory (+  6 bytes shared)
+//
+//Errors: none
+//Warnings: none

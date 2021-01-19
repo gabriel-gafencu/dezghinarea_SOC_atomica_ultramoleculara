@@ -1,0 +1,573 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       09/Jan/2016  07:50:13 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\ /
+//                    crc.c                                                   /
+//    Command line =  "D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie /
+//                    \crc.c" --cpu=m16 -ms -o "D:\soc                        /
+//                    2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\Debug\O /
+//                    bj\" -lC "D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLAS /
+//                    H_functie\Debug\List\" -lA "D:\soc                      /
+//                    2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\Debug\L /
+//                    ist\" --initializers_in_flash --no_cse --no_inline      /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\ /
+//                    Debug\List\crc.s90                                      /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME crc
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B16_L09
+        EXTERN ?EPILOGUE_B8_L09
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?PROLOGUE8_L09
+        EXTERN ?Register_R10_is_cg_reg
+        EXTERN ?Register_R11_is_cg_reg
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC crc32
+        FUNCTION crc32,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 21, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC crc32tab
+        PUBLIC crc32wtable
+        FUNCTION crc32wtable,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 8, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+5
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+// D:\soc 2015\TEMP\SOC_pachet_examen\CRC32_FLASH_functie\crc.c
+//    1 #include"crc.h"
+//    2 
+//    3 
+//    4 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    5 unsigned long crc32(unsigned long polinom32, unsigned long init_val_32, unsigned int adr_start,unsigned int len, enum BitOrder ord) 
+crc32:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function crc32
+//    6 { 
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -6)
+          CFI R14 Frame(CFA_Y, -7)
+          CFI R13 Frame(CFA_Y, -8)
+          CFI R12 Frame(CFA_Y, -9)
+          CFI R11 Frame(CFA_Y, -10)
+          CFI R10 Frame(CFA_Y, -11)
+          CFI R9 Frame(CFA_Y, -12)
+          CFI R8 Frame(CFA_Y, -13)
+          CFI R7 Frame(CFA_Y, -14)
+          CFI R6 Frame(CFA_Y, -15)
+          CFI R5 Frame(CFA_Y, -16)
+          CFI R4 Frame(CFA_Y, -17)
+          CFI R27 Frame(CFA_Y, -18)
+          CFI R26 Frame(CFA_Y, -19)
+          CFI R25 Frame(CFA_Y, -20)
+          CFI R24 Frame(CFA_Y, -21)
+          CFI CFA_Y Y+21
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+        LDD     R30, Y+16
+        LDD     R31, Y+17
+        LDD     R24, Y+18
+        LDD     R25, Y+19
+        LDD     R27, Y+20
+//    7   //variabile pe 32 biþi 
+//    8   unsigned long crc = init_val_32; 
+        MOVW    R17:R16, R13:R12
+        MOVW    R19:R18, R15:R14
+//    9   unsigned long data = 0;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+//   10   while( len-- ) 
+??crc32_0:
+        MOVW    R1:R0, R25:R24
+        MOVW    R25:R24, R1:R0
+        SBIW    R25:R24, 1
+        OR      R0, R1
+        BRNE    $+2+2
+        RJMP    ??crc32_1
+//   11   { 
+//   12     int i; 
+//   13     //se extrage un octet din memoria flash
+//   14     data = *(__flash char *)adr_start; 
+        LPM     R4, Z
+        CLR     R5
+        CLR     R6
+        CLR     R7
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+//   15     if ( ord == MSBF ) 
+        CPI     R27, 1
+        BRNE    ??crc32_2
+//   16       //opþiunea cu shiftare spre MSB 
+//   17     { 
+//   18       //octetul extras este shiftat pânã la cel mai semnificativ bit 
+//   19       data <<= 24; 
+        MOV     R23, R20
+        LDI     R22, 0
+        LDI     R21, 0
+        LDI     R20, 0
+//   20       crc ^= data; 
+        EOR     R16, R20
+        EOR     R17, R21
+        EOR     R18, R22
+        EOR     R19, R23
+//   21       adr_start++; 
+        ADIW    R31:R30, 1
+//   22       for( i = 0; i < 8; ++i ) 
+        CLR     R0
+        CLR     R1
+??crc32_3:
+        LDI     R26, 8
+        CP      R0, R26
+        LDI     R26, 0
+        CPC     R1, R26
+        BRGE    ??crc32_0
+//   23       { 
+//   24         //se verificã dacã cel mai semnificativ bit este 1 
+//   25         if( crc & 0x80000000 ) 
+        BST     R19, 7
+        BRTC    ??crc32_4
+//   26           crc = (crc << 1) ^ polinom32; 
+        LSL     R16
+        ROL     R17
+        ROL     R18
+        ROL     R19
+        EOR     R16, R8
+        EOR     R17, R9
+        EOR     R18, R10
+        EOR     R19, R11
+        RJMP    ??crc32_5
+//   27         else crc = crc << 1; 
+??crc32_4:
+        LSL     R16
+        ROL     R17
+        ROL     R18
+        ROL     R19
+//   28       } 
+??crc32_5:
+        LDI     R26, 1
+        ADD     R0, R26
+        LDI     R26, 0
+        ADC     R1, R26
+        RJMP    ??crc32_3
+//   29     } 
+//   30     else 
+//   31       //opþiunea cu shiftare spre LSB 
+//   32       //parametrul polinom32 al funcþiei trebuie sã aibã biþii inversaþi în prealabil 
+//   33     { 
+//   34       crc ^= data; 
+??crc32_2:
+        EOR     R16, R20
+        EOR     R17, R21
+        EOR     R18, R22
+        EOR     R19, R23
+//   35       adr_start++; 
+        ADIW    R31:R30, 1
+//   36       for( i = 0; i < 8; ++i ) 
+        CLR     R0
+        CLR     R1
+??crc32_6:
+        LDI     R26, 8
+        CP      R0, R26
+        LDI     R26, 0
+        CPC     R1, R26
+        BRGE    ??crc32_0
+//   37       { 
+//   38         //se verificã dacã cel mai puþin semnificativ bit este 1 
+//   39         if( crc & 0x00000001 ) 
+        BST     R16, 0
+        BRTC    ??crc32_7
+//   40           crc = (crc >> 1) ^ polinom32; 
+        LSR     R19
+        ROR     R18
+        ROR     R17
+        ROR     R16
+        EOR     R16, R8
+        EOR     R17, R9
+        EOR     R18, R10
+        EOR     R19, R11
+        RJMP    ??crc32_8
+//   41         else 
+//   42           crc = crc >> 1; 
+??crc32_7:
+        LSR     R19
+        ROR     R18
+        ROR     R17
+        ROR     R16
+//   43       } 
+??crc32_8:
+        LDI     R26, 1
+        ADD     R0, R26
+        LDI     R26, 0
+        ADC     R1, R26
+        RJMP    ??crc32_6
+//   44     } 
+//   45   } 
+//   46   return crc; 
+??crc32_1:
+        LDI     R30, 21
+        JMP     ?EPILOGUE_B16_L09
+          CFI EndBlock cfiBlock0
+//   47 }
+//   48 
+//   49 
+//   50 //implementare ce utilizeazã un tabel cu valori pre-calculate ale funcþiei CRC 
+
+        RSEG NEAR_F:CODE:NOROOT(0)
+//   51 __flash unsigned long crc32tab[256] = { 
+crc32tab:
+        DD 0, 79764919, 159529838, 222504665, 319059676, 398814059, 445009330
+        DD 507990021, 638119352, 583659535, 797628118, 726387553, 890018660
+        DD 835552979, 1015980042, 944750013, 1276238704, 1221641927, 1167319070
+        DD 1095957929, 1595256236, 1540665371, 1452775106, 1381403509
+        DD 1780037320, 1859660671, 1671105958, 1733955601, 2031960084
+        DD 2111593891, 1889500026, 1952343757, 2552477408, 2632100695
+        DD 2443283854, 2506133561, 2334638140, 2414271883, 2191915858
+        DD 2254759653, 3190512472, 3135915759, 3081330742, 3009969537
+        DD 2905550212, 2850959411, 2762807018, 2691435357, 3560074640
+        DD 3505614887, 3719321342, 3648080713, 3342211916, 3287746299
+        DD 3467911202, 3396681109, 4063920168, 4143685023, 4223187782
+        DD 4286162673, 3779000052, 3858754371, 3904687514, 3967668269
+        DD 881225847, 809987520, 1023691545, 969234094, 662832811, 591600412
+        DD 771767749, 717299826, 311336399, 374308984, 453813921, 533576470
+        DD 25881363, 88864420, 134795389, 214552010, 2023205639, 2086057648
+        DD 1897238633, 1976864222, 1804852699, 1867694188, 1645340341
+        DD 1724971778, 1587496639, 1516133128, 1461550545, 1406951526
+        DD 1302016099, 1230646740, 1142491917, 1087903418, 2896545431
+        DD 2825181984, 2770861561, 2716262478, 3215044683, 3143675388
+        DD 3055782693, 3001194130, 2326604591, 2389456536, 2200899649
+        DD 2280525302, 2578013683, 2640855108, 2418763421, 2498394922
+        DD 3769900519, 3832873040, 3912640137, 3992402750, 4088425275
+        DD 4151408268, 4197601365, 4277358050, 3334271071, 3263032808
+        DD 3476998961, 3422541446, 3585640067, 3514407732, 3694837229
+        DD 3640369242, 1762451694, 1842216281, 1619975040, 1682949687
+        DD 2047383090, 2127137669, 1938468188, 2001449195, 1325665622
+        DD 1271206113, 1183200824, 1111960463, 1543535498, 1489069629
+        DD 1434599652, 1363369299, 622672798, 568075817, 748617968, 677256519
+        DD 907627842, 853037301, 1067152940, 995781531, 51762726, 131386257
+        DD 177728840, 240578815, 269590778, 349224269, 429104020, 491947555
+        DD 4046411278, 4126034873, 4172115296, 4234965207, 3794477266
+        DD 3874110821, 3953728444, 4016571915, 3609705398, 3555108353
+        DD 3735388376, 3664026991, 3290680682, 3236090077, 3449943556
+        DD 3378572211, 3174993278, 3120533705, 3032266256, 2961025959
+        DD 2923101090, 2868635157, 2813903052, 2742672763, 2604032198
+        DD 2683796849, 2461293480, 2524268063, 2284983834, 2364738477
+        DD 2175806836, 2238787779, 1569362073, 1498123566, 1409854455
+        DD 1355396672, 1317987909, 1246755826, 1192025387, 1137557660
+        DD 2072149281, 2135122070, 1912620623, 1992383480, 1753615357
+        DD 1816598090, 1627664531, 1707420964, 295390185, 358241886, 404320391
+        DD 483945776, 43990325, 106832002, 186451547, 266083308, 932423249
+        DD 861060070, 1041341759, 986742920, 613929101, 542559546, 756411363
+        DD 701822548, 3316196985, 3244833742, 3425377559, 3370778784
+        DD 3601682597, 3530312978, 3744426955, 3689838204, 3819031489
+        DD 3881883254, 3928223919, 4007849240, 4037393693, 4100235434
+        DD 4180117107, 4259748804, 2310601993, 2373574846, 2151335527
+        DD 2231098320, 2596047829, 2659030626, 2470359227, 2550115596
+        DD 2947551409, 2876312838, 2788305887, 2733848168, 3165939309
+        DD 3094707162, 3040238851, 2985771188
+//   52   0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b, 
+//   53   0x1a864db2, 0x1e475005, 0x2608edb8, 0x22c9f00f, 0x2f8ad6d6, 0x2b4bcb61, 
+//   54   0x350c9b64, 0x31cd86d3, 0x3c8ea00a, 0x384fbdbd, 0x4c11db70, 0x48d0c6c7,
+//   55   0x4593e01e, 0x4152fda9, 0x5f15adac, 0x5bd4b01b, 0x569796c2, 0x52568b75, 
+//   56   0x6a1936c8, 0x6ed82b7f, 0x639b0da6, 0x675a1011, 0x791d4014, 0x7ddc5da3, 
+//   57   0x709f7b7a, 0x745e66cd, 0x9823b6e0, 0x9ce2ab57, 0x91a18d8e, 0x95609039, 
+//   58   0x8b27c03c, 0x8fe6dd8b, 0x82a5fb52, 0x8664e6e5, 0xbe2b5b58, 0xbaea46ef, 
+//   59   0xb7a96036, 0xb3687d81, 0xad2f2d84, 0xa9ee3033, 0xa4ad16ea, 0xa06c0b5d, 
+//   60   0xd4326d90, 0xd0f37027, 0xddb056fe, 0xd9714b49, 0xc7361b4c, 0xc3f706fb, 
+//   61   0xceb42022, 0xca753d95, 0xf23a8028, 0xf6fb9d9f, 0xfbb8bb46, 0xff79a6f1, 
+//   62   0xe13ef6f4, 0xe5ffeb43, 0xe8bccd9a, 0xec7dd02d, 0x34867077, 0x30476dc0, 
+//   63   0x3d044b19, 0x39c556ae, 0x278206ab, 0x23431b1c, 0x2e003dc5, 0x2ac12072, 
+//   64   0x128e9dcf, 0x164f8078, 0x1b0ca6a1, 0x1fcdbb16, 0x018aeb13, 0x054bf6a4,
+//   65   0x0808d07d, 0x0cc9cdca, 0x7897ab07, 0x7c56b6b0, 0x71159069, 0x75d48dde, 
+//   66   0x6b93dddb, 0x6f52c06c, 0x6211e6b5, 0x66d0fb02, 0x5e9f46bf, 0x5a5e5b08, 
+//   67   0x571d7dd1, 0x53dc6066, 0x4d9b3063, 0x495a2dd4, 0x44190b0d, 0x40d816ba, 
+//   68   0xaca5c697, 0xa864db20, 0xa527fdf9, 0xa1e6e04e, 0xbfa1b04b, 0xbb60adfc, 
+//   69   0xb6238b25, 0xb2e29692, 0x8aad2b2f, 0x8e6c3698, 0x832f1041, 0x87ee0df6, 
+//   70   0x99a95df3, 0x9d684044, 0x902b669d, 0x94ea7b2a, 0xe0b41de7, 0xe4750050, 
+//   71   0xe9362689, 0xedf73b3e, 0xf3b06b3b, 0xf771768c, 0xfa325055, 0xfef34de2, 
+//   72   0xc6bcf05f, 0xc27dede8, 0xcf3ecb31, 0xcbffd686, 0xd5b88683, 0xd1799b34, 
+//   73   0xdc3abded, 0xd8fba05a, 0x690ce0ee, 0x6dcdfd59, 0x608edb80, 0x644fc637, 
+//   74   0x7a089632, 0x7ec98b85, 0x738aad5c, 0x774bb0eb, 0x4f040d56, 0x4bc510e1, 
+//   75   0x46863638, 0x42472b8f, 0x5c007b8a, 0x58c1663d, 0x558240e4, 0x51435d53, 
+//   76   0x251d3b9e, 0x21dc2629, 0x2c9f00f0, 0x285e1d47, 0x36194d42, 0x32d850f5, 
+//   77   0x3f9b762c, 0x3b5a6b9b, 0x0315d626, 0x07d4cb91, 0x0a97ed48, 0x0e56f0ff, 
+//   78   0x1011a0fa, 0x14d0bd4d, 0x19939b94, 0x1d528623, 0xf12f560e, 0xf5ee4bb9, 
+//   79   0xf8ad6d60, 0xfc6c70d7, 0xe22b20d2, 0xe6ea3d65, 0xeba91bbc, 0xef68060b, 
+//   80   0xd727bbb6, 0xd3e6a601, 0xdea580d8, 0xda649d6f, 0xc423cd6a, 0xc0e2d0dd, 
+//   81   0xcda1f604, 0xc960ebb3, 0xbd3e8d7e, 0xb9ff90c9, 0xb4bcb610, 0xb07daba7, 
+//   82   0xae3afba2, 0xaafbe615, 0xa7b8c0cc, 0xa379dd7b, 0x9b3660c6, 0x9ff77d71, 
+//   83   0x92b45ba8, 0x9675461f, 0x8832161a, 0x8cf30bad, 0x81b02d74, 0x857130c3, 
+//   84   0x5d8a9099, 0x594b8d2e, 0x5408abf7, 0x50c9b640, 0x4e8ee645, 0x4a4ffbf2, 
+//   85   0x470cdd2b, 0x43cdc09c, 0x7b827d21, 0x7f436096, 0x7200464f, 0x76c15bf8, 
+//   86   0x68860bfd, 0x6c47164a, 0x61043093, 0x65c52d24, 0x119b4be9, 0x155a565e, 
+//   87   0x18197087, 0x1cd86d30, 0x029f3d35, 0x065e2082, 0x0b1d065b, 0x0fdc1bec, 
+//   88   0x3793a651, 0x3352bbe6, 0x3e119d3f, 0x3ad08088, 0x2497d08d, 0x2056cd3a, 
+//   89   0x2d15ebe3, 0x29d4f654, 0xc5a92679, 0xc1683bce, 0xcc2b1d17, 0xc8ea00a0, 
+//   90   0xd6ad50a5, 0xd26c4d12, 0xdf2f6bcb, 0xdbee767c, 0xe3a1cbc1, 0xe760d676, 
+//   91   0xea23f0af, 0xeee2ed18, 0xf0a5bd1d, 0xf464a0aa, 0xf9278673, 0xfde69bc4, 
+//   92   0x89b8fd09, 0x8d79e0be, 0x803ac667, 0x84fbdbd0, 0x9abc8bd5, 0x9e7d9662, 
+//   93   0x933eb0bb, 0x97ffad0c, 0xafb010b1, 0xab710d06, 0xa6322bdf, 0xa2f33668, 
+//   94   0xbcb4666d, 0xb8757bda, 0xb5365d03, 0xb1f740b4, };
+//   95 
+//   96 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   97 unsigned long crc32wtable(unsigned int init_val_32, unsigned int adr_start, unsigned int len) 
+crc32wtable:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function crc32wtable
+//   98 { 
+        CALL    ?PROLOGUE8_L09
+          CFI R7 Frame(CFA_Y, -1)
+          CFI R6 Frame(CFA_Y, -2)
+          CFI R5 Frame(CFA_Y, -3)
+          CFI R4 Frame(CFA_Y, -4)
+          CFI R27 Frame(CFA_Y, -5)
+          CFI R26 Frame(CFA_Y, -6)
+          CFI R25 Frame(CFA_Y, -7)
+          CFI R24 Frame(CFA_Y, -8)
+          CFI CFA_Y Y+8
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        MOVW    R1:R0, R17:R16
+        MOVW    R25:R24, R19:R18
+//   99   unsigned int counter; 
+//  100   unsigned long crc = init_val_32; 
+        MOVW    R17:R16, R1:R0
+        LDI     R18, 0
+        LDI     R19, 0
+//  101   for( counter = 0; counter < len; counter++) 
+        LDI     R22, 0
+        LDI     R23, 0
+??crc32wtable_0:
+        CP      R22, R20
+        CPC     R23, R21
+        BRCC    ??crc32wtable_1
+//  102     crc = (crc<<8) ^ crc32tab[((crc>>24) ^ *(__flash char *)adr_start++) & 0xff]; 
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+        MOV     R7, R6
+        MOV     R6, R5
+        MOV     R5, R4
+        CLR     R4
+        MOV     R16, R19
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R31:R30, R25:R24
+        LPM     R18, Z
+        LDI     R19, 0
+        EOR     R16, R18
+        EOR     R17, R19
+        LSL     R16
+        ROL     R17
+        LSL     R16
+        ROL     R17
+        MOVW    R31:R30, R17:R16
+        SUBI    R30, LOW((-(crc32tab) & 0xFFFF))
+        SBCI    R31, (-(crc32tab) & 0xFFFF) >> 8
+        LPM     R16, Z+
+        LPM     R17, Z+
+        LPM     R18, Z+
+        LPM     R19, Z
+        SBIW    R31:R30, 3
+        EOR     R4, R16
+        EOR     R5, R17
+        EOR     R6, R18
+        EOR     R7, R19
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        ADIW    R25:R24, 1
+        SUBI    R22, 255
+        SBCI    R23, 255
+        RJMP    ??crc32wtable_0
+//  103   return crc;
+??crc32wtable_1:
+        LDI     R30, 8
+        JMP     ?EPILOGUE_B8_L09
+          CFI EndBlock cfiBlock1
+//  104 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//   308 bytes in segment CODE
+// 1 024 bytes in segment NEAR_F
+// 
+// 1 332 bytes of CODE memory
+//
+//Errors: none
+//Warnings: none

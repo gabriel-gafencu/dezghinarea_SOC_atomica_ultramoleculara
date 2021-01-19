@@ -1,0 +1,19 @@
+"--cpu=m16" 
+
+"--enhanced_core" 
+
+"-p" 
+
+"C:\Program Files\IAR Systems\Embedded Workbench 7.4\avr\Config\iom16.ddf" 
+
+"--eeprom_size" 
+
+"512" 
+
+"-d" 
+
+"sim" 
+
+
+
+

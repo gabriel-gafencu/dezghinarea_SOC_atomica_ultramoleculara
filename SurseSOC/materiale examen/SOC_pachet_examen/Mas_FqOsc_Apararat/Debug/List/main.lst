@@ -1,0 +1,82 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        08/Jan/2016  10:01:30 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\ma #
+#                    in.c                                                     #
+#    Command line =  D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\ma #
+#                    in.c --cpu=m16 -ms -o D:\soc2015\1305B\SOC_pachet_examen #
+#                    \Mam_FqOsc_Apararat\Debug\Obj\ -lC                       #
+#                    D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\De #
+#                    bug\List\ -lA D:\soc2015\1305B\SOC_pachet_examen\Mam_FqO #
+#                    sc_Apararat\Debug\List\ --initializers_in_flash          #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\De #
+#                    bug\List\main.lst                                        #
+#    Object file  =  D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\De #
+#                    bug\Obj\main.r90                                         #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\SOC_pachet_examen\Mam_FqOsc_Apararat\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x37
+   \   union <unnamed> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      4          void main( void )
+   \                     main:
+      5          {
+      6            TCCR0 |= (1 << WGM01) | (1 << COM00) | (1 << CS00);
+   \   00000000   B703               IN      R16, 0x33
+   \   00000002   6109               ORI     R16, 0x19
+   \   00000004   BF03               OUT     0x33, R16
+      7            DDRB |= (1 << PB3);
+   \   00000006   9ABB               SBI     0x17, 0x03
+      8            
+      9            while(1)
+   \                     ??main_0:
+   \   00000008   CFFF               RJMP    ??main_0
+   \   0000000A                      REQUIRE _A_TCCR0
+   \   0000000A                      REQUIRE _A_DDRB
+     10              ;
+     11          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  main
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  _A_DDRB
+       1  _A_TCCR0
+      10  main
+
+ 
+  2 bytes in segment ABSOLUTE
+ 10 bytes in segment CODE
+ 
+ 10 bytes of CODE memory
+  0 bytes of DATA memory (+ 2 bytes shared)
+
+Errors: none
+Warnings: none

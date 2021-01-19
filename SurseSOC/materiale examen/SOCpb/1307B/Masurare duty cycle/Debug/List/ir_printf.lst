@@ -1,0 +1,1000 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        22/Dec/2014  09:48:46 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\Masurare duty cycle\ir_printf.c                 #
+#    Command line =  "D:\1307B\Masurare duty cycle\ir_printf.c" --cpu=m16     #
+#                    -ms -o "D:\1307B\Masurare duty cycle\Debug\Obj\" -lC     #
+#                    "D:\1307B\Masurare duty cycle\Debug\List\" -lA           #
+#                    "D:\1307B\Masurare duty cycle\Debug\List\"               #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --module_name= --debug --no_ubrof_messages     #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\1307B\Masurare duty cycle\Debug\List\ir_printf.lst    #
+#    Object file  =  D:\1307B\Masurare duty cycle\Debug\Obj\ir_printf.r90     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\Masurare duty cycle\ir_printf.c
+      1          #include "ir_printf.h"
+      2          #include "usart.h"
+      3          
+      4          #define PRECISION 5 //numarul de cifre dupa virgula
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          void printHex(unsigned  int data)
+   \                     printHex:
+      6          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   9725               SBIW    R29:R28, 5
+   \   00000006   01C8               MOVW    R25:R24, R17:R16
+      7          	unsigned char buffer[5];
+      8          	unsigned char i,j=0;
+   \   00000008   E0A0               LDI     R26, 0
+      9          	
+     10          	for(i = 0;i < 5;i++)
+   \   0000000A   E0B0               LDI     R27, 0
+   \                     ??printHex_0:
+   \   0000000C   30B5               CPI     R27, 5
+   \   0000000E   F448               BRCC    ??printHex_1
+     11          		buffer[i] = 0;
+   \   00000010   E020               LDI     R18, 0
+   \   00000012   01FE               MOVW    R31:R30, R29:R28
+   \   00000014   2F0B               MOV     R16, R27
+   \   00000016   E010               LDI     R17, 0
+   \   00000018   0FE0               ADD     R30, R16
+   \   0000001A   1FF1               ADC     R31, R17
+   \   0000001C   8320               ST      Z, R18
+   \   0000001E   95B3               INC     R27
+   \   00000020   CFF5               RJMP    ??printHex_0
+     12          	if(!data)
+   \                     ??printHex_1:
+   \   00000022   2F08               MOV     R16, R24
+   \   00000024   2B09               OR      R16, R25
+   \   00000026   F451               BRNE    ??printHex_2
+     13          	{
+     14          		USART_Transmit('0');
+   \   00000028   E300               LDI     R16, 48
+   \   0000002A   ........           CALL    USART_Transmit
+     15          		USART_Transmit('x');
+   \   0000002E   E708               LDI     R16, 120
+   \   00000030   ........           CALL    USART_Transmit
+     16          		USART_Transmit('0');
+   \   00000034   E300               LDI     R16, 48
+   \   00000036   ........           CALL    USART_Transmit
+     17          		return;
+   \   0000003A   C06A               RJMP    ??printHex_3
+     18          	}
+     19          
+     20          	for(i = 0; i < 4;i++)
+   \                     ??printHex_2:
+   \   0000003C   E0B0               LDI     R27, 0
+   \                     ??printHex_4:
+   \   0000003E   30B4               CPI     R27, 4
+   \   00000040   F008               BRCS    $+2+2
+   \   00000042   C04D               RJMP    ??printHex_5
+     21          	{
+     22          		buffer[j] = (data&0xFFFF)>>12;
+   \   00000044   018C               MOVW    R17:R16, R25:R24
+   \   00000046   2F01               MOV     R16, R17
+   \   00000048   E010               LDI     R17, 0
+   \   0000004A   9506               LSR     R16
+   \   0000004C   9506               LSR     R16
+   \   0000004E   9506               LSR     R16
+   \   00000050   9506               LSR     R16
+   \   00000052   2F20               MOV     R18, R16
+   \   00000054   01FE               MOVW    R31:R30, R29:R28
+   \   00000056   2F0A               MOV     R16, R26
+   \   00000058   E010               LDI     R17, 0
+   \   0000005A   0FE0               ADD     R30, R16
+   \   0000005C   1FF1               ADC     R31, R17
+   \   0000005E   8320               ST      Z, R18
+     23          		data<<=4;
+   \   00000060   E044               LDI     R20, 4
+   \   00000062   018C               MOVW    R17:R16, R25:R24
+   \   00000064   ........           CALL    ?S_SHL_L02
+   \   00000068   01C8               MOVW    R25:R24, R17:R16
+     24          		if(!buffer[j])
+   \   0000006A   01FE               MOVW    R31:R30, R29:R28
+   \   0000006C   2F0A               MOV     R16, R26
+   \   0000006E   E010               LDI     R17, 0
+   \   00000070   0FE0               ADD     R30, R16
+   \   00000072   1FF1               ADC     R31, R17
+   \   00000074   8100               LD      R16, Z
+   \   00000076   2300               TST     R16
+   \   00000078   F4B1               BRNE    ??printHex_6
+     25          		{
+     26          			if(j)
+   \   0000007A   23AA               TST     R26
+   \   0000007C   F171               BREQ    ??printHex_7
+     27          			{				
+     28          				if(buffer[j-1])
+   \   0000007E   01FE               MOVW    R31:R30, R29:R28
+   \   00000080   2F0A               MOV     R16, R26
+   \   00000082   E010               LDI     R17, 0
+   \   00000084   0FE0               ADD     R30, R16
+   \   00000086   1FF1               ADC     R31, R17
+   \   00000088   9731               SBIW    R31:R30, 1
+   \   0000008A   8100               LD      R16, Z
+   \   0000008C   2300               TST     R16
+   \   0000008E   F049               BREQ    ??printHex_8
+     29          				{
+     30          					buffer[j] = '0';
+   \   00000090   E320               LDI     R18, 48
+   \   00000092   01FE               MOVW    R31:R30, R29:R28
+   \   00000094   2F0A               MOV     R16, R26
+   \   00000096   E010               LDI     R17, 0
+   \   00000098   0FE0               ADD     R30, R16
+   \   0000009A   1FF1               ADC     R31, R17
+   \   0000009C   8320               ST      Z, R18
+     31          					j++;
+   \   0000009E   95A3               INC     R26
+     32          					continue;
+   \   000000A0   C01C               RJMP    ??printHex_7
+     33          				}
+     34          				j--;
+   \                     ??printHex_8:
+   \   000000A2   95AA               DEC     R26
+     35          			}
+     36          			
+     37          			continue;
+   \   000000A4   C01A               RJMP    ??printHex_7
+     38          		}
+     39          		if(buffer[j]<=9)
+   \                     ??printHex_6:
+   \   000000A6   01FE               MOVW    R31:R30, R29:R28
+   \   000000A8   2F0A               MOV     R16, R26
+   \   000000AA   E010               LDI     R17, 0
+   \   000000AC   0FE0               ADD     R30, R16
+   \   000000AE   1FF1               ADC     R31, R17
+   \   000000B0   8100               LD      R16, Z
+   \   000000B2   300A               CPI     R16, 10
+   \   000000B4   F448               BRCC    ??printHex_9
+     40          		{
+     41          			buffer[j]+='0';
+   \   000000B6   01FE               MOVW    R31:R30, R29:R28
+   \   000000B8   2F0A               MOV     R16, R26
+   \   000000BA   E010               LDI     R17, 0
+   \   000000BC   0FE0               ADD     R30, R16
+   \   000000BE   1FF1               ADC     R31, R17
+   \   000000C0   8100               LD      R16, Z
+   \   000000C2   5D00               SUBI    R16, 208
+   \   000000C4   8300               ST      Z, R16
+   \   000000C6   C008               RJMP    ??printHex_10
+     42          		}
+     43          		else
+     44          		{
+     45          			buffer[j]+=('A'-10);
+   \                     ??printHex_9:
+   \   000000C8   01FE               MOVW    R31:R30, R29:R28
+   \   000000CA   2F0A               MOV     R16, R26
+   \   000000CC   E010               LDI     R17, 0
+   \   000000CE   0FE0               ADD     R30, R16
+   \   000000D0   1FF1               ADC     R31, R17
+   \   000000D2   8100               LD      R16, Z
+   \   000000D4   5C09               SUBI    R16, 201
+   \   000000D6   8300               ST      Z, R16
+     46          		}
+     47          		j++;
+   \                     ??printHex_10:
+   \   000000D8   95A3               INC     R26
+     48          	}
+   \                     ??printHex_7:
+   \   000000DA   95B3               INC     R27
+   \   000000DC   CFB0               RJMP    ??printHex_4
+     49          	i = 0;
+   \                     ??printHex_5:
+   \   000000DE   E0B0               LDI     R27, 0
+     50          	USART_Transmit('0');
+   \   000000E0   E300               LDI     R16, 48
+   \   000000E2   ........           CALL    USART_Transmit
+     51          	USART_Transmit('x');
+   \   000000E6   E708               LDI     R16, 120
+   \   000000E8   ........           CALL    USART_Transmit
+     52          	while(buffer[i])
+   \                     ??printHex_11:
+   \   000000EC   01FE               MOVW    R31:R30, R29:R28
+   \   000000EE   2F0B               MOV     R16, R27
+   \   000000F0   E010               LDI     R17, 0
+   \   000000F2   0FE0               ADD     R30, R16
+   \   000000F4   1FF1               ADC     R31, R17
+   \   000000F6   8100               LD      R16, Z
+   \   000000F8   2300               TST     R16
+   \   000000FA   F051               BREQ    ??printHex_3
+     53          		USART_Transmit(buffer[i++]);
+   \   000000FC   01FE               MOVW    R31:R30, R29:R28
+   \   000000FE   2F0B               MOV     R16, R27
+   \   00000100   E010               LDI     R17, 0
+   \   00000102   0FE0               ADD     R30, R16
+   \   00000104   1FF1               ADC     R31, R17
+   \   00000106   8100               LD      R16, Z
+   \   00000108   ........           CALL    USART_Transmit
+   \   0000010C   95B3               INC     R27
+   \   0000010E   CFEE               RJMP    ??printHex_11
+     54          	
+     55          }
+   \                     ??printHex_3:
+   \   00000110   9625               ADIW    R29:R28, 5
+   \   00000112   E0E4               LDI     R30, 4
+   \   00000114   ........           JMP     ?EPILOGUE_B4_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     56          void printInt(int number)
+   \                     printInt:
+     57          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   9727               SBIW    R29:R28, 7
+   \   00000006   0128               MOVW    R5:R4, R17:R16
+     58          	unsigned char buffer[7];
+     59          	unsigned char index = 0;
+   \   00000008   2466               CLR     R6
+     60          	long max=10;
+   \   0000000A   E08A               LDI     R24, 10
+   \   0000000C   E090               LDI     R25, 0
+   \   0000000E   E0A0               LDI     R26, 0
+   \   00000010   E0B0               LDI     R27, 0
+     61          
+     62          	for(index = 0; index < 7; index++)
+   \   00000012   2466               CLR     R6
+   \                     ??printInt_0:
+   \   00000014   E007               LDI     R16, 7
+   \   00000016   1660               CP      R6, R16
+   \   00000018   F440               BRCC    ??printInt_1
+     63          		buffer[index] = 0;
+   \   0000001A   E000               LDI     R16, 0
+   \   0000001C   01FE               MOVW    R31:R30, R29:R28
+   \   0000001E   2477               CLR     R7
+   \   00000020   0DE6               ADD     R30, R6
+   \   00000022   1DF7               ADC     R31, R7
+   \   00000024   8300               ST      Z, R16
+   \   00000026   9463               INC     R6
+   \   00000028   CFF5               RJMP    ??printInt_0
+     64          
+     65          	index = 0;
+   \                     ??printInt_1:
+   \   0000002A   2466               CLR     R6
+     66          
+     67          	if(number<0)
+   \   0000002C   2055               TST     R5
+   \   0000002E   F442               BRPL    ??printInt_2
+     68          	{
+     69          		index = 1;
+   \   00000030   2466               CLR     R6
+   \   00000032   9463               INC     R6
+     70          		buffer[0] = '-';
+   \   00000034   E20D               LDI     R16, 45
+   \   00000036   8308               ST      Y, R16
+     71          		number = -number;
+   \   00000038   9451               NEG     R5
+   \   0000003A   9441               NEG     R4
+   \   0000003C   E000               LDI     R16, 0
+   \   0000003E   0A50               SBC     R5, R16
+     72          	}	
+     73          	
+     74          	while(1)
+     75          	{
+     76          		if(max <= number)
+   \                     ??printInt_2:
+   \   00000040   0182               MOVW    R17:R16, R5:R4
+   \   00000042   2F21               MOV     R18, R17
+   \   00000044   0F22               LSL     R18
+   \   00000046   0B22               SBC     R18, R18
+   \   00000048   2F32               MOV     R19, R18
+   \   0000004A   1708               CP      R16, R24
+   \   0000004C   0719               CPC     R17, R25
+   \   0000004E   072A               CPC     R18, R26
+   \   00000050   073B               CPC     R19, R27
+   \   00000052   F05C               BRLT    ??printInt_3
+     77          		{
+     78          			max*=10;
+   \   00000054   E00A               LDI     R16, 10
+   \   00000056   E010               LDI     R17, 0
+   \   00000058   E020               LDI     R18, 0
+   \   0000005A   E030               LDI     R19, 0
+   \   0000005C   01AC               MOVW    R21:R20, R25:R24
+   \   0000005E   01BD               MOVW    R23:R22, R27:R26
+   \   00000060   ........           CALL    ?L_EC_MUL_L03
+   \   00000064   01C8               MOVW    R25:R24, R17:R16
+   \   00000066   01D9               MOVW    R27:R26, R19:R18
+   \   00000068   CFEB               RJMP    ??printInt_2
+     79          		}
+     80          		else
+     81          			break;
+     82          	}
+     83          	max/=10;
+   \                     ??printInt_3:
+   \   0000006A   E04A               LDI     R20, 10
+   \   0000006C   E050               LDI     R21, 0
+   \   0000006E   E060               LDI     R22, 0
+   \   00000070   E070               LDI     R23, 0
+   \   00000072   018C               MOVW    R17:R16, R25:R24
+   \   00000074   019D               MOVW    R19:R18, R27:R26
+   \   00000076   ........           CALL    ?SL_DIVMOD_L03
+   \   0000007A   01C8               MOVW    R25:R24, R17:R16
+   \   0000007C   01D9               MOVW    R27:R26, R19:R18
+     84          	while(max)
+   \                     ??printInt_4:
+   \   0000007E   2F08               MOV     R16, R24
+   \   00000080   2B09               OR      R16, R25
+   \   00000082   2B0A               OR      R16, R26
+   \   00000084   2B0B               OR      R16, R27
+   \   00000086   F129               BREQ    ??printInt_5
+     85          	{
+     86          		buffer[index++]=(number/max)+'0';
+   \   00000088   0182               MOVW    R17:R16, R5:R4
+   \   0000008A   2F21               MOV     R18, R17
+   \   0000008C   0F22               LSL     R18
+   \   0000008E   0B22               SBC     R18, R18
+   \   00000090   2F32               MOV     R19, R18
+   \   00000092   01AC               MOVW    R21:R20, R25:R24
+   \   00000094   01BD               MOVW    R23:R22, R27:R26
+   \   00000096   ........           CALL    ?SL_DIVMOD_L03
+   \   0000009A   5D00               SUBI    R16, 208
+   \   0000009C   01FE               MOVW    R31:R30, R29:R28
+   \   0000009E   2477               CLR     R7
+   \   000000A0   0DE6               ADD     R30, R6
+   \   000000A2   1DF7               ADC     R31, R7
+   \   000000A4   8300               ST      Z, R16
+   \   000000A6   9463               INC     R6
+     87          		number%=max;
+   \   000000A8   0182               MOVW    R17:R16, R5:R4
+   \   000000AA   2F21               MOV     R18, R17
+   \   000000AC   0F22               LSL     R18
+   \   000000AE   0B22               SBC     R18, R18
+   \   000000B0   2F32               MOV     R19, R18
+   \   000000B2   01AC               MOVW    R21:R20, R25:R24
+   \   000000B4   01BD               MOVW    R23:R22, R27:R26
+   \   000000B6   ........           CALL    ?SL_DIVMOD_L03
+   \   000000BA   012A               MOVW    R5:R4, R21:R20
+     88          		max/=10;
+   \   000000BC   E04A               LDI     R20, 10
+   \   000000BE   E050               LDI     R21, 0
+   \   000000C0   E060               LDI     R22, 0
+   \   000000C2   E070               LDI     R23, 0
+   \   000000C4   018C               MOVW    R17:R16, R25:R24
+   \   000000C6   019D               MOVW    R19:R18, R27:R26
+   \   000000C8   ........           CALL    ?SL_DIVMOD_L03
+   \   000000CC   01C8               MOVW    R25:R24, R17:R16
+   \   000000CE   01D9               MOVW    R27:R26, R19:R18
+   \   000000D0   CFD6               RJMP    ??printInt_4
+     89          	}
+     90          	
+     91          	index = 0;
+   \                     ??printInt_5:
+   \   000000D2   2466               CLR     R6
+     92          	while(buffer[index])
+   \                     ??printInt_6:
+   \   000000D4   01FE               MOVW    R31:R30, R29:R28
+   \   000000D6   2477               CLR     R7
+   \   000000D8   0DE6               ADD     R30, R6
+   \   000000DA   1DF7               ADC     R31, R7
+   \   000000DC   8100               LD      R16, Z
+   \   000000DE   2300               TST     R16
+   \   000000E0   F049               BREQ    ??printInt_7
+     93          		USART_Transmit(buffer[index++]);
+   \   000000E2   01FE               MOVW    R31:R30, R29:R28
+   \   000000E4   2477               CLR     R7
+   \   000000E6   0DE6               ADD     R30, R6
+   \   000000E8   1DF7               ADC     R31, R7
+   \   000000EA   8100               LD      R16, Z
+   \   000000EC   ........           CALL    USART_Transmit
+   \   000000F0   9463               INC     R6
+   \   000000F2   CFF0               RJMP    ??printInt_6
+     94          }
+   \                     ??printInt_7:
+   \   000000F4   9627               ADIW    R29:R28, 7
+   \   000000F6   E0E8               LDI     R30, 8
+   \   000000F8   ........           JMP     ?EPILOGUE_B8_L09
+     95          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     96          void printLong(long number)
+   \                     printLong:
+     97          {
+   \   00000000   ........           CALL    ?PROLOGUE10_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004   972B               SBIW    R29:R28, 11
+   \   00000006   0128               MOVW    R5:R4, R17:R16
+   \   00000008   0139               MOVW    R7:R6, R19:R18
+     98          	unsigned char buffer[11];
+     99          	unsigned char index = 0;
+   \   0000000A   2488               CLR     R8
+    100          	long max=10;
+   \   0000000C   E08A               LDI     R24, 10
+   \   0000000E   E090               LDI     R25, 0
+   \   00000010   E0A0               LDI     R26, 0
+   \   00000012   E0B0               LDI     R27, 0
+    101          
+    102          	for(index = 0; index < 11; index++)
+   \   00000014   2488               CLR     R8
+   \                     ??printLong_0:
+   \   00000016   E00B               LDI     R16, 11
+   \   00000018   1680               CP      R8, R16
+   \   0000001A   F440               BRCC    ??printLong_1
+    103          		buffer[index] = 0;
+   \   0000001C   E000               LDI     R16, 0
+   \   0000001E   01FE               MOVW    R31:R30, R29:R28
+   \   00000020   2499               CLR     R9
+   \   00000022   0DE8               ADD     R30, R8
+   \   00000024   1DF9               ADC     R31, R9
+   \   00000026   8300               ST      Z, R16
+   \   00000028   9483               INC     R8
+   \   0000002A   CFF5               RJMP    ??printLong_0
+    104          
+    105          	index = 0;
+   \                     ??printLong_1:
+   \   0000002C   2488               CLR     R8
+    106          
+    107          	if(number<0)
+   \   0000002E   2077               TST     R7
+   \   00000030   F462               BRPL    ??printLong_2
+    108          	{
+    109          		index = 1;
+   \   00000032   2488               CLR     R8
+   \   00000034   9483               INC     R8
+    110          		buffer[0] = '-';
+   \   00000036   E20D               LDI     R16, 45
+   \   00000038   8308               ST      Y, R16
+    111          		number = -number;
+   \   0000003A   9450               COM     R5
+   \   0000003C   9460               COM     R6
+   \   0000003E   9470               COM     R7
+   \   00000040   0B00               SBC     R16, R16
+   \   00000042   9441               NEG     R4
+   \   00000044   0A50               SBC     R5, R16
+   \   00000046   0A60               SBC     R6, R16
+   \   00000048   0A70               SBC     R7, R16
+    112          	}	
+    113          	
+    114          	while(1)
+    115          	{
+    116          		if(max <= number)
+   \                     ??printLong_2:
+   \   0000004A   1648               CP      R4, R24
+   \   0000004C   0659               CPC     R5, R25
+   \   0000004E   066A               CPC     R6, R26
+   \   00000050   067B               CPC     R7, R27
+   \   00000052   F05C               BRLT    ??printLong_3
+    117          		{
+    118          			max*=10;
+   \   00000054   E00A               LDI     R16, 10
+   \   00000056   E010               LDI     R17, 0
+   \   00000058   E020               LDI     R18, 0
+   \   0000005A   E030               LDI     R19, 0
+   \   0000005C   01AC               MOVW    R21:R20, R25:R24
+   \   0000005E   01BD               MOVW    R23:R22, R27:R26
+   \   00000060   ........           CALL    ?L_EC_MUL_L03
+   \   00000064   01C8               MOVW    R25:R24, R17:R16
+   \   00000066   01D9               MOVW    R27:R26, R19:R18
+   \   00000068   CFF0               RJMP    ??printLong_2
+    119          		}
+    120          		else
+    121          			break;
+    122          	}
+    123          	max/=10;
+   \                     ??printLong_3:
+   \   0000006A   E04A               LDI     R20, 10
+   \   0000006C   E050               LDI     R21, 0
+   \   0000006E   E060               LDI     R22, 0
+   \   00000070   E070               LDI     R23, 0
+   \   00000072   018C               MOVW    R17:R16, R25:R24
+   \   00000074   019D               MOVW    R19:R18, R27:R26
+   \   00000076   ........           CALL    ?SL_DIVMOD_L03
+   \   0000007A   01C8               MOVW    R25:R24, R17:R16
+   \   0000007C   01D9               MOVW    R27:R26, R19:R18
+    124          	while(max)
+   \                     ??printLong_4:
+   \   0000007E   2F08               MOV     R16, R24
+   \   00000080   2B09               OR      R16, R25
+   \   00000082   2B0A               OR      R16, R26
+   \   00000084   2B0B               OR      R16, R27
+   \   00000086   F101               BREQ    ??printLong_5
+    125          	{
+    126          		buffer[index++]=(unsigned char)(number/max)+'0';
+   \   00000088   01AC               MOVW    R21:R20, R25:R24
+   \   0000008A   01BD               MOVW    R23:R22, R27:R26
+   \   0000008C   0182               MOVW    R17:R16, R5:R4
+   \   0000008E   0193               MOVW    R19:R18, R7:R6
+   \   00000090   ........           CALL    ?SL_DIVMOD_L03
+   \   00000094   5D00               SUBI    R16, 208
+   \   00000096   01FE               MOVW    R31:R30, R29:R28
+   \   00000098   2499               CLR     R9
+   \   0000009A   0DE8               ADD     R30, R8
+   \   0000009C   1DF9               ADC     R31, R9
+   \   0000009E   8300               ST      Z, R16
+   \   000000A0   9483               INC     R8
+    127          		number%=max;
+   \   000000A2   01AC               MOVW    R21:R20, R25:R24
+   \   000000A4   01BD               MOVW    R23:R22, R27:R26
+   \   000000A6   0182               MOVW    R17:R16, R5:R4
+   \   000000A8   0193               MOVW    R19:R18, R7:R6
+   \   000000AA   ........           CALL    ?SL_DIVMOD_L03
+   \   000000AE   012A               MOVW    R5:R4, R21:R20
+   \   000000B0   013B               MOVW    R7:R6, R23:R22
+    128          		max/=10;
+   \   000000B2   E04A               LDI     R20, 10
+   \   000000B4   E050               LDI     R21, 0
+   \   000000B6   E060               LDI     R22, 0
+   \   000000B8   E070               LDI     R23, 0
+   \   000000BA   018C               MOVW    R17:R16, R25:R24
+   \   000000BC   019D               MOVW    R19:R18, R27:R26
+   \   000000BE   ........           CALL    ?SL_DIVMOD_L03
+   \   000000C2   01C8               MOVW    R25:R24, R17:R16
+   \   000000C4   01D9               MOVW    R27:R26, R19:R18
+   \   000000C6   CFDB               RJMP    ??printLong_4
+    129          	}
+    130          	
+    131          	index = 0;
+   \                     ??printLong_5:
+   \   000000C8   2488               CLR     R8
+    132          	while(buffer[index])
+   \                     ??printLong_6:
+   \   000000CA   01FE               MOVW    R31:R30, R29:R28
+   \   000000CC   2499               CLR     R9
+   \   000000CE   0DE8               ADD     R30, R8
+   \   000000D0   1DF9               ADC     R31, R9
+   \   000000D2   8100               LD      R16, Z
+   \   000000D4   2300               TST     R16
+   \   000000D6   F049               BREQ    ??printLong_7
+    133          		USART_Transmit(buffer[index++]);
+   \   000000D8   01FE               MOVW    R31:R30, R29:R28
+   \   000000DA   2499               CLR     R9
+   \   000000DC   0DE8               ADD     R30, R8
+   \   000000DE   1DF9               ADC     R31, R9
+   \   000000E0   8100               LD      R16, Z
+   \   000000E2   ........           CALL    USART_Transmit
+   \   000000E6   9483               INC     R8
+   \   000000E8   CFF0               RJMP    ??printLong_6
+    134          }
+   \                     ??printLong_7:
+   \   000000EA   962B               ADIW    R29:R28, 11
+   \   000000EC   E0EA               LDI     R30, 10
+   \   000000EE   ........           JMP     ?EPILOGUE_B10_L09
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    135          void printString(unsigned char*str)
+   \                     printString:
+    136          {
+   \   00000000   93BA               ST      -Y, R27
+   \   00000002   93AA               ST      -Y, R26
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+    137          	while(*str)
+   \                     ??printString_0:
+   \   00000006   910C               LD      R16, X
+   \   00000008   2300               TST     R16
+   \   0000000A   F029               BREQ    ??printString_1
+    138          		USART_Transmit(*str++);
+   \   0000000C   910C               LD      R16, X
+   \   0000000E   ........           CALL    USART_Transmit
+   \   00000012   9611               ADIW    R27:R26, 1
+   \   00000014   CFF8               RJMP    ??printString_0
+    139          }
+   \                     ??printString_1:
+   \   00000016   91A9               LD      R26, Y+
+   \   00000018   91B9               LD      R27, Y+
+   \   0000001A   9508               RET
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    140          void printFloat(float number)
+   \                     printFloat:
+    141          {
+   \   00000000   ........           CALL    ?PROLOGUE13_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004   0148               MOVW    R9:R8, R17:R16
+   \   00000006   0159               MOVW    R11:R10, R19:R18
+    142          	long integerPart = (long)number;
+   \   00000008   0184               MOVW    R17:R16, R9:R8
+   \   0000000A   0195               MOVW    R19:R18, R11:R10
+   \   0000000C   ........           CALL    ?F2SL_L04
+   \   00000010   0128               MOVW    R5:R4, R17:R16
+   \   00000012   0139               MOVW    R7:R6, R19:R18
+    143          	float realPart = number - integerPart;
+   \   00000014   0182               MOVW    R17:R16, R5:R4
+   \   00000016   0193               MOVW    R19:R18, R7:R6
+   \   00000018   ........           CALL    ?SL2F_L04
+   \   0000001C   01A8               MOVW    R21:R20, R17:R16
+   \   0000001E   01B9               MOVW    R23:R22, R19:R18
+   \   00000020   0184               MOVW    R17:R16, R9:R8
+   \   00000022   0195               MOVW    R19:R18, R11:R10
+   \   00000024   ........           CALL    ?F_SUB_L04
+   \   00000028   01C8               MOVW    R25:R24, R17:R16
+   \   0000002A   01D9               MOVW    R27:R26, R19:R18
+    144          	unsigned char i=0;
+   \   0000002C   24CC               CLR     R12
+    145          	printLong(integerPart);
+   \   0000002E   0182               MOVW    R17:R16, R5:R4
+   \   00000030   0193               MOVW    R19:R18, R7:R6
+   \   00000032   ....               RCALL   printLong
+    146          	USART_Transmit('.');
+   \   00000034   E20E               LDI     R16, 46
+   \   00000036   ........           CALL    USART_Transmit
+    147          	if(realPart < 0)
+   \   0000003A   E040               LDI     R20, 0
+   \   0000003C   E050               LDI     R21, 0
+   \   0000003E   E060               LDI     R22, 0
+   \   00000040   E070               LDI     R23, 0
+   \   00000042   018C               MOVW    R17:R16, R25:R24
+   \   00000044   019D               MOVW    R19:R18, R27:R26
+   \   00000046   ........           CALL    ?F_CMP_LT_L04
+   \   0000004A   F408               BRCC    ??printFloat_0
+    148          		realPart = -realPart;
+   \   0000004C   58B0               SUBI    R27, 128
+    149          	for(;i<PRECISION;i++)
+   \                     ??printFloat_0:
+   \   0000004E   E005               LDI     R16, 5
+   \   00000050   16C0               CP      R12, R16
+   \   00000052   F520               BRCC    ??printFloat_1
+    150          	{
+    151          		integerPart = (long)(realPart*10);
+   \   00000054   E040               LDI     R20, 0
+   \   00000056   E050               LDI     R21, 0
+   \   00000058   E260               LDI     R22, 32
+   \   0000005A   E471               LDI     R23, 65
+   \   0000005C   018C               MOVW    R17:R16, R25:R24
+   \   0000005E   019D               MOVW    R19:R18, R27:R26
+   \   00000060   ........           CALL    ?F_MUL_L04
+   \   00000064   ........           CALL    ?F2SL_L04
+   \   00000068   0128               MOVW    R5:R4, R17:R16
+   \   0000006A   0139               MOVW    R7:R6, R19:R18
+    152          		realPart*=10;
+   \   0000006C   E040               LDI     R20, 0
+   \   0000006E   E050               LDI     R21, 0
+   \   00000070   E260               LDI     R22, 32
+   \   00000072   E471               LDI     R23, 65
+   \   00000074   018C               MOVW    R17:R16, R25:R24
+   \   00000076   019D               MOVW    R19:R18, R27:R26
+   \   00000078   ........           CALL    ?F_MUL_L04
+   \   0000007C   01C8               MOVW    R25:R24, R17:R16
+   \   0000007E   01D9               MOVW    R27:R26, R19:R18
+    153                          USART_Transmit((unsigned char)(integerPart%10+'0'));
+   \   00000080   E04A               LDI     R20, 10
+   \   00000082   E050               LDI     R21, 0
+   \   00000084   E060               LDI     R22, 0
+   \   00000086   E070               LDI     R23, 0
+   \   00000088   0182               MOVW    R17:R16, R5:R4
+   \   0000008A   0193               MOVW    R19:R18, R7:R6
+   \   0000008C   ........           CALL    ?SL_DIVMOD_L03
+   \   00000090   2F04               MOV     R16, R20
+   \   00000092   5D00               SUBI    R16, 208
+   \   00000094   ........           CALL    USART_Transmit
+    154          	}	
+   \   00000098   94C3               INC     R12
+   \   0000009A   CFD9               RJMP    ??printFloat_0
+    155          }
+   \                     ??printFloat_1:
+   \   0000009C   E0ED               LDI     R30, 13
+   \   0000009E   ........           JMP     ?EPILOGUE_B13_L09
+    156          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    157          void printUnsignedInt(unsigned int number)
+   \                     printUnsignedInt:
+    158          {
+   \   00000000   ........           CALL    ?PROLOGUE8_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004   9726               SBIW    R29:R28, 6
+   \   00000006   0128               MOVW    R5:R4, R17:R16
+    159          	unsigned char buffer[6];
+    160          	unsigned char index = 0;
+   \   00000008   2466               CLR     R6
+    161          	long max=10;
+   \   0000000A   E08A               LDI     R24, 10
+   \   0000000C   E090               LDI     R25, 0
+   \   0000000E   E0A0               LDI     R26, 0
+   \   00000010   E0B0               LDI     R27, 0
+    162          
+    163          	for(index = 0; index < 7; index++)
+   \   00000012   2466               CLR     R6
+   \                     ??printUnsignedInt_0:
+   \   00000014   E007               LDI     R16, 7
+   \   00000016   1660               CP      R6, R16
+   \   00000018   F440               BRCC    ??printUnsignedInt_1
+    164          		buffer[index] = 0;
+   \   0000001A   E000               LDI     R16, 0
+   \   0000001C   01FE               MOVW    R31:R30, R29:R28
+   \   0000001E   2477               CLR     R7
+   \   00000020   0DE6               ADD     R30, R6
+   \   00000022   1DF7               ADC     R31, R7
+   \   00000024   8300               ST      Z, R16
+   \   00000026   9463               INC     R6
+   \   00000028   CFF5               RJMP    ??printUnsignedInt_0
+    165          
+    166          	index = 0;	
+   \                     ??printUnsignedInt_1:
+   \   0000002A   2466               CLR     R6
+    167          	while(1)
+    168          	{
+    169          		if(max <= number)
+   \                     ??printUnsignedInt_2:
+   \   0000002C   0182               MOVW    R17:R16, R5:R4
+   \   0000002E   E020               LDI     R18, 0
+   \   00000030   E030               LDI     R19, 0
+   \   00000032   1708               CP      R16, R24
+   \   00000034   0719               CPC     R17, R25
+   \   00000036   072A               CPC     R18, R26
+   \   00000038   073B               CPC     R19, R27
+   \   0000003A   F05C               BRLT    ??printUnsignedInt_3
+    170          		{
+    171          			max*=10;
+   \   0000003C   E00A               LDI     R16, 10
+   \   0000003E   E010               LDI     R17, 0
+   \   00000040   E020               LDI     R18, 0
+   \   00000042   E030               LDI     R19, 0
+   \   00000044   01AC               MOVW    R21:R20, R25:R24
+   \   00000046   01BD               MOVW    R23:R22, R27:R26
+   \   00000048   ........           CALL    ?L_EC_MUL_L03
+   \   0000004C   01C8               MOVW    R25:R24, R17:R16
+   \   0000004E   01D9               MOVW    R27:R26, R19:R18
+   \   00000050   CFED               RJMP    ??printUnsignedInt_2
+    172          		}
+    173          		else
+    174          			break;
+    175          	}
+    176          	max/=10;
+   \                     ??printUnsignedInt_3:
+   \   00000052   E04A               LDI     R20, 10
+   \   00000054   E050               LDI     R21, 0
+   \   00000056   E060               LDI     R22, 0
+   \   00000058   E070               LDI     R23, 0
+   \   0000005A   018C               MOVW    R17:R16, R25:R24
+   \   0000005C   019D               MOVW    R19:R18, R27:R26
+   \   0000005E   ........           CALL    ?SL_DIVMOD_L03
+   \   00000062   01C8               MOVW    R25:R24, R17:R16
+   \   00000064   01D9               MOVW    R27:R26, R19:R18
+    177          	while(max)
+   \                     ??printUnsignedInt_4:
+   \   00000066   2F08               MOV     R16, R24
+   \   00000068   2B09               OR      R16, R25
+   \   0000006A   2B0A               OR      R16, R26
+   \   0000006C   2B0B               OR      R16, R27
+   \   0000006E   F109               BREQ    ??printUnsignedInt_5
+    178          	{
+    179          		buffer[index++]=(number/max)+'0';
+   \   00000070   0182               MOVW    R17:R16, R5:R4
+   \   00000072   E020               LDI     R18, 0
+   \   00000074   E030               LDI     R19, 0
+   \   00000076   01AC               MOVW    R21:R20, R25:R24
+   \   00000078   01BD               MOVW    R23:R22, R27:R26
+   \   0000007A   ........           CALL    ?SL_DIVMOD_L03
+   \   0000007E   5D00               SUBI    R16, 208
+   \   00000080   01FE               MOVW    R31:R30, R29:R28
+   \   00000082   2477               CLR     R7
+   \   00000084   0DE6               ADD     R30, R6
+   \   00000086   1DF7               ADC     R31, R7
+   \   00000088   8300               ST      Z, R16
+   \   0000008A   9463               INC     R6
+    180          		number%=max;
+   \   0000008C   0182               MOVW    R17:R16, R5:R4
+   \   0000008E   E020               LDI     R18, 0
+   \   00000090   E030               LDI     R19, 0
+   \   00000092   01AC               MOVW    R21:R20, R25:R24
+   \   00000094   01BD               MOVW    R23:R22, R27:R26
+   \   00000096   ........           CALL    ?SL_DIVMOD_L03
+   \   0000009A   012A               MOVW    R5:R4, R21:R20
+    181          		max/=10;
+   \   0000009C   E04A               LDI     R20, 10
+   \   0000009E   E050               LDI     R21, 0
+   \   000000A0   E060               LDI     R22, 0
+   \   000000A2   E070               LDI     R23, 0
+   \   000000A4   018C               MOVW    R17:R16, R25:R24
+   \   000000A6   019D               MOVW    R19:R18, R27:R26
+   \   000000A8   ........           CALL    ?SL_DIVMOD_L03
+   \   000000AC   01C8               MOVW    R25:R24, R17:R16
+   \   000000AE   01D9               MOVW    R27:R26, R19:R18
+   \   000000B0   CFDA               RJMP    ??printUnsignedInt_4
+    182          	}
+    183          	
+    184          	index = 0;
+   \                     ??printUnsignedInt_5:
+   \   000000B2   2466               CLR     R6
+    185          	while(buffer[index])
+   \                     ??printUnsignedInt_6:
+   \   000000B4   01FE               MOVW    R31:R30, R29:R28
+   \   000000B6   2477               CLR     R7
+   \   000000B8   0DE6               ADD     R30, R6
+   \   000000BA   1DF7               ADC     R31, R7
+   \   000000BC   8100               LD      R16, Z
+   \   000000BE   2300               TST     R16
+   \   000000C0   F049               BREQ    ??printUnsignedInt_7
+    186          		USART_Transmit(buffer[index++]);
+   \   000000C2   01FE               MOVW    R31:R30, R29:R28
+   \   000000C4   2477               CLR     R7
+   \   000000C6   0DE6               ADD     R30, R6
+   \   000000C8   1DF7               ADC     R31, R7
+   \   000000CA   8100               LD      R16, Z
+   \   000000CC   ........           CALL    USART_Transmit
+   \   000000D0   9463               INC     R6
+   \   000000D2   CFF0               RJMP    ??printUnsignedInt_6
+    187          }
+   \                     ??printUnsignedInt_7:
+   \   000000D4   9626               ADIW    R29:R28, 6
+   \   000000D6   E0E8               LDI     R30, 8
+   \   000000D8   ........           JMP     ?EPILOGUE_B8_L09
+    188          
+    189          
+    190          
+    191          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+    192          void PRINTF(void*data,enum TYPE type)
+   \                     PRINTF:
+    193          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   01D8               MOVW    R27:R26, R17:R16
+   \   00000006   2F82               MOV     R24, R18
+    194          	switch(type)
+   \   00000008   2F08               MOV     R16, R24
+   \   0000000A   5000               SUBI    R16, 0
+   \   0000000C   F0A9               BREQ    ??PRINTF_0
+   \   0000000E   950A               DEC     R16
+   \   00000010   F061               BREQ    ??PRINTF_1
+   \   00000012   950A               DEC     R16
+   \   00000014   F039               BREQ    ??PRINTF_2
+   \   00000016   950A               DEC     R16
+   \   00000018   F091               BREQ    ??PRINTF_3
+   \   0000001A   950A               DEC     R16
+   \   0000001C   F0B9               BREQ    ??PRINTF_4
+   \   0000001E   950A               DEC     R16
+   \   00000020   F0C1               BREQ    ??PRINTF_5
+   \   00000022   C019               RJMP    ??PRINTF_6
+    195          	{
+    196          	case STRING :
+    197          		printString((unsigned char*)data);
+   \                     ??PRINTF_2:
+   \   00000024   018D               MOVW    R17:R16, R27:R26
+   \   00000026   ....               RCALL   printString
+    198          		break;
+   \   00000028   C016               RJMP    ??PRINTF_6
+    199          	case LONG:
+    200          		printLong(*(long*)data);
+   \                     ??PRINTF_1:
+   \   0000002A   910D               LD      R16, X+
+   \   0000002C   911D               LD      R17, X+
+   \   0000002E   912D               LD      R18, X+
+   \   00000030   913C               LD      R19, X
+   \   00000032   9713               SBIW    R27:R26, 3
+   \   00000034   ....               RCALL   printLong
+    201          		break;
+   \   00000036   C00F               RJMP    ??PRINTF_6
+    202          	case INT:
+    203          		printInt((int)data);
+   \                     ??PRINTF_0:
+   \   00000038   018D               MOVW    R17:R16, R27:R26
+   \   0000003A   ....               RCALL   printInt
+    204          		break;
+   \   0000003C   C00C               RJMP    ??PRINTF_6
+    205          	case FLOAT:
+    206          		printFloat(*(float *)data);
+   \                     ??PRINTF_3:
+   \   0000003E   910D               LD      R16, X+
+   \   00000040   911D               LD      R17, X+
+   \   00000042   912D               LD      R18, X+
+   \   00000044   913C               LD      R19, X
+   \   00000046   9713               SBIW    R27:R26, 3
+   \   00000048   ....               RCALL   printFloat
+    207          		break;
+   \   0000004A   C005               RJMP    ??PRINTF_6
+    208          	case UNSIGNED:
+    209          		printUnsignedInt((unsigned int)data);
+   \                     ??PRINTF_4:
+   \   0000004C   018D               MOVW    R17:R16, R27:R26
+   \   0000004E   ....               RCALL   printUnsignedInt
+    210          		break;
+   \   00000050   C002               RJMP    ??PRINTF_6
+    211          	case HEX:
+    212          		printHex((unsigned int)data);
+   \                     ??PRINTF_5:
+   \   00000052   018D               MOVW    R17:R16, R27:R26
+   \   00000054   ....               RCALL   printHex
+    213          		break;
+    214          	default:
+    215          		break;
+    216          	}
+    217          }
+   \                     ??PRINTF_6:
+   \   00000056   E0E4               LDI     R30, 4
+   \   00000058   ........           JMP     ?EPILOGUE_B4_L09
+    218          
+    219          /*
+    220          Manuaul de utilizare
+    221          pentru int:
+    222          int x = 12555;(2 octeti)
+    223          PRINTF((void*)(x),INT);
+    224          
+    225          pentru unsigned int:
+    226          unsigned int x = 12555;(2 octeti)
+    227          PRINTF((void*)(x),UNSIGNED);
+    228          
+    229          pentru long:
+    230          long x = 854441122;(4 octeti)
+    231          PRINTF((void*)(&x),LONG);
+    232          
+    233          pentru float:
+    234          float x = 21547.4577;(4 octeti)
+    235          PRINTF((void*)(&x),FLOAT);
+    236          
+    237          pentru char*, sir terminat cu '\0' :
+    238          
+    239          char* x = "test";
+    240          PRINTF((void*)(x),STRING);
+    241          
+    242          pentru hex:
+    243          unsigned int x = 345;
+    244          PRINTF((void*)(x),HEX);
+    245          
+    246          Copyright Raileanu,2014
+    247          All rights reserved
+    248          */
+    249          
+    250          
+    251          
+    252          
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       4      2  PRINTF
+                    4 2 -> printFloat
+                    4 2 -> printHex
+                    4 2 -> printInt
+                    4 2 -> printLong
+                    4 2 -> printString
+                    4 2 -> printUnsignedInt
+      13      4  printFloat
+                   13 2 -> USART_Transmit
+                   13 2 -> printLong
+       9      4  printHex
+                    9 2 -> USART_Transmit
+      15      4  printInt
+                   15 2 -> USART_Transmit
+      21      4  printLong
+                   21 2 -> USART_Transmit
+       2      2  printString
+                    2 2 -> USART_Transmit
+      14      4  printUnsignedInt
+                   14 2 -> USART_Transmit
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      92  PRINTF
+     162  printFloat
+     280  printHex
+     252  printInt
+     242  printLong
+      28  printString
+     220  printUnsignedInt
+
+ 
+ 1 276 bytes in segment CODE
+ 
+ 1 276 bytes of CODE memory
+
+Errors: none
+Warnings: none

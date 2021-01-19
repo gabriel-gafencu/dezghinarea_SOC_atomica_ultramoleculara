@@ -1,0 +1,161 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        23/Dec/2015  12:39:30 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\WDT_GenFreq\main.c           #
+#    Command line =  D:\soc2015\1305B\LucruExtra\WDT_GenFreq\main.c           #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\WDT_GenFreq #
+#                    \Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\WDT_GenFreq\ #
+#                    Debug\List\ -lA D:\soc2015\1305B\LucruExtra\WDT_GenFreq\ #
+#                    Debug\List\ --initializers_in_flash --no_cse             #
+#                    --no_inline --no_code_motion --no_cross_call             #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\LucruExtra\WDT_GenFreq\Debug\List\main. #
+#                    lst                                                      #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\WDT_GenFreq\Debug\Obj\main.r #
+#                    90                                                       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\WDT_GenFreq\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x41
+   \   union <unnamed> volatile __io _A_WDTCR
+   \                     _A_WDTCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x38
+   \   union <unnamed> volatile __io _A_PORTB
+   \                     _A_PORTB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x37
+   \   union <unnamed> volatile __io _A_DDRB
+   \                     _A_DDRB:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          
+      4          #define F_OSC 4010400
+      5          
+      6          #pragma vector = TIMER1_COMPA_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      7          __interrupt void isr_TIMER1_COMPA_vect()
+   \                     isr_TIMER1_COMPA_vect:
+      8          {
+   \   00000000   931A               ST      -Y, R17
+   \   00000002   930A               ST      -Y, R16
+   \   00000004   B71F               IN      R17, 0x3F
+      9            PORTB = 0; //PORTB ^ (1 << PB0);
+   \   00000006   E000               LDI     R16, 0
+   \   00000008   BB08               OUT     0x18, R16
+     10          }
+   \   0000000A   BF1F               OUT     0x3F, R17
+   \   0000000C   9109               LD      R16, Y+
+   \   0000000E   9119               LD      R17, Y+
+   \   00000010   9518               RETI
+   \   00000012                      REQUIRE _A_PORTB
+     11          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     12          void main( void )
+   \                     main:
+     13          {
+     14            TCCR1B |= (1 << WGM12) | (1 << CS12) | (0 << CS11) | (1 << CS10);
+   \   00000000   B50E               IN      R16, 0x2E
+   \   00000002   600D               ORI     R16, 0x0D
+   \   00000004   BD0E               OUT     0x2E, R16
+     15            TIMSK |= (1 << OCIE1A);
+   \   00000006   B709               IN      R16, 0x39
+   \   00000008   6100               ORI     R16, 0x10
+   \   0000000A   BF09               OUT     0x39, R16
+     16            OCR1A = 784;
+   \   0000000C   E100               LDI     R16, 16
+   \   0000000E   E013               LDI     R17, 3
+   \   00000010   BD1B               OUT     0x2B, R17
+   \   00000012   BD0A               OUT     0x2A, R16
+     17            __enable_interrupt();
+   \   00000014   9478               SEI
+     18            DDRB = (1 << PB0);
+   \   00000016   E001               LDI     R16, 1
+   \   00000018   BB07               OUT     0x17, R16
+     19            PORTB = (1 << PB0);
+   \   0000001A   E001               LDI     R16, 1
+   \   0000001C   BB08               OUT     0x18, R16
+     20            
+     21            WDTCR |= (1 << WDP2) | (0 << WDP1) | (1 << WDP0);
+   \   0000001E   B501               IN      R16, 0x21
+   \   00000020   6005               ORI     R16, 0x05
+   \   00000022   BD01               OUT     0x21, R16
+     22            WDTCR |= (1 << WDE);
+   \   00000024   B501               IN      R16, 0x21
+   \   00000026   6008               ORI     R16, 0x08
+   \   00000028   BD01               OUT     0x21, R16
+     23            
+     24            while(1)
+   \                     ??main_0:
+   \   0000002A   CFFF               RJMP    ??main_0
+   \   0000002C                      REQUIRE _A_TCCR1B
+   \   0000002C                      REQUIRE _A_TIMSK
+   \   0000002C                      REQUIRE _A_OCR1A
+   \   0000002C                      REQUIRE _A_DDRB
+   \   0000002C                      REQUIRE _A_PORTB
+   \   0000002C                      REQUIRE _A_WDTCR
+     25              ;
+     26          }
+
+   \                                 In  segment INTVEC, offset 0x18, root
+   \                     `??isr_TIMER1_COMPA_vect??INTVEC 24`:
+   \   00000018   ........           JMP     isr_TIMER1_COMPA_vect
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       2      2  isr_TIMER1_COMPA_vect
+       0      2  main
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_TIMER1_COMPA_vect??INTVEC 24
+       1  _A_DDRB
+       2  _A_OCR1A
+       1  _A_PORTB
+       1  _A_TCCR1B
+       1  _A_TIMSK
+       1  _A_WDTCR
+      18  isr_TIMER1_COMPA_vect
+      44  main
+
+ 
+  7 bytes in segment ABSOLUTE
+ 62 bytes in segment CODE
+  4 bytes in segment INTVEC
+ 
+ 62 bytes of CODE memory (+ 4 bytes shared)
+  0 bytes of DATA memory (+ 7 bytes shared)
+
+Errors: none
+Warnings: none

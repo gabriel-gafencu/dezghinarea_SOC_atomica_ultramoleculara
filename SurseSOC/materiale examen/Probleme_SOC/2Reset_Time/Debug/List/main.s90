@@ -1,0 +1,1072 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       30/Dec/2015  17:19:54 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc2015\1305B\Uleru George                           /
+//                    Iulian\George;;)\2Reset_Time\main.c                     /
+//    Command line =  "D:\soc2015\1305B\Uleru George                          /
+//                    Iulian\George;;)\2Reset_Time\main.c" --cpu=m16 -ms -o   /
+//                    "D:\soc2015\1305B\Uleru George                          /
+//                    Iulian\George;;)\2Reset_Time\Debug\Obj\" -lC            /
+//                    "D:\soc2015\1305B\Uleru George                          /
+//                    Iulian\George;;)\2Reset_Time\Debug\List\" -lA           /
+//                    "D:\soc2015\1305B\Uleru George                          /
+//                    Iulian\George;;)\2Reset_Time\Debug\List\"               /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\soc2015\1305B\Uleru George                           /
+//                    Iulian\George;;)\2Reset_Time\Debug\List\main.s90        /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?LL_CMP_L12
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?Register_R10_is_cg_reg
+        EXTERN ?Register_R11_is_cg_reg
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?ULL_DIV_L12
+        EXTERN ?ULL_MOD_L12
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBWEAK `??isr_TIMER0_COMP_vect??INTVEC 76`
+        PUBWEAK _A_DDRB
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_OCR0
+        PUBWEAK _A_PORTB
+        PUBWEAK _A_TCCR0
+        PUBWEAK _A_TIMSK
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBWEAK __Constant_0_0
+        PUBWEAK __Constant_3e8_0
+        PUBWEAK __Constant_64_0
+        PUBWEAK __Constant_a_0
+        PUBLIC isr_TIMER0_COMP_vect
+        FUNCTION isr_TIMER0_COMP_vect,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 11, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC main
+        FUNCTION main,021a03H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC pinVal
+        PUBLIC softCount
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+isr_TIMER0_COMP_vect SYMBOL "isr_TIMER0_COMP_vect"
+`??isr_TIMER0_COMP_vect??INTVEC 76` SYMBOL "??INTVEC 76", isr_TIMER0_COMP_vect
+
+        EXTERN USART_init
+        FUNCTION USART_init,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit_ulonglong
+        FUNCTION USART_transmit_ulonglong,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\soc2015\1305B\Uleru George Iulian\George;;)\2Reset_Time\main.c
+//    1 #include<iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,05cH
+// union <unnamed> volatile __io _A_OCR0
+_A_OCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,053H
+// union <unnamed> volatile __io _A_TCCR0
+_A_TCCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,038H
+// union <unnamed> volatile __io _A_PORTB
+_A_PORTB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,037H
+// union <unnamed> volatile __io _A_DDRB
+_A_DDRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    2 #include<inavr.h>
+//    3 #include"usart.h"
+//    4 
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//    5 __no_init unsigned long long softCount;
+softCount:
+        DS8 8
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+//    6 __no_init unsigned char pinVal;             //variabila pt verificare
+pinVal:
+        DS8 1
+//    7 
+//    8 #pragma vector = TIMER0_COMP_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//    9 __interrupt void isr_TIMER0_COMP_vect()
+isr_TIMER0_COMP_vect:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function isr_TIMER0_COMP_vect
+//   10 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R0
+          CFI R0 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R23
+          CFI R23 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R22
+          CFI R22 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        ST      -Y, R21
+          CFI R21 Frame(CFA_Y, -6)
+          CFI CFA_Y Y+6
+        ST      -Y, R20
+          CFI R20 Frame(CFA_Y, -7)
+          CFI CFA_Y Y+7
+        ST      -Y, R19
+          CFI R19 Frame(CFA_Y, -8)
+          CFI CFA_Y Y+8
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -9)
+          CFI CFA_Y Y+9
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -10)
+          CFI CFA_Y Y+10
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -11)
+          CFI CFA_Y Y+11
+        IN      R0, 0x3F
+//   11   softCount++;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        SUBI    R16, 255
+        SBCI    R17, 255
+        SBCI    R18, 255
+        SBCI    R19, 255
+        SBCI    R20, 255
+        SBCI    R21, 255
+        SBCI    R22, 255
+        SBCI    R23, 255
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+//   12 }
+        OUT     0x3F, R0
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+10
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+9
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+8
+        LD      R19, Y+
+          CFI R19 SameValue
+          CFI CFA_Y Y+7
+        LD      R20, Y+
+          CFI R20 SameValue
+          CFI CFA_Y Y+6
+        LD      R21, Y+
+          CFI R21 SameValue
+          CFI CFA_Y Y+5
+        LD      R22, Y+
+          CFI R22 SameValue
+          CFI CFA_Y Y+4
+        LD      R23, Y+
+          CFI R23 SameValue
+          CFI CFA_Y Y+3
+        LD      R0, Y+
+          CFI R0 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock0
+//   13 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   14 void main( void )
+main:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function main
+//   15 { 
+        FUNCALL main, USART_init
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit_ulonglong
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+//   16   //fac verificare a timpului cu SALEAE LOGIC
+//   17   DDRB = (1 << PB0);
+        LDI     R16, 1
+        OUT     0x17, R16
+//   18   if(pinVal == 0)
+        LDS     R16, pinVal
+        TST     R16
+        BRNE    ??main_0
+//   19   {
+//   20     PORTB = PORTB ^ (1 << PB0);
+        LDI     R16, 1
+        IN      R17, 0x18
+        EOR     R17, R16
+        OUT     0x18, R17
+//   21     pinVal = 1;
+        LDI     R16, 1
+        STS     pinVal, R16
+        RJMP    ??main_1
+//   22   }
+//   23   else
+//   24   {
+//   25     PORTB = PORTB ^ (1 << PB0);;
+??main_0:
+        LDI     R16, 1
+        IN      R17, 0x18
+        EOR     R17, R16
+        OUT     0x18, R17
+//   26     pinVal = 0;
+        LDI     R16, 0
+        STS     pinVal, R16
+//   27   }
+//   28   //end verificare
+//   29   
+//   30   USART_init(BAUD_RATE);
+??main_1:
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_init
+//   31   DDRD |= (1 << PD1);
+        SBI     0x11, 0x01
+//   32   
+//   33   unsigned long long aux = softCount / 1000;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        LDI     R26, LOW(__Constant_3e8_0)
+        LDI     R27, (__Constant_3e8_0) >> 8
+        CALL    ?ULL_DIV_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//   34   USART_transmit('<');
+        LDI     R16, 60
+        CALL    USART_transmit
+//   35   if(aux > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_2
+//   36     USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_3
+//   37   else
+//   38     USART_transmit('0');
+??main_2:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   39   aux = softCount % 1000;
+??main_3:
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_3e8_0)
+        LDI     R27, (__Constant_3e8_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_MOD_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//   40   USART_transmit('.');
+        LDI     R16, 46
+        CALL    USART_transmit
+//   41   if(aux / 100 > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_64_0)
+        LDI     R27, (__Constant_64_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_DIV_L12
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_4
+//   42     USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_5
+//   43   else
+//   44   {
+//   45     USART_transmit('0');
+??main_4:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   46     if(aux / 10 > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_DIV_L12
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_6
+//   47       USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_5
+//   48     else
+//   49     {
+//   50       USART_transmit('0');
+??main_6:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   51       USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+//   52     }
+//   53   }
+//   54   USART_transmit('>');
+??main_5:
+        LDI     R16, 62
+        CALL    USART_transmit
+//   55   USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   56   USART_transmit('\n');
+        LDI     R16, 10
+        CALL    USART_transmit
+//   57   
+//   58   softCount = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+//   59   
+//   60   TCCR0 = (1 << WGM01) | (0 << WGM00) | (0 << CS02) | (1 << CS01) | (1 << CS00);
+        LDI     R16, 11
+        OUT     0x33, R16
+//   61   OCR0 = 63;
+        LDI     R16, 63
+        OUT     0x3C, R16
+//   62   TIMSK |= (1 << OCIE0);
+        IN      R16, 0x39
+        ORI     R16, 0x02
+        OUT     0x39, R16
+//   63   __enable_interrupt();
+        SEI
+//   64   
+//   65   while(1)
+//   66   {
+//   67    if(softCount % 1000 == 0)
+??main_7:
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_3e8_0)
+        LDI     R27, (__Constant_3e8_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_MOD_L12
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BRNE    ??main_7
+//   68    {
+//   69      aux = softCount / 1000;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_3e8_0)
+        LDI     R27, (__Constant_3e8_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_DIV_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//   70      USART_transmit('<');
+        LDI     R16, 60
+        CALL    USART_transmit
+//   71      if(aux > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_8
+//   72        USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_9
+//   73      else
+//   74        USART_transmit('0');
+??main_8:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   75      aux = softCount % 1000;
+??main_9:
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_3e8_0)
+        LDI     R27, (__Constant_3e8_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_MOD_L12
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+        MOVW    R13:R12, R21:R20
+        MOVW    R15:R14, R23:R22
+//   76      USART_transmit('.');
+        LDI     R16, 46
+        CALL    USART_transmit
+//   77      if(aux / 100 > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_64_0)
+        LDI     R27, (__Constant_64_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_DIV_L12
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_10
+//   78        USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_11
+//   79      else
+//   80      {
+//   81        USART_transmit('0');
+??main_10:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   82        if(aux / 10 > 0)
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R26, LOW(__Constant_a_0)
+        LDI     R27, (__Constant_a_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?ULL_DIV_L12
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+        LDI     R30, LOW(__Constant_0_0)
+        LDI     R31, (__Constant_0_0) >> 8
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        MOVW    R21:R20, R5:R4
+        MOVW    R23:R22, R7:R6
+        CALL    ?LL_CMP_L12
+        BREQ    ??main_12
+//   83          USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+        RJMP    ??main_11
+//   84        else
+//   85        {
+//   86          USART_transmit('0');
+??main_12:
+        LDI     R16, 48
+        CALL    USART_transmit
+//   87          USART_transmit_ulonglong(aux);
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        CALL    USART_transmit_ulonglong
+//   88        }
+//   89      }
+//   90      USART_transmit('>');
+??main_11:
+        LDI     R16, 62
+        CALL    USART_transmit
+//   91      USART_transmit('\r');
+        LDI     R16, 13
+        CALL    USART_transmit
+//   92      USART_transmit('\n');
+        LDI     R16, 10
+        CALL    USART_transmit
+        RJMP    ??main_7
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_DDRB
+        REQUIRE _A_PORTB
+        REQUIRE _A_DDRD
+        REQUIRE _A_TCCR0
+        REQUIRE _A_OCR0
+        REQUIRE _A_TIMSK
+//   93    }
+//   94   }
+//   95 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 76
+`??isr_TIMER0_COMP_vect??INTVEC 76`:
+        JMP     isr_TIMER0_COMP_vect
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_0`:
+        DD 1000, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_3e8_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_1`:
+        DD 0, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_0_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_1`
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_2`:
+        DD 100, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_64_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_2`
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_3`:
+        DD 10, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_a_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_3`
+
+        END
+// 
+//   6 bytes in segment ABSOLUTE
+// 982 bytes in segment CODE
+//   6 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//  32 bytes in segment NEAR_I
+//  32 bytes in segment NEAR_ID
+//   9 bytes in segment NEAR_N
+// 
+// 982 bytes of CODE memory (+ 42 bytes shared)
+//   9 bytes of DATA memory (+ 38 bytes shared)
+//
+//Errors: none
+//Warnings: none

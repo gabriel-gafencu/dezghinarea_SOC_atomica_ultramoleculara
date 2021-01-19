@@ -1,0 +1,224 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       22/Dec/2015  13:05:13 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD15\timer.c          /
+//    Command line =  D:\soc2015\1305B\LucruExtra\GenF_MOD15\timer.c          /
+//                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\GenF_MOD15 /
+//                    \Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\GenF_MOD15\ /
+//                    Debug\List\ -lA D:\soc2015\1305B\LucruExtra\GenF_MOD15\ /
+//                    Debug\List\ --initializers_in_flash --no_cse            /
+//                    --no_inline --no_code_motion --no_cross_call            /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\soc2015\1305B\LucruExtra\GenF_MOD15\Debug\List\timer /
+//                    .s90                                                    /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME timer
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?SL_DIVMOD_L03
+
+        PUBLIC TIMER1_init
+        FUNCTION TIMER1_init,0201H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBWEAK _A_OCR1A
+        PUBWEAK _A_TCCR1A
+        PUBWEAK _A_TCCR1B
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+// D:\soc2015\1305B\LucruExtra\GenF_MOD15\timer.c
+//    1 #include "timer1.h"
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04fH
+// union <unnamed> volatile __io _A_TCCR1A
+_A_TCCR1A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04aH
+// union <unnamed> volatile __io _A_OCR1A
+_A_OCR1A:
+        DS8 2
+//    2 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    3 void TIMER1_init()
+TIMER1_init:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function TIMER1_init
+//    4 {
+        ST      -Y, R25
+          CFI R25 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R24
+          CFI R24 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+//    5   /*selectare mod functionare*/
+//    6   TCCR1A |= (1 << WGM11) | (1 << WGM10);
+        IN      R16, 0x2F
+        ORI     R16, 0x03
+        OUT     0x2F, R16
+//    7   TCCR1B |= (1 << WGM13) | (1 << WGM12);
+        IN      R16, 0x2E
+        ORI     R16, 0x18
+        OUT     0x2E, R16
+//    8   
+//    9   /*selectare compare output mode*/
+//   10   TCCR1A |= (0 << COM1A1) | (1 << COM1A0);
+        IN      R16, 0x2F
+        ORI     R16, 0x40
+        OUT     0x2F, R16
+//   11   
+//   12   /*selectare prescaller*/
+//   13   TCCR1B |= (0 << CS12) | (0 << CS11) | (1 << CS10);
+        IN      R16, 0x2E
+        ORI     R16, 0x01
+        OUT     0x2E, R16
+//   14   
+//   15   /*setez valoare registru OCRA*/
+//   16   /*wantedFreq : frecventa dorita*/
+//   17   unsigned int wantedFreq = 1000;
+        LDI     R24, 232
+        LDI     R25, 3
+//   18   /*F_OSC >> 1 : OC1A face toggle de 2x / perioada*/
+//   19   unsigned int ocrVal = (F_OSC >> 1) / wantedFreq - 1;
+        MOVW    R21:R20, R25:R24
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R16, 208
+        LDI     R17, 152
+        LDI     R18, 30
+        LDI     R19, 0
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R31:R30, R17:R16
+        SBIW    R31:R30, 1
+//   20   OCR1AH = (ocrVal >> 8);
+        MOVW    R17:R16, R31:R30
+        MOV     R16, R17
+        LDI     R17, 0
+        OUT     0x2B, R16
+//   21   OCR1AL = ocrVal;
+        MOV     R16, R30
+        OUT     0x2A, R16
+//   22 }
+        LD      R24, Y+
+          CFI R24 SameValue
+          CFI CFA_Y Y+1
+        LD      R25, Y+
+          CFI R25 SameValue
+          CFI CFA_Y Y+0
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_TCCR1A
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_OCR1A
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//  4 bytes in segment ABSOLUTE
+// 72 bytes in segment CODE
+// 
+// 72 bytes of CODE memory
+//  0 bytes of DATA memory (+ 4 bytes shared)
+//
+//Errors: none
+//Warnings: none

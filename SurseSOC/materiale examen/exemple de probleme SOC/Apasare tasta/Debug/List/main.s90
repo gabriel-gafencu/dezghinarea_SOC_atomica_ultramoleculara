@@ -1,0 +1,549 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       20/Dec/2014  14:14:36 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\Apasare tasta\main.c                           /
+//    Command line =  "D:\1307B\Apasare tasta\main.c" --cpu=m16 -ms -o        /
+//                    "D:\1307B\Apasare tasta\Debug\Obj\" -lCN                /
+//                    "D:\1307B\Apasare tasta\Debug\List\" -lb                /
+//                    "D:\1307B\Apasare tasta\Debug\List\"                    /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\Apasare tasta\Debug\List\main.s90              /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?F2UL_L04
+        EXTERN ?F_MUL_L04
+        EXTERN ?F_SUB_L04
+        EXTERN ?LL_ADD_L12
+        EXTERN ?LL_MUL_L12
+        EXTERN ?PROLOGUE6_L09
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?SLL2F_L12
+        EXTERN ?UL2F_L04
+        EXTERN ?UL_DIVMOD_L03
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??T1_OVF??INTVEC 32`
+        PUBLIC NR
+        PUBLIC T
+        PUBLIC T1_OVF
+        PUBWEAK _A_MCUCSR
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TCNT1
+        PUBWEAK _A_TIMSK
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBWEAK __Constant_ffff_0
+        PUBLIC main
+        PUBLIC parteFractionara
+        PUBLIC parteIntreaga
+        PUBLIC timer1_INIT
+        PUBLIC var
+        PUBLIC vect
+
+T1_OVF              SYMBOL "T1_OVF"
+`??T1_OVF??INTVEC 32` SYMBOL "??INTVEC 32", T1_OVF
+
+        EXTERN USART_initialize
+        EXTERN USART_transmit
+
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,054H
+// union <unnamed> volatile __io _A_MCUCSR
+_A_MCUCSR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04cH
+// union <unnamed> volatile __io _A_TCNT1
+_A_TCNT1:
+        DS8 2
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+NR:
+        DS8 8
+
+        RSEG NEAR_N:DATA:NOROOT(0)
+var:
+        DS8 8
+
+        RSEG CODE:CODE:NOROOT(1)
+timer1_INIT:
+        IN      R16, 0x2E
+        ORI     R16, 0x01
+        OUT     0x2E, R16
+        IN      R16, 0x39
+        ORI     R16, 0x04
+        OUT     0x39, R16
+        RET
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_TIMSK
+
+        RSEG CODE:CODE:NOROOT(1)
+T1_OVF:
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R0
+        ST      -Y, R23
+        ST      -Y, R22
+        ST      -Y, R21
+        ST      -Y, R20
+        ST      -Y, R19
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R0, 0x3F
+        LDI     R30, LOW(NR)
+        LDI     R31, (NR) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        SUBI    R16, 255
+        SBCI    R17, 255
+        SBCI    R18, 255
+        SBCI    R19, 255
+        SBCI    R20, 255
+        SBCI    R21, 255
+        SBCI    R22, 255
+        SBCI    R23, 255
+        LDI     R30, LOW(NR)
+        LDI     R31, (NR) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+        OUT     0x3F, R0
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R19, Y+
+        LD      R20, Y+
+        LD      R21, Y+
+        LD      R22, Y+
+        LD      R23, Y+
+        LD      R0, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        RETI
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+vect:
+        DS8 10
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+T:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+parteIntreaga:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+parteFractionara:
+        DS8 4
+
+        RSEG CODE:CODE:NOROOT(1)
+main:
+        CALL    ?PROLOGUE6_L09
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_initialize
+        LDI     R16, 9
+        MOV     R4, R16
+        CLR     R5
+        SEI
+        RCALL   timer1_INIT
+        IN      R16, 0x34
+        MOV     R17, R16
+        SBRS    R17, 1
+        RJMP    ??main_0
+        LDI     R30, LOW(NR)
+        LDI     R31, (NR) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDD     R20, Z+4
+        LDD     R21, Z+5
+        LDD     R22, Z+6
+        LDD     R23, Z+7
+        LDI     R26, LOW(__Constant_ffff_0)
+        LDI     R27, (__Constant_ffff_0) >> 8
+        CALL    ?LL_MUL_L12
+        LDI     R30, LOW(var)
+        LDI     R31, (var) >> 8
+        CALL    ?LL_ADD_L12
+        CALL    ?SLL2F_L12
+        LDI     R20, 111
+        LDI     R21, 18
+        LDI     R22, 131
+        LDI     R23, 57
+        CALL    ?F_MUL_L04
+        LDI     R30, LOW(T)
+        LDI     R31, (T) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        LDI     R30, LOW(T)
+        LDI     R31, (T) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F2UL_L04
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        LDI     R30, LOW(T)
+        LDI     R31, (T) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F_SUB_L04
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 200
+        LDI     R23, 66
+        CALL    ?F_MUL_L04
+        CALL    ?F2UL_L04
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R20
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteFractionara)
+        LDI     R31, (parteFractionara) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R20
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        LDI     R16, 46
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R16
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CPI     R16, 9
+        LDI     R20, 0
+        CPC     R17, R20
+        LDI     R20, 0
+        CPC     R18, R20
+        LDI     R20, 0
+        CPC     R19, R20
+        BRCC    ??main_1
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R20
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        LDI     R16, 48
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R16
+        RJMP    ??main_2
+??main_1:
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        OR      R16, R17
+        OR      R16, R18
+        OR      R16, R19
+        BREQ    ??main_2
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        SUBI    R20, 208
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        ST      Z, R20
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?UL_DIVMOD_L03
+        LDI     R30, LOW(parteIntreaga)
+        LDI     R31, (parteIntreaga) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        RJMP    ??main_1
+??main_2:
+        LDI     R16, 1
+        ADD     R4, R16
+        LDI     R16, 0
+        ADC     R5, R16
+??main_3:
+        LDI     R16, 10
+        CP      R4, R16
+        LDI     R16, 0
+        CPC     R5, R16
+        BRGE    ??main_4
+        MOVW    R31:R30, R5:R4
+        SUBI    R30, LOW((-(vect) & 0xFFFF))
+        SBCI    R31, (-(vect) & 0xFFFF) >> 8
+        LD      R16, Z
+        CALL    USART_transmit
+        LDI     R16, 1
+        ADD     R4, R16
+        LDI     R16, 0
+        ADC     R5, R16
+        RJMP    ??main_3
+??main_4:
+        LDI     R16, 109
+        CALL    USART_transmit
+        LDI     R16, 115
+        CALL    USART_transmit
+        LDI     R16, 32
+        CALL    USART_transmit
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(NR)
+        LDI     R31, (NR) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+??main_0:
+        IN      R16, 0x2C
+        IN      R17, 0x2D
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R30, LOW(var)
+        LDI     R31, (var) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        STD     Z+4, R20
+        STD     Z+5, R21
+        STD     Z+6, R22
+        STD     Z+7, R23
+        RJMP    ??main_0
+        REQUIRE _A_MCUCSR
+        REQUIRE _A_TCNT1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 32
+`??T1_OVF??INTVEC 32`:
+        JMP     T1_OVF
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for 64 Bit Constant>_0`:
+        DD 65535, 0
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+__Constant_ffff_0:
+        DS8 8
+        REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        END
+// 
+//   5 bytes in segment ABSOLUTE
+// 758 bytes in segment CODE
+//  12 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//   8 bytes in segment NEAR_I
+//   8 bytes in segment NEAR_ID
+//  16 bytes in segment NEAR_N
+//  22 bytes in segment NEAR_Z
+// 
+// 758 bytes of CODE memory (+ 24 bytes shared)
+//  38 bytes of DATA memory (+ 13 bytes shared)
+//
+//Errors: none
+//Warnings: 1

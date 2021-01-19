@@ -1,0 +1,1414 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       10/Jan/2015  21:03:04 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\Nou\Voltmetru ADC\usart.c                      /
+//    Command line =  "D:\1307B\Nou\Voltmetru ADC\usart.c" --cpu=m16 -ms -o   /
+//                    "D:\1307B\Nou\Voltmetru ADC\Debug\Obj\" -lC             /
+//                    "D:\1307B\Nou\Voltmetru ADC\Debug\List\" -lA            /
+//                    "D:\1307B\Nou\Voltmetru ADC\Debug\List\"                /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\Nou\Voltmetru ADC\Debug\List\usart.s90         /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME usart
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B10_L09
+        EXTERN ?EPILOGUE_B13_L09
+        EXTERN ?EPILOGUE_B4_L09
+        EXTERN ?EPILOGUE_B8_L09
+        EXTERN ?F2SL_L04
+        EXTERN ?F_CMP_LT_L04
+        EXTERN ?F_MUL_L04
+        EXTERN ?F_SUB_L04
+        EXTERN ?L_EC_MUL_L03
+        EXTERN ?PROLOGUE10_L09
+        EXTERN ?PROLOGUE13_L09
+        EXTERN ?PROLOGUE4_L09
+        EXTERN ?PROLOGUE8_L09
+        EXTERN ?Register_R10_is_cg_reg
+        EXTERN ?Register_R11_is_cg_reg
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?SL2F_L04
+        EXTERN ?SL_DIVMOD_L03
+        EXTERN ?S_SHL_L02
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBLIC PRINTF
+        FUNCTION PRINTF,021203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_Init
+        FUNCTION USART_Init,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_Receive
+        FUNCTION USART_Receive,0203H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC USART_Transmit
+        FUNCTION USART_Transmit,0203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBWEAK _A_UBRRH
+        PUBWEAK _A_UBRRL
+        PUBWEAK _A_UCSRA
+        PUBWEAK _A_UCSRB
+        PUBWEAK _A_UDR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC buffer
+        PUBLIC printFloat
+        FUNCTION printFloat,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 13, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC printHex
+        FUNCTION printHex,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC printInt
+        FUNCTION printInt,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 15, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC printLong
+        FUNCTION printLong,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC printString
+        FUNCTION printString,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC printUnsignedInt
+        FUNCTION printUnsignedInt,021203H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME CSTACK, 14, STACK
+        LOCFRAME RSTACK, 4, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+// D:\1307B\Nou\Voltmetru ADC\usart.c
+//    1 #include <iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,040H
+// union <unnamed> volatile __io _A_UBRRH
+_A_UBRRH:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02cH
+// union <unnamed> volatile __io _A_UDR
+_A_UDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02bH
+// union <unnamed> volatile __io _A_UCSRA
+_A_UCSRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02aH
+// union <unnamed> volatile __io _A_UCSRB
+_A_UCSRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,029H
+// union <unnamed> volatile __io _A_UBRRL
+_A_UBRRL:
+        DS8 1
+//    2 #include "usart.h"
+
+        RSEG CODE:CODE:NOROOT(1)
+//    3 void USART_Transmit( unsigned char data )
+USART_Transmit:
+??USART_Transmit_0:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function USART_Transmit
+//    4 {
+//    5   /* Wait for empty transmit buffer */
+//    6   while ( !( UCSRA & (1<<UDRE)) )
+        SBIS    0x0B, 0x05
+        RJMP    ??USART_Transmit_0
+//    7     ;
+//    8   /* Put data into buffer, sends the data */
+//    9   UDR = data;
+        OUT     0x0C, R16
+//   10 }
+        RET
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+
+        RSEG CODE:CODE:NOROOT(1)
+//   11 unsigned char USART_Receive( void )
+USART_Receive:
+??USART_Receive_0:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function USART_Receive
+//   12 {
+//   13   /* Wait for data to be received */
+//   14   while ( !(UCSRA & (1<<RXC)) )
+        SBIS    0x0B, 0x07
+        RJMP    ??USART_Receive_0
+//   15     ;
+//   16   /* Get and return received data from buffer */
+//   17   return UDR;
+        IN      R16, 0x0C
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+//   18 }
+
+        RSEG CODE:CODE:NOROOT(1)
+//   19 void USART_Init( unsigned int ubrr)
+USART_Init:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function USART_Init
+//   20 {
+//   21   /* Set baud rate */
+//   22   UBRRH = (unsigned char)(ubrr>>8);
+        MOVW    R19:R18, R17:R16
+        MOV     R18, R19
+        LDI     R19, 0
+        OUT     0x20, R18
+//   23   UBRRL = (unsigned char)ubrr;
+        MOV     R18, R16
+        OUT     0x09, R18
+//   24   /* Enable receiver and transmitter */
+//   25   UCSRB = (1<<RXEN)|(1<<TXEN);
+        LDI     R18, 24
+        OUT     0x0A, R18
+//   26   /* Set frame format: 8data, 2stop bit */
+//   27   UCSRC = (1<<URSEL)|(0<<USBS)|(3<<UCSZ0);
+        LDI     R18, 134
+        OUT     0x20, R18
+//   28   /*Enable interrupt on recive*/
+//   29   UCSRB |= (1<<RXCIE);
+        SBI     0x0A, 0x07
+//   30 }
+        RET
+          CFI EndBlock cfiBlock2
+        REQUIRE _A_UBRRH
+        REQUIRE _A_UBRRL
+        REQUIRE _A_UCSRB
+//   31 
+//   32 
+//   33 #define PRECISION 2 //numarul de cifre dupa virgula
+
+        RSEG CODE:CODE:NOROOT(1)
+//   34 void printHex(unsigned  int data)
+printHex:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function printHex
+//   35 {
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printHex, USART_Transmit
+        LOCFRAME CSTACK, 9, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE4_L09
+          CFI R27 Frame(CFA_Y, -1)
+          CFI R26 Frame(CFA_Y, -2)
+          CFI R25 Frame(CFA_Y, -3)
+          CFI R24 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        SBIW    R29:R28, 5
+          CFI CFA_Y Y+9
+        MOVW    R25:R24, R17:R16
+//   36 	unsigned char buffer[5];
+//   37 	unsigned char i,j=0;
+        LDI     R26, 0
+//   38 	
+//   39 	for(i = 0;i < 5;i++)
+        LDI     R27, 0
+??printHex_0:
+        CPI     R27, 5
+        BRCC    ??printHex_1
+//   40 		buffer[i] = 0;
+        LDI     R18, 0
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R27
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        ST      Z, R18
+        INC     R27
+        RJMP    ??printHex_0
+//   41 	if(!data)
+??printHex_1:
+        MOV     R16, R24
+        OR      R16, R25
+        BRNE    ??printHex_2
+//   42 	{
+//   43 		USART_Transmit('0');
+        LDI     R16, 48
+        RCALL   USART_Transmit
+//   44 		USART_Transmit('x');
+        LDI     R16, 120
+        RCALL   USART_Transmit
+//   45 		USART_Transmit('0');
+        LDI     R16, 48
+        RCALL   USART_Transmit
+//   46 		return;
+        RJMP    ??printHex_3
+//   47 	}
+//   48 
+//   49 	for(i = 0; i < 4;i++)
+??printHex_2:
+        LDI     R27, 0
+??printHex_4:
+        CPI     R27, 4
+        BRCS    $+2+2
+        RJMP    ??printHex_5
+//   50 	{
+//   51 		buffer[j] = (data&0xFFFF)>>12;
+        MOVW    R17:R16, R25:R24
+        MOV     R16, R17
+        LDI     R17, 0
+        LSR     R16
+        LSR     R16
+        LSR     R16
+        LSR     R16
+        MOV     R18, R16
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        ST      Z, R18
+//   52 		data<<=4;
+        LDI     R20, 4
+        MOVW    R17:R16, R25:R24
+        CALL    ?S_SHL_L02
+        MOVW    R25:R24, R17:R16
+//   53 		if(!buffer[j])
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        TST     R16
+        BRNE    ??printHex_6
+//   54 		{
+//   55 			if(j)
+        TST     R26
+        BREQ    ??printHex_7
+//   56 			{				
+//   57 				if(buffer[j-1])
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        TST     R16
+        BREQ    ??printHex_8
+//   58 				{
+//   59 					buffer[j] = '0';
+        LDI     R18, 48
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        ST      Z, R18
+//   60 					j++;
+        INC     R26
+//   61 					continue;
+        RJMP    ??printHex_7
+//   62 				}
+//   63 				j--;
+??printHex_8:
+        DEC     R26
+//   64 			}
+//   65 			
+//   66 			continue;
+        RJMP    ??printHex_7
+//   67 		}
+//   68 		if(buffer[j]<=9)
+??printHex_6:
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        CPI     R16, 10
+        BRCC    ??printHex_9
+//   69 		{
+//   70 			buffer[j]+='0';
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        SUBI    R16, 208
+        ST      Z, R16
+        RJMP    ??printHex_10
+//   71 		}
+//   72 		else
+//   73 		{
+//   74 			buffer[j]+=('A'-10);
+??printHex_9:
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R26
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        SUBI    R16, 201
+        ST      Z, R16
+//   75 		}
+//   76 		j++;
+??printHex_10:
+        INC     R26
+//   77 	}
+??printHex_7:
+        INC     R27
+        RJMP    ??printHex_4
+//   78 	i = 0;
+??printHex_5:
+        LDI     R27, 0
+//   79 	USART_Transmit('0');
+        LDI     R16, 48
+        RCALL   USART_Transmit
+//   80 	USART_Transmit('x');
+        LDI     R16, 120
+        RCALL   USART_Transmit
+//   81 	while(buffer[i])
+??printHex_11:
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R27
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        TST     R16
+        BREQ    ??printHex_3
+//   82 		USART_Transmit(buffer[i++]);
+        MOVW    R31:R30, R29:R28
+        MOV     R16, R27
+        LDI     R17, 0
+        ADD     R30, R16
+        ADC     R31, R17
+        LD      R16, Z
+        RCALL   USART_Transmit
+        INC     R27
+        RJMP    ??printHex_11
+//   83 	
+//   84 }
+??printHex_3:
+        ADIW    R29:R28, 5
+          CFI CFA_Y Y+4
+        LDI     R30, 4
+        JMP     ?EPILOGUE_B4_L09
+          CFI EndBlock cfiBlock3
+
+        RSEG CODE:CODE:NOROOT(1)
+//   85 void printInt(int number)
+printInt:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function printInt
+//   86 {
+        FUNCALL printInt, USART_Transmit
+        LOCFRAME CSTACK, 15, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE8_L09
+          CFI R7 Frame(CFA_Y, -1)
+          CFI R6 Frame(CFA_Y, -2)
+          CFI R5 Frame(CFA_Y, -3)
+          CFI R4 Frame(CFA_Y, -4)
+          CFI R27 Frame(CFA_Y, -5)
+          CFI R26 Frame(CFA_Y, -6)
+          CFI R25 Frame(CFA_Y, -7)
+          CFI R24 Frame(CFA_Y, -8)
+          CFI CFA_Y Y+8
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        SBIW    R29:R28, 7
+          CFI CFA_Y Y+15
+        MOVW    R5:R4, R17:R16
+//   87 	unsigned char buffer[7];
+//   88 	unsigned char index = 0;
+        CLR     R6
+//   89 	long max=10;
+        LDI     R24, 10
+        LDI     R25, 0
+        LDI     R26, 0
+        LDI     R27, 0
+//   90 
+//   91 	for(index = 0; index < 7; index++)
+        CLR     R6
+??printInt_0:
+        LDI     R16, 7
+        CP      R6, R16
+        BRCC    ??printInt_1
+//   92 		buffer[index] = 0;
+        LDI     R16, 0
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        ST      Z, R16
+        INC     R6
+        RJMP    ??printInt_0
+//   93 
+//   94 	index = 0;
+??printInt_1:
+        CLR     R6
+//   95 
+//   96 	if(number<0)
+        TST     R5
+        BRPL    ??printInt_2
+//   97 	{
+//   98 		index = 1;
+        CLR     R6
+        INC     R6
+//   99 		buffer[0] = '-';
+        LDI     R16, 45
+        ST      Y, R16
+//  100 		number = -number;
+        NEG     R5
+        NEG     R4
+        LDI     R16, 0
+        SBC     R5, R16
+//  101 	}	
+//  102 	
+//  103 	while(1)
+//  104 	{
+//  105 		if(max <= number)
+??printInt_2:
+        MOVW    R17:R16, R5:R4
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        CP      R16, R24
+        CPC     R17, R25
+        CPC     R18, R26
+        CPC     R19, R27
+        BRLT    ??printInt_3
+//  106 		{
+//  107 			max*=10;
+        LDI     R16, 10
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?L_EC_MUL_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printInt_2
+//  108 		}
+//  109 		else
+//  110 			break;
+//  111 	}
+//  112 	max/=10;
+??printInt_3:
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  113 	while(max)
+??printInt_4:
+        MOV     R16, R24
+        OR      R16, R25
+        OR      R16, R26
+        OR      R16, R27
+        BREQ    ??printInt_5
+//  114 	{
+//  115 		buffer[index++]=(number/max)+'0';
+        MOVW    R17:R16, R5:R4
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        SUBI    R16, 208
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        ST      Z, R16
+        INC     R6
+//  116 		number%=max;
+        MOVW    R17:R16, R5:R4
+        MOV     R18, R17
+        LSL     R18
+        SBC     R18, R18
+        MOV     R19, R18
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R5:R4, R21:R20
+//  117 		max/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printInt_4
+//  118 	}
+//  119 	
+//  120 	index = 0;
+??printInt_5:
+        CLR     R6
+//  121 	while(buffer[index])
+??printInt_6:
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        LD      R16, Z
+        TST     R16
+        BREQ    ??printInt_7
+//  122 		USART_Transmit(buffer[index++]);
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        LD      R16, Z
+        RCALL   USART_Transmit
+        INC     R6
+        RJMP    ??printInt_6
+//  123 }
+??printInt_7:
+        ADIW    R29:R28, 7
+          CFI CFA_Y Y+8
+        LDI     R30, 8
+        JMP     ?EPILOGUE_B8_L09
+          CFI EndBlock cfiBlock4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//  124 unsigned char buffer[11];
+buffer:
+        DS8 11
+
+        RSEG CODE:CODE:NOROOT(1)
+//  125 void printLong(long number)
+printLong:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function printLong
+//  126 {
+        FUNCALL printLong, USART_Transmit
+        LOCFRAME CSTACK, 10, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE10_L09
+          CFI R9 Frame(CFA_Y, -1)
+          CFI R8 Frame(CFA_Y, -2)
+          CFI R7 Frame(CFA_Y, -3)
+          CFI R6 Frame(CFA_Y, -4)
+          CFI R5 Frame(CFA_Y, -5)
+          CFI R4 Frame(CFA_Y, -6)
+          CFI R27 Frame(CFA_Y, -7)
+          CFI R26 Frame(CFA_Y, -8)
+          CFI R25 Frame(CFA_Y, -9)
+          CFI R24 Frame(CFA_Y, -10)
+          CFI CFA_Y Y+10
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  127 	
+//  128 	unsigned char index = 0;
+        CLR     R8
+//  129 	long max=10;
+        LDI     R24, 10
+        LDI     R25, 0
+        LDI     R26, 0
+        LDI     R27, 0
+//  130 
+//  131 	for(index = 0; index < 11; index++)
+        CLR     R8
+??printLong_0:
+        LDI     R16, 11
+        CP      R8, R16
+        BRCC    ??printLong_1
+//  132 		buffer[index] = 0;
+        LDI     R16, 0
+        CLR     R9
+        MOVW    R31:R30, R9:R8
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        ST      Z, R16
+        INC     R8
+        RJMP    ??printLong_0
+//  133 
+//  134 	index = 0;
+??printLong_1:
+        CLR     R8
+//  135 
+//  136 	if(number<0)
+        TST     R7
+        BRPL    ??printLong_2
+//  137 	{
+//  138 		index = 1;
+        CLR     R8
+        INC     R8
+//  139 		buffer[0] = '-';
+        LDI     R16, 45
+        STS     buffer, R16
+//  140 		number = -number;
+        COM     R5
+        COM     R6
+        COM     R7
+        SBC     R16, R16
+        NEG     R4
+        SBC     R5, R16
+        SBC     R6, R16
+        SBC     R7, R16
+//  141 	}	
+//  142 	
+//  143 	while(1)
+//  144 	{
+//  145 		if(max <= number)
+??printLong_2:
+        CP      R4, R24
+        CPC     R5, R25
+        CPC     R6, R26
+        CPC     R7, R27
+        BRLT    ??printLong_3
+//  146 		{
+//  147 			max*=10;
+        LDI     R16, 10
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?L_EC_MUL_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printLong_2
+//  148 		}
+//  149 		else
+//  150 			break;
+//  151 	}
+//  152 	max/=10;
+??printLong_3:
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  153 	while(max)
+??printLong_4:
+        MOV     R16, R24
+        OR      R16, R25
+        OR      R16, R26
+        OR      R16, R27
+        BREQ    ??printLong_5
+//  154 	{
+//  155 		buffer[index++]=(unsigned char)(number/max)+'0';
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?SL_DIVMOD_L03
+        SUBI    R16, 208
+        CLR     R9
+        MOVW    R31:R30, R9:R8
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        ST      Z, R16
+        INC     R8
+//  156 		number%=max;
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R5:R4, R21:R20
+        MOVW    R7:R6, R23:R22
+//  157 		max/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printLong_4
+//  158 	}
+//  159 	
+//  160 	index = 0;
+??printLong_5:
+        CLR     R8
+//  161 	while(buffer[index])
+??printLong_6:
+        CLR     R9
+        MOVW    R31:R30, R9:R8
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        LD      R16, Z
+        TST     R16
+        BREQ    ??printLong_7
+//  162 		USART_Transmit(buffer[index++]);
+        CLR     R9
+        MOVW    R31:R30, R9:R8
+        SUBI    R30, LOW((-(buffer) & 0xFFFF))
+        SBCI    R31, (-(buffer) & 0xFFFF) >> 8
+        LD      R16, Z
+        RCALL   USART_Transmit
+        INC     R8
+        RJMP    ??printLong_6
+//  163 }
+??printLong_7:
+        LDI     R30, 10
+        JMP     ?EPILOGUE_B10_L09
+          CFI EndBlock cfiBlock5
+
+        RSEG CODE:CODE:NOROOT(1)
+//  164 void printString(unsigned char*str)
+printString:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function printString
+//  165 {
+        FUNCALL printString, USART_Transmit
+        LOCFRAME CSTACK, 2, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        ST      -Y, R27
+          CFI R27 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R26
+          CFI R26 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        MOVW    R27:R26, R17:R16
+//  166 	while(*str)
+??printString_0:
+        LD      R16, X
+        TST     R16
+        BREQ    ??printString_1
+//  167 		USART_Transmit(*str++);
+        LD      R16, X
+        RCALL   USART_Transmit
+        ADIW    R27:R26, 1
+        RJMP    ??printString_0
+//  168 }
+??printString_1:
+        LD      R26, Y+
+          CFI R26 SameValue
+          CFI CFA_Y Y+1
+        LD      R27, Y+
+          CFI R27 SameValue
+          CFI CFA_Y Y+0
+        RET
+          CFI EndBlock cfiBlock6
+
+        RSEG CODE:CODE:NOROOT(1)
+//  169 void printFloat(float number)
+printFloat:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Function printFloat
+//  170 {
+        FUNCALL printFloat, printLong
+        LOCFRAME CSTACK, 13, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFloat, USART_Transmit
+        LOCFRAME CSTACK, 13, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL printFloat, USART_Transmit
+        LOCFRAME CSTACK, 13, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE13_L09
+          CFI R12 Frame(CFA_Y, -1)
+          CFI R11 Frame(CFA_Y, -2)
+          CFI R10 Frame(CFA_Y, -3)
+          CFI R9 Frame(CFA_Y, -4)
+          CFI R8 Frame(CFA_Y, -5)
+          CFI R7 Frame(CFA_Y, -6)
+          CFI R6 Frame(CFA_Y, -7)
+          CFI R5 Frame(CFA_Y, -8)
+          CFI R4 Frame(CFA_Y, -9)
+          CFI R27 Frame(CFA_Y, -10)
+          CFI R26 Frame(CFA_Y, -11)
+          CFI R25 Frame(CFA_Y, -12)
+          CFI R24 Frame(CFA_Y, -13)
+          CFI CFA_Y Y+13
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R10_is_cg_reg
+        REQUIRE ?Register_R11_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        MOVW    R9:R8, R17:R16
+        MOVW    R11:R10, R19:R18
+//  171 	long integerPart = (long)number;
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        CALL    ?F2SL_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  172 	float realPart = number - integerPart;
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?SL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R9:R8
+        MOVW    R19:R18, R11:R10
+        CALL    ?F_SUB_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  173 	unsigned char i=0;
+        CLR     R12
+//  174 	printLong(integerPart);
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        RCALL   printLong
+//  175 	USART_Transmit('.');
+        LDI     R16, 46
+        RCALL   USART_Transmit
+//  176 	if(realPart < 0)
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_CMP_LT_L04
+        BRCC    ??printFloat_0
+//  177 		realPart = -realPart;
+        SUBI    R27, 128
+//  178 	for(;i<PRECISION;i++)
+??printFloat_0:
+        LDI     R16, 2
+        CP      R12, R16
+        BRCC    ??printFloat_1
+//  179 	{
+//  180 		integerPart = (long)(realPart*10);
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 32
+        LDI     R23, 65
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_MUL_L04
+        CALL    ?F2SL_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+//  181 		realPart*=10;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 32
+        LDI     R23, 65
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_MUL_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  182                 USART_Transmit((unsigned char)(integerPart%10+'0'));
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?SL_DIVMOD_L03
+        MOV     R16, R20
+        SUBI    R16, 208
+        RCALL   USART_Transmit
+//  183 	}	
+        INC     R12
+        RJMP    ??printFloat_0
+//  184 }
+??printFloat_1:
+        LDI     R30, 13
+        JMP     ?EPILOGUE_B13_L09
+          CFI EndBlock cfiBlock7
+//  185 
+
+        RSEG CODE:CODE:NOROOT(1)
+//  186 void printUnsignedInt(unsigned int number)
+printUnsignedInt:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function printUnsignedInt
+//  187 {
+        FUNCALL printUnsignedInt, USART_Transmit
+        LOCFRAME CSTACK, 14, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE8_L09
+          CFI R7 Frame(CFA_Y, -1)
+          CFI R6 Frame(CFA_Y, -2)
+          CFI R5 Frame(CFA_Y, -3)
+          CFI R4 Frame(CFA_Y, -4)
+          CFI R27 Frame(CFA_Y, -5)
+          CFI R26 Frame(CFA_Y, -6)
+          CFI R25 Frame(CFA_Y, -7)
+          CFI R24 Frame(CFA_Y, -8)
+          CFI CFA_Y Y+8
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        SBIW    R29:R28, 6
+          CFI CFA_Y Y+14
+        MOVW    R5:R4, R17:R16
+//  188 	unsigned char buffer[6];
+//  189 	unsigned char index = 0;
+        CLR     R6
+//  190 	long max=10;
+        LDI     R24, 10
+        LDI     R25, 0
+        LDI     R26, 0
+        LDI     R27, 0
+//  191 
+//  192 	for(index = 0; index < 7; index++)
+        CLR     R6
+??printUnsignedInt_0:
+        LDI     R16, 7
+        CP      R6, R16
+        BRCC    ??printUnsignedInt_1
+//  193 		buffer[index] = 0;
+        LDI     R16, 0
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        ST      Z, R16
+        INC     R6
+        RJMP    ??printUnsignedInt_0
+//  194 
+//  195 	index = 0;	
+??printUnsignedInt_1:
+        CLR     R6
+//  196 	while(1)
+//  197 	{
+//  198 		if(max <= number)
+??printUnsignedInt_2:
+        MOVW    R17:R16, R5:R4
+        LDI     R18, 0
+        LDI     R19, 0
+        CP      R16, R24
+        CPC     R17, R25
+        CPC     R18, R26
+        CPC     R19, R27
+        BRLT    ??printUnsignedInt_3
+//  199 		{
+//  200 			max*=10;
+        LDI     R16, 10
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?L_EC_MUL_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printUnsignedInt_2
+//  201 		}
+//  202 		else
+//  203 			break;
+//  204 	}
+//  205 	max/=10;
+??printUnsignedInt_3:
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//  206 	while(max)
+??printUnsignedInt_4:
+        MOV     R16, R24
+        OR      R16, R25
+        OR      R16, R26
+        OR      R16, R27
+        BREQ    ??printUnsignedInt_5
+//  207 	{
+//  208 		buffer[index++]=(number/max)+'0';
+        MOVW    R17:R16, R5:R4
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        SUBI    R16, 208
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        ST      Z, R16
+        INC     R6
+//  209 		number%=max;
+        MOVW    R17:R16, R5:R4
+        LDI     R18, 0
+        LDI     R19, 0
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R5:R4, R21:R20
+//  210 		max/=10;
+        LDI     R20, 10
+        LDI     R21, 0
+        LDI     R22, 0
+        LDI     R23, 0
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+        RJMP    ??printUnsignedInt_4
+//  211 	}
+//  212 	
+//  213 	index = 0;
+??printUnsignedInt_5:
+        CLR     R6
+//  214 	while(buffer[index])
+??printUnsignedInt_6:
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        LD      R16, Z
+        TST     R16
+        BREQ    ??printUnsignedInt_7
+//  215 		USART_Transmit(buffer[index++]);
+        MOVW    R31:R30, R29:R28
+        CLR     R7
+        ADD     R30, R6
+        ADC     R31, R7
+        LD      R16, Z
+        RCALL   USART_Transmit
+        INC     R6
+        RJMP    ??printUnsignedInt_6
+//  216 }
+??printUnsignedInt_7:
+        ADIW    R29:R28, 6
+          CFI CFA_Y Y+8
+        LDI     R30, 8
+        JMP     ?EPILOGUE_B8_L09
+          CFI EndBlock cfiBlock8
+//  217 
+//  218 
+//  219 
+//  220 
+
+        RSEG CODE:CODE:NOROOT(1)
+//  221 void PRINTF(void*data,enum TYPE type)
+PRINTF:
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Function PRINTF
+//  222 {
+        FUNCALL PRINTF, printString
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL PRINTF, printLong
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL PRINTF, printInt
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL PRINTF, printFloat
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL PRINTF, printUnsignedInt
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL PRINTF, printHex
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE4_L09
+          CFI R27 Frame(CFA_Y, -1)
+          CFI R26 Frame(CFA_Y, -2)
+          CFI R25 Frame(CFA_Y, -3)
+          CFI R24 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        MOVW    R27:R26, R17:R16
+        MOV     R24, R18
+//  223 	switch(type)
+        MOV     R16, R24
+        SUBI    R16, 0
+        BREQ    ??PRINTF_0
+        DEC     R16
+        BREQ    ??PRINTF_1
+        DEC     R16
+        BREQ    ??PRINTF_2
+        DEC     R16
+        BREQ    ??PRINTF_3
+        DEC     R16
+        BREQ    ??PRINTF_4
+        DEC     R16
+        BREQ    ??PRINTF_5
+        RJMP    ??PRINTF_6
+//  224 	{
+//  225 	case STRING :
+//  226 		printString((unsigned char*)data);
+??PRINTF_2:
+        MOVW    R17:R16, R27:R26
+        RCALL   printString
+//  227 		break;
+        RJMP    ??PRINTF_6
+//  228 	case LONG:
+//  229 		printLong(*(long*)data);
+??PRINTF_1:
+        LD      R16, X+
+        LD      R17, X+
+        LD      R18, X+
+        LD      R19, X
+        SBIW    R27:R26, 3
+        RCALL   printLong
+//  230 		break;
+        RJMP    ??PRINTF_6
+//  231 	case INT:
+//  232 		printInt((int)data);
+??PRINTF_0:
+        MOVW    R17:R16, R27:R26
+        RCALL   printInt
+//  233 		break;
+        RJMP    ??PRINTF_6
+//  234 	case FLOAT:
+//  235 		printFloat(*(float *)data);
+??PRINTF_3:
+        LD      R16, X+
+        LD      R17, X+
+        LD      R18, X+
+        LD      R19, X
+        SBIW    R27:R26, 3
+        RCALL   printFloat
+//  236 		break;
+        RJMP    ??PRINTF_6
+//  237 	case UNSIGNED:
+//  238 		printUnsignedInt((unsigned int)data);
+??PRINTF_4:
+        MOVW    R17:R16, R27:R26
+        RCALL   printUnsignedInt
+//  239 		break;
+        RJMP    ??PRINTF_6
+//  240 	case HEX:
+//  241 		printHex((unsigned int)data);
+??PRINTF_5:
+        MOVW    R17:R16, R27:R26
+        RCALL   printHex
+//  242 		break;
+//  243 	default:
+//  244 		break;
+//  245 	}
+//  246 }
+??PRINTF_6:
+        LDI     R30, 4
+        JMP     ?EPILOGUE_B4_L09
+          CFI EndBlock cfiBlock9
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        END
+//  247 
+//  248 /*
+//  249 Manual de utilizare
+//  250 pentru int:
+//  251 int x = 12555;(2 octeti)
+//  252 PRINTF((void*)(x),INT);
+//  253 
+//  254 pentru unsigned int:
+//  255 unsigned int x = 12555;(2 octeti)
+//  256 PRINTF((void*)(x),UNSIGNED);
+//  257 
+//  258 pentru long:
+//  259 long x = 854441122;(4 octeti)
+//  260 PRINTF((void*)(&x),LONG);
+//  261 
+//  262 pentru float:
+//  263 float x = 21547.4577;(4 octeti)
+//  264 PRINTF((void*)(&x),FLOAT);
+//  265 
+//  266 pentru char*, sir terminat cu '\0' :
+//  267 
+//  268 char* x = "test";
+//  269 PRINTF((void*)(x),STRING);
+//  270 
+//  271 pentru hex:
+//  272 unsigned int x = 345;
+//  273 PRINTF((void*)(x),HEX);
+//  274 
+//  275 Copyright Raileanu,2014
+//  276 All rights reserved
+//  277 */
+//  278 
+//  279 
+//  280 
+//  281 
+// 
+//     5 bytes in segment ABSOLUTE
+// 1 290 bytes in segment CODE
+//     6 bytes in segment INITTAB
+//    11 bytes in segment NEAR_Z
+// 
+// 1 290 bytes of CODE memory (+ 6 bytes shared)
+//    11 bytes of DATA memory (+ 5 bytes shared)
+//
+//Errors: none
+//Warnings: none

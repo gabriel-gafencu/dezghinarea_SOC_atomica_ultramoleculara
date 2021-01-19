@@ -1,0 +1,370 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        30/Dec/2015  17:46:22 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\Uleru George                            #
+#                    Iulian\George;;)\Problema30\usart.c                      #
+#    Command line =  "D:\soc2015\1305B\Uleru George                           #
+#                    Iulian\George;;)\Problema30\usart.c" --cpu=m16 -ms -o    #
+#                    "D:\soc2015\1305B\Uleru George                           #
+#                    Iulian\George;;)\Problema30\Debug\Obj\" -lC              #
+#                    "D:\soc2015\1305B\Uleru George                           #
+#                    Iulian\George;;)\Problema30\Debug\List\" -lA             #
+#                    "D:\soc2015\1305B\Uleru George                           #
+#                    Iulian\George;;)\Problema30\Debug\List\"                 #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\soc2015\1305B\Uleru George                            #
+#                    Iulian\George;;)\Problema30\Debug\List\usart.lst         #
+#    Object file  =  D:\soc2015\1305B\Uleru George                            #
+#                    Iulian\George;;)\Problema30\Debug\Obj\usart.r90          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\Uleru George Iulian\George;;)\Problema30\usart.c
+      1          #include "usart.h"
+
+   \                                 In  segment ABSOLUTE, at 0x40
+   \   union <unnamed> volatile __io _A_UBRRH
+   \                     _A_UBRRH:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2c
+   \   union <unnamed> volatile __io _A_UDR
+   \                     _A_UDR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2b
+   \   union <unnamed> volatile __io _A_UCSRA
+   \                     _A_UCSRA:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2a
+   \   union <unnamed> volatile __io _A_UCSRB
+   \                     _A_UCSRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x29
+   \   union <unnamed> volatile __io _A_UBRRL
+   \                     _A_UBRRL:
+   \   00000000                      DS8 1
+      2          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      3          void USART_init(int baud_rate)
+   \                     USART_init:
+      4          {
+      5            UBRRH = (baud_rate>>8); //setez baudrate-ul
+   \   00000000   0198               MOVW    R19:R18, R17:R16
+   \   00000002   2F23               MOV     R18, R19
+   \   00000004   0F33               LSL     R19
+   \   00000006   0B33               SBC     R19, R19
+   \   00000008   BD20               OUT     0x20, R18
+      6            UBRRL = baud_rate;
+   \   0000000A   2F20               MOV     R18, R16
+   \   0000000C   B929               OUT     0x09, R18
+      7            UCSRB |= (1<<RXEN) | (1<<TXEN); //enable receive & transmit
+   \   0000000E   B12A               IN      R18, 0x0A
+   \   00000010   6128               ORI     R18, 0x18
+   \   00000012   B92A               OUT     0x0A, R18
+      8          }
+   \   00000014   9508               RET
+   \   00000016                      REQUIRE _A_UBRRH
+   \   00000016                      REQUIRE _A_UBRRL
+   \   00000016                      REQUIRE _A_UCSRB
+      9          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     10          void USART_transmit(unsigned char c)
+   \                     USART_transmit:
+   \                     ??USART_transmit_0:
+     11          {
+     12            while( !(UCSRA & (1<<UDRE)) )
+   \   00000000   9B5D               SBIS    0x0B, 0x05
+   \   00000002   CFFE               RJMP    ??USART_transmit_0
+     13              ;
+     14            UDR = c;
+   \   00000004   B90C               OUT     0x0C, R16
+     15          }
+   \   00000006   9508               RET
+   \   00000008                      REQUIRE _A_UCSRA
+   \   00000008                      REQUIRE _A_UDR
+     16          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     17          unsigned char USART_receive(void)
+   \                     USART_receive:
+   \                     ??USART_receive_0:
+     18          {
+     19            while( !(UCSRA & (1<<RXC)) )
+   \   00000000   9B5F               SBIS    0x0B, 0x07
+   \   00000002   CFFE               RJMP    ??USART_receive_0
+     20              ;
+     21            return UDR;
+   \   00000004   B10C               IN      R16, 0x0C
+   \   00000006   9508               RET
+   \   00000008                      REQUIRE _A_UCSRA
+   \   00000008                      REQUIRE _A_UDR
+     22          }
+     23          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     24          void USART_transmit_uint(unsigned int n)
+   \                     USART_transmit_uint:
+     25          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   9760               SBIW    R29:R28, 16
+   \   00000006   01C8               MOVW    R25:R24, R17:R16
+     26            unsigned char aux[16];
+     27            int index = 0;
+   \   00000008   E0A0               LDI     R26, 0
+   \   0000000A   E0B0               LDI     R27, 0
+     28            while(n)
+   \                     ??USART_transmit_uint_0:
+   \   0000000C   2F08               MOV     R16, R24
+   \   0000000E   2B09               OR      R16, R25
+   \   00000010   F091               BREQ    ??USART_transmit_uint_1
+     29            {
+     30              aux[index++] = n % 10 + '0';
+   \   00000012   E04A               LDI     R20, 10
+   \   00000014   E050               LDI     R21, 0
+   \   00000016   018C               MOVW    R17:R16, R25:R24
+   \   00000018   ........           CALL    ?US_DIVMOD_L02
+   \   0000001C   5D40               SUBI    R20, 208
+   \   0000001E   01FE               MOVW    R31:R30, R29:R28
+   \   00000020   0FEA               ADD     R30, R26
+   \   00000022   1FFB               ADC     R31, R27
+   \   00000024   8340               ST      Z, R20
+   \   00000026   9611               ADIW    R27:R26, 1
+     31              n /= 10; 
+   \   00000028   E04A               LDI     R20, 10
+   \   0000002A   E050               LDI     R21, 0
+   \   0000002C   018C               MOVW    R17:R16, R25:R24
+   \   0000002E   ........           CALL    ?US_DIVMOD_L02
+   \   00000032   01C8               MOVW    R25:R24, R17:R16
+   \   00000034   CFEB               RJMP    ??USART_transmit_uint_0
+     32            }
+     33            index--;
+   \                     ??USART_transmit_uint_1:
+   \   00000036   9711               SBIW    R27:R26, 1
+     34            while(index >= 0)
+   \                     ??USART_transmit_uint_2:
+   \   00000038   23BB               TST     R27
+   \   0000003A   F03A               BRMI    ??USART_transmit_uint_3
+     35            {
+     36              USART_transmit(aux[index--]);
+   \   0000003C   01FE               MOVW    R31:R30, R29:R28
+   \   0000003E   0FEA               ADD     R30, R26
+   \   00000040   1FFB               ADC     R31, R27
+   \   00000042   8100               LD      R16, Z
+   \   00000044   ....               RCALL   USART_transmit
+   \   00000046   9711               SBIW    R27:R26, 1
+   \   00000048   CFF7               RJMP    ??USART_transmit_uint_2
+     37            }
+     38          }
+   \                     ??USART_transmit_uint_3:
+   \   0000004A   9660               ADIW    R29:R28, 16
+   \   0000004C   E0E4               LDI     R30, 4
+   \   0000004E   ........           JMP     ?EPILOGUE_B4_L09
+     39          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     40          void USART_transmit_ulonglong(unsigned long long n)
+   \                     USART_transmit_ulonglong:
+     41          {
+   \   00000000   ........           CALL    ?PROLOGUE16_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R6_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R7_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R8_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R9_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R10_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R11_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R12_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R13_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R14_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R15_is_cg_reg
+   \   00000004   9766               SBIW    R29:R28, 22
+   \   00000006   0148               MOVW    R9:R8, R17:R16
+   \   00000008   0159               MOVW    R11:R10, R19:R18
+   \   0000000A   016A               MOVW    R13:R12, R21:R20
+   \   0000000C   017B               MOVW    R15:R14, R23:R22
+     42            unsigned char aux[20];
+     43            int index = 0;
+   \   0000000E   E000               LDI     R16, 0
+   \   00000010   E010               LDI     R17, 0
+   \   00000012   8308               ST      Y, R16
+   \   00000014   8319               STD     Y+1, R17
+     44            while(n)
+   \                     ??USART_transmit_ulonglong_0:
+   \   00000016   0184               MOVW    R17:R16, R9:R8
+   \   00000018   0195               MOVW    R19:R18, R11:R10
+   \   0000001A   01A6               MOVW    R21:R20, R13:R12
+   \   0000001C   01B7               MOVW    R23:R22, R15:R14
+   \   0000001E   0108               MOVW    R1:R0, R17:R16
+   \   00000020   0119               MOVW    R3:R2, R19:R18
+   \   00000022   012A               MOVW    R5:R4, R21:R20
+   \   00000024   013B               MOVW    R7:R6, R23:R22
+   \   00000026   ....               LDI     R30, LOW(__Constant_0_0)
+   \   00000028   ....               LDI     R31, (__Constant_0_0) >> 8
+   \   0000002A   0180               MOVW    R17:R16, R1:R0
+   \   0000002C   0191               MOVW    R19:R18, R3:R2
+   \   0000002E   01A2               MOVW    R21:R20, R5:R4
+   \   00000030   01B3               MOVW    R23:R22, R7:R6
+   \   00000032   ........           CALL    ?LL_CMP_L12
+   \   00000036   F159               BREQ    ??USART_transmit_ulonglong_1
+     45            {
+     46              aux[index++] = n % 10 + '0';
+   \   00000038   0184               MOVW    R17:R16, R9:R8
+   \   0000003A   0195               MOVW    R19:R18, R11:R10
+   \   0000003C   01A6               MOVW    R21:R20, R13:R12
+   \   0000003E   01B7               MOVW    R23:R22, R15:R14
+   \   00000040   0108               MOVW    R1:R0, R17:R16
+   \   00000042   0119               MOVW    R3:R2, R19:R18
+   \   00000044   012A               MOVW    R5:R4, R21:R20
+   \   00000046   013B               MOVW    R7:R6, R23:R22
+   \   00000048   ....               LDI     R26, LOW(__Constant_a_0)
+   \   0000004A   ....               LDI     R27, (__Constant_a_0) >> 8
+   \   0000004C   0180               MOVW    R17:R16, R1:R0
+   \   0000004E   0191               MOVW    R19:R18, R3:R2
+   \   00000050   01A2               MOVW    R21:R20, R5:R4
+   \   00000052   01B3               MOVW    R23:R22, R7:R6
+   \   00000054   ........           CALL    ?ULL_MOD_L12
+   \   00000058   5D00               SUBI    R16, 208
+   \   0000005A   01FE               MOVW    R31:R30, R29:R28
+   \   0000005C   9632               ADIW    R31:R30, 2
+   \   0000005E   8128               LD      R18, Y
+   \   00000060   8139               LDD     R19, Y+1
+   \   00000062   0FE2               ADD     R30, R18
+   \   00000064   1FF3               ADC     R31, R19
+   \   00000066   8300               ST      Z, R16
+   \   00000068   8108               LD      R16, Y
+   \   0000006A   8119               LDD     R17, Y+1
+   \   0000006C   5F0F               SUBI    R16, 255
+   \   0000006E   4F1F               SBCI    R17, 255
+   \   00000070   8308               ST      Y, R16
+   \   00000072   8319               STD     Y+1, R17
+     47              n /= 10; 
+   \   00000074   0184               MOVW    R17:R16, R9:R8
+   \   00000076   0195               MOVW    R19:R18, R11:R10
+   \   00000078   01A6               MOVW    R21:R20, R13:R12
+   \   0000007A   01B7               MOVW    R23:R22, R15:R14
+   \   0000007C   ....               LDI     R26, LOW(__Constant_a_0)
+   \   0000007E   ....               LDI     R27, (__Constant_a_0) >> 8
+   \   00000080   ........           CALL    ?ULL_DIV_L12
+   \   00000084   0148               MOVW    R9:R8, R17:R16
+   \   00000086   0159               MOVW    R11:R10, R19:R18
+   \   00000088   016A               MOVW    R13:R12, R21:R20
+   \   0000008A   017B               MOVW    R15:R14, R23:R22
+   \   0000008C   CFC4               RJMP    ??USART_transmit_ulonglong_0
+     48            }
+     49            index--;
+   \                     ??USART_transmit_ulonglong_1:
+   \   0000008E   8108               LD      R16, Y
+   \   00000090   8119               LDD     R17, Y+1
+   \   00000092   5001               SUBI    R16, 1
+   \   00000094   4010               SBCI    R17, 0
+   \   00000096   8308               ST      Y, R16
+   \   00000098   8319               STD     Y+1, R17
+     50            while(index >= 0)
+   \                     ??USART_transmit_ulonglong_2:
+   \   0000009A   8108               LD      R16, Y
+   \   0000009C   8119               LDD     R17, Y+1
+   \   0000009E   2311               TST     R17
+   \   000000A0   F07A               BRMI    ??USART_transmit_ulonglong_3
+     51            {
+     52              USART_transmit(aux[index--]);
+   \   000000A2   01FE               MOVW    R31:R30, R29:R28
+   \   000000A4   9632               ADIW    R31:R30, 2
+   \   000000A6   8108               LD      R16, Y
+   \   000000A8   8119               LDD     R17, Y+1
+   \   000000AA   0FE0               ADD     R30, R16
+   \   000000AC   1FF1               ADC     R31, R17
+   \   000000AE   8100               LD      R16, Z
+   \   000000B0   ....               RCALL   USART_transmit
+   \   000000B2   8108               LD      R16, Y
+   \   000000B4   8119               LDD     R17, Y+1
+   \   000000B6   5001               SUBI    R16, 1
+   \   000000B8   4010               SBCI    R17, 0
+   \   000000BA   8308               ST      Y, R16
+   \   000000BC   8319               STD     Y+1, R17
+   \   000000BE   CFED               RJMP    ??USART_transmit_ulonglong_2
+     53            }
+     54          }
+   \                     ??USART_transmit_ulonglong_3:
+   \   000000C0   9666               ADIW    R29:R28, 22
+   \   000000C2   E1E0               LDI     R30, 16
+   \   000000C4   ........           JMP     ?EPILOGUE_B16_L09
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for 64 Bit Constant>_0`:
+   \   00000000   000000000000       DD 0, 0
+   \              0000        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     __Constant_0_0:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for 64 Bit Constant>_1`:
+   \   00000000   000A00000000       DD 10, 0
+   \              0000        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     __Constant_a_0:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for 64 Bit Constant>_1`
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  USART_init
+       0      2  USART_receive
+       0      2  USART_transmit
+      20      4  USART_transmit_uint
+                   20 2 -> USART_transmit
+      38      4  USART_transmit_ulonglong
+                   38 2 -> USART_transmit
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       8  ?<Initializer for 64 Bit Constant>_0
+       8  ?<Initializer for 64 Bit Constant>_1
+      22  USART_init
+       8  USART_receive
+       8  USART_transmit
+      82  USART_transmit_uint
+     200  USART_transmit_ulonglong
+       1  _A_UBRRH
+       1  _A_UBRRL
+       1  _A_UCSRA
+       1  _A_UCSRB
+       1  _A_UDR
+       8  __Constant_0_0
+       8  __Constant_a_0
+       6  -- Other
+
+ 
+   5 bytes in segment ABSOLUTE
+ 320 bytes in segment CODE
+   6 bytes in segment INITTAB
+  16 bytes in segment NEAR_I
+  16 bytes in segment NEAR_ID
+ 
+ 320 bytes of CODE memory (+ 22 bytes shared)
+   0 bytes of DATA memory (+ 21 bytes shared)
+
+Errors: none
+Warnings: none

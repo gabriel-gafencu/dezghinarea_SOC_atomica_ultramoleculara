@@ -1,0 +1,594 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        20/Dec/2014  14:14:36 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\Apasare tasta\main.c                            #
+#    Command line =  "D:\1307B\Apasare tasta\main.c" --cpu=m16 -ms -o         #
+#                    "D:\1307B\Apasare tasta\Debug\Obj\" -lCN                 #
+#                    "D:\1307B\Apasare tasta\Debug\List\" -lb                 #
+#                    "D:\1307B\Apasare tasta\Debug\List\"                     #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\1307B\Apasare tasta\Debug\List\main.lst               #
+#    Object file  =  D:\1307B\Apasare tasta\Debug\Obj\main.r90                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\Apasare tasta\main.c
+      1          #include <iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x54
+   \   union <unnamed> volatile __io _A_MCUCSR
+   \                     _A_MCUCSR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+      2          #include <inavr.h>
+      3          #include "usart.h"
+      4          
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      5          __no_init long long int NR;
+   \                     NR:
+   \   00000000                      DS8 8
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      6          __no_init long long int var;
+   \                     var:
+   \   00000000                      DS8 8
+      7          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      8          void timer1_INIT()
+   \                     timer1_INIT:
+      9          {
+     10          /*
+     11          Modul Normal: WGM13:10=0000;
+     12          Fãrã prescaler: CS12:10=001;
+     13          */
+     14          TCCR1B|=(1<<CS10);
+   \   00000000   B50E               IN      R16, 0x2E
+   \   00000002   6001               ORI     R16, 0x01
+   \   00000004   BD0E               OUT     0x2E, R16
+     15          TIMSK|=(1<<TOIE1);
+   \   00000006   B709               IN      R16, 0x39
+   \   00000008   6004               ORI     R16, 0x04
+   \   0000000A   BF09               OUT     0x39, R16
+     16          }
+   \   0000000C   9508               RET
+   \   0000000E                      REQUIRE _A_TCCR1B
+   \   0000000E                      REQUIRE _A_TIMSK
+     17          
+     18          
+     19          #pragma vector = TIMER1_OVF_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     20          __interrupt void T1_OVF()
+   \                     T1_OVF:
+     21          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   920A               ST      -Y, R0
+   \   00000006   937A               ST      -Y, R23
+   \   00000008   936A               ST      -Y, R22
+   \   0000000A   935A               ST      -Y, R21
+   \   0000000C   934A               ST      -Y, R20
+   \   0000000E   933A               ST      -Y, R19
+   \   00000010   932A               ST      -Y, R18
+   \   00000012   931A               ST      -Y, R17
+   \   00000014   930A               ST      -Y, R16
+   \   00000016   B60F               IN      R0, 0x3F
+     22              NR++;
+   \   00000018   ....               LDI     R30, LOW(NR)
+   \   0000001A   ....               LDI     R31, (NR) >> 8
+   \   0000001C   8100               LD      R16, Z
+   \   0000001E   8111               LDD     R17, Z+1
+   \   00000020   8122               LDD     R18, Z+2
+   \   00000022   8133               LDD     R19, Z+3
+   \   00000024   8144               LDD     R20, Z+4
+   \   00000026   8155               LDD     R21, Z+5
+   \   00000028   8166               LDD     R22, Z+6
+   \   0000002A   8177               LDD     R23, Z+7
+   \   0000002C   5F0F               SUBI    R16, 255
+   \   0000002E   4F1F               SBCI    R17, 255
+   \   00000030   4F2F               SBCI    R18, 255
+   \   00000032   4F3F               SBCI    R19, 255
+   \   00000034   4F4F               SBCI    R20, 255
+   \   00000036   4F5F               SBCI    R21, 255
+   \   00000038   4F6F               SBCI    R22, 255
+   \   0000003A   4F7F               SBCI    R23, 255
+   \   0000003C   ....               LDI     R30, LOW(NR)
+   \   0000003E   ....               LDI     R31, (NR) >> 8
+   \   00000040   8300               ST      Z, R16
+   \   00000042   8311               STD     Z+1, R17
+   \   00000044   8322               STD     Z+2, R18
+   \   00000046   8333               STD     Z+3, R19
+   \   00000048   8344               STD     Z+4, R20
+   \   0000004A   8355               STD     Z+5, R21
+   \   0000004C   8366               STD     Z+6, R22
+   \   0000004E   8377               STD     Z+7, R23
+     23          }
+   \   00000050   BE0F               OUT     0x3F, R0
+   \   00000052   9109               LD      R16, Y+
+   \   00000054   9119               LD      R17, Y+
+   \   00000056   9129               LD      R18, Y+
+   \   00000058   9139               LD      R19, Y+
+   \   0000005A   9149               LD      R20, Y+
+   \   0000005C   9159               LD      R21, Y+
+   \   0000005E   9169               LD      R22, Y+
+   \   00000060   9179               LD      R23, Y+
+   \   00000062   9009               LD      R0, Y+
+   \   00000064   91E9               LD      R30, Y+
+   \   00000066   91F9               LD      R31, Y+
+   \   00000068   9518               RETI
+     24          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     25          unsigned  char vect[10];
+   \                     vect:
+   \   00000000                      DS8 10
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     26          float T; 
+   \                     T:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+     27          unsigned long parteIntreaga, parteFractionara;
+   \                     parteIntreaga:
+   \   00000000                      DS8 4
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+   \                     parteFractionara:
+   \   00000000                      DS8 4
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     28          void main( void )
+   \                     main:
+     29          {
+   \   00000000   ........           CALL    ?PROLOGUE6_L09
+   \   00000004                      REQUIRE ?Register_R4_is_cg_reg
+   \   00000004                      REQUIRE ?Register_R5_is_cg_reg
+     30            USART_initialize(BAUD_RATE);
+   \   00000004   E00C               LDI     R16, 12
+   \   00000006   E010               LDI     R17, 0
+   \   00000008   ........           CALL    USART_initialize
+     31            int j=9;
+   \   0000000C   E009               LDI     R16, 9
+   \   0000000E   2E40               MOV     R4, R16
+   \   00000010   2455               CLR     R5
+     32            
+     33            __enable_interrupt();
+   \   00000012   9478               SEI
+     34            timer1_INIT();
+   \   00000014   ....               RCALL   timer1_INIT
+     35            if((MCUCSR>>EXTRF)&1)
+   \   00000016   B704               IN      R16, 0x34
+   \   00000018   2F10               MOV     R17, R16
+   \   0000001A   FF11               SBRS    R17, 1
+   \   0000001C   C11D               RJMP    ??main_0
+     36            {
+     37              T=(NR*65535 + var)*0.00025; //ms
+   \   0000001E   ....               LDI     R30, LOW(NR)
+   \   00000020   ....               LDI     R31, (NR) >> 8
+   \   00000022   8100               LD      R16, Z
+   \   00000024   8111               LDD     R17, Z+1
+   \   00000026   8122               LDD     R18, Z+2
+   \   00000028   8133               LDD     R19, Z+3
+   \   0000002A   8144               LDD     R20, Z+4
+   \   0000002C   8155               LDD     R21, Z+5
+   \   0000002E   8166               LDD     R22, Z+6
+   \   00000030   8177               LDD     R23, Z+7
+   \   00000032   ....               LDI     R26, LOW(__Constant_ffff_0)
+   \   00000034   ....               LDI     R27, (__Constant_ffff_0) >> 8
+   \   00000036   ........           CALL    ?LL_MUL_L12
+   \   0000003A   ....               LDI     R30, LOW(var)
+   \   0000003C   ....               LDI     R31, (var) >> 8
+   \   0000003E   ........           CALL    ?LL_ADD_L12
+   \   00000042   ........           CALL    ?SLL2F_L12
+   \   00000046   E64F               LDI     R20, 111
+   \   00000048   E152               LDI     R21, 18
+   \   0000004A   E863               LDI     R22, 131
+   \   0000004C   E379               LDI     R23, 57
+   \   0000004E   ........           CALL    ?F_MUL_L04
+   \   00000052   ....               LDI     R30, LOW(T)
+   \   00000054   ....               LDI     R31, (T) >> 8
+   \   00000056   8300               ST      Z, R16
+   \   00000058   8311               STD     Z+1, R17
+   \   0000005A   8322               STD     Z+2, R18
+   \   0000005C   8333               STD     Z+3, R19
+     38              parteIntreaga=(unsigned long)T;
+   \   0000005E   ....               LDI     R30, LOW(T)
+   \   00000060   ....               LDI     R31, (T) >> 8
+   \   00000062   8100               LD      R16, Z
+   \   00000064   8111               LDD     R17, Z+1
+   \   00000066   8122               LDD     R18, Z+2
+   \   00000068   8133               LDD     R19, Z+3
+   \   0000006A   ........           CALL    ?F2UL_L04
+   \   0000006E   ....               LDI     R30, LOW(parteIntreaga)
+   \   00000070   ....               LDI     R31, (parteIntreaga) >> 8
+   \   00000072   8300               ST      Z, R16
+   \   00000074   8311               STD     Z+1, R17
+   \   00000076   8322               STD     Z+2, R18
+   \   00000078   8333               STD     Z+3, R19
+     39              parteFractionara=(T-parteIntreaga)*100;
+   \   0000007A   ....               LDI     R30, LOW(parteIntreaga)
+   \   0000007C   ....               LDI     R31, (parteIntreaga) >> 8
+   \   0000007E   8100               LD      R16, Z
+   \   00000080   8111               LDD     R17, Z+1
+   \   00000082   8122               LDD     R18, Z+2
+   \   00000084   8133               LDD     R19, Z+3
+   \   00000086   ........           CALL    ?UL2F_L04
+   \   0000008A   01A8               MOVW    R21:R20, R17:R16
+   \   0000008C   01B9               MOVW    R23:R22, R19:R18
+   \   0000008E   ....               LDI     R30, LOW(T)
+   \   00000090   ....               LDI     R31, (T) >> 8
+   \   00000092   8100               LD      R16, Z
+   \   00000094   8111               LDD     R17, Z+1
+   \   00000096   8122               LDD     R18, Z+2
+   \   00000098   8133               LDD     R19, Z+3
+   \   0000009A   ........           CALL    ?F_SUB_L04
+   \   0000009E   E040               LDI     R20, 0
+   \   000000A0   E050               LDI     R21, 0
+   \   000000A2   EC68               LDI     R22, 200
+   \   000000A4   E472               LDI     R23, 66
+   \   000000A6   ........           CALL    ?F_MUL_L04
+   \   000000AA   ........           CALL    ?F2UL_L04
+   \   000000AE   ....               LDI     R30, LOW(parteFractionara)
+   \   000000B0   ....               LDI     R31, (parteFractionara) >> 8
+   \   000000B2   8300               ST      Z, R16
+   \   000000B4   8311               STD     Z+1, R17
+   \   000000B6   8322               STD     Z+2, R18
+   \   000000B8   8333               STD     Z+3, R19
+     40              
+     41               
+     42              vect[j--]=parteFractionara%10+'0';
+   \   000000BA   E04A               LDI     R20, 10
+   \   000000BC   E050               LDI     R21, 0
+   \   000000BE   E060               LDI     R22, 0
+   \   000000C0   E070               LDI     R23, 0
+   \   000000C2   ....               LDI     R30, LOW(parteFractionara)
+   \   000000C4   ....               LDI     R31, (parteFractionara) >> 8
+   \   000000C6   8100               LD      R16, Z
+   \   000000C8   8111               LDD     R17, Z+1
+   \   000000CA   8122               LDD     R18, Z+2
+   \   000000CC   8133               LDD     R19, Z+3
+   \   000000CE   ........           CALL    ?UL_DIVMOD_L03
+   \   000000D2   5D40               SUBI    R20, 208
+   \   000000D4   01F2               MOVW    R31:R30, R5:R4
+   \   000000D6   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   000000D8   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   000000DA   8340               ST      Z, R20
+   \   000000DC   EF0F               LDI     R16, 255
+   \   000000DE   0E40               ADD     R4, R16
+   \   000000E0   EF0F               LDI     R16, 255
+   \   000000E2   1E50               ADC     R5, R16
+     43              parteFractionara/=10;
+   \   000000E4   E04A               LDI     R20, 10
+   \   000000E6   E050               LDI     R21, 0
+   \   000000E8   E060               LDI     R22, 0
+   \   000000EA   E070               LDI     R23, 0
+   \   000000EC   ....               LDI     R30, LOW(parteFractionara)
+   \   000000EE   ....               LDI     R31, (parteFractionara) >> 8
+   \   000000F0   8100               LD      R16, Z
+   \   000000F2   8111               LDD     R17, Z+1
+   \   000000F4   8122               LDD     R18, Z+2
+   \   000000F6   8133               LDD     R19, Z+3
+   \   000000F8   ........           CALL    ?UL_DIVMOD_L03
+   \   000000FC   ....               LDI     R30, LOW(parteFractionara)
+   \   000000FE   ....               LDI     R31, (parteFractionara) >> 8
+   \   00000100   8300               ST      Z, R16
+   \   00000102   8311               STD     Z+1, R17
+   \   00000104   8322               STD     Z+2, R18
+   \   00000106   8333               STD     Z+3, R19
+     44              vect[j--]=parteFractionara%10+'0';
+   \   00000108   E04A               LDI     R20, 10
+   \   0000010A   E050               LDI     R21, 0
+   \   0000010C   E060               LDI     R22, 0
+   \   0000010E   E070               LDI     R23, 0
+   \   00000110   ....               LDI     R30, LOW(parteFractionara)
+   \   00000112   ....               LDI     R31, (parteFractionara) >> 8
+   \   00000114   8100               LD      R16, Z
+   \   00000116   8111               LDD     R17, Z+1
+   \   00000118   8122               LDD     R18, Z+2
+   \   0000011A   8133               LDD     R19, Z+3
+   \   0000011C   ........           CALL    ?UL_DIVMOD_L03
+   \   00000120   5D40               SUBI    R20, 208
+   \   00000122   01F2               MOVW    R31:R30, R5:R4
+   \   00000124   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   00000126   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   00000128   8340               ST      Z, R20
+   \   0000012A   EF0F               LDI     R16, 255
+   \   0000012C   0E40               ADD     R4, R16
+   \   0000012E   EF0F               LDI     R16, 255
+   \   00000130   1E50               ADC     R5, R16
+     45              vect[j--]='.';
+   \   00000132   E20E               LDI     R16, 46
+   \   00000134   01F2               MOVW    R31:R30, R5:R4
+   \   00000136   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   00000138   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   0000013A   8300               ST      Z, R16
+   \   0000013C   EF0F               LDI     R16, 255
+   \   0000013E   0E40               ADD     R4, R16
+   \   00000140   EF0F               LDI     R16, 255
+   \   00000142   1E50               ADC     R5, R16
+     46             
+     47              
+     48              if(parteIntreaga<9)
+   \   00000144   ....               LDI     R30, LOW(parteIntreaga)
+   \   00000146   ....               LDI     R31, (parteIntreaga) >> 8
+   \   00000148   8100               LD      R16, Z
+   \   0000014A   8111               LDD     R17, Z+1
+   \   0000014C   8122               LDD     R18, Z+2
+   \   0000014E   8133               LDD     R19, Z+3
+   \   00000150   3009               CPI     R16, 9
+   \   00000152   E040               LDI     R20, 0
+   \   00000154   0714               CPC     R17, R20
+   \   00000156   E040               LDI     R20, 0
+   \   00000158   0724               CPC     R18, R20
+   \   0000015A   E040               LDI     R20, 0
+   \   0000015C   0734               CPC     R19, R20
+   \   0000015E   F4D8               BRCC    ??main_1
+     49              {
+     50                vect[j--]=parteIntreaga%10+'0';
+   \   00000160   E04A               LDI     R20, 10
+   \   00000162   E050               LDI     R21, 0
+   \   00000164   E060               LDI     R22, 0
+   \   00000166   E070               LDI     R23, 0
+   \   00000168   ....               LDI     R30, LOW(parteIntreaga)
+   \   0000016A   ....               LDI     R31, (parteIntreaga) >> 8
+   \   0000016C   8100               LD      R16, Z
+   \   0000016E   8111               LDD     R17, Z+1
+   \   00000170   8122               LDD     R18, Z+2
+   \   00000172   8133               LDD     R19, Z+3
+   \   00000174   ........           CALL    ?UL_DIVMOD_L03
+   \   00000178   5D40               SUBI    R20, 208
+   \   0000017A   01F2               MOVW    R31:R30, R5:R4
+   \   0000017C   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   0000017E   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   00000180   8340               ST      Z, R20
+   \   00000182   EF0F               LDI     R16, 255
+   \   00000184   0E40               ADD     R4, R16
+   \   00000186   EF0F               LDI     R16, 255
+   \   00000188   1E50               ADC     R5, R16
+     51                vect[j]='0';
+   \   0000018A   E300               LDI     R16, 48
+   \   0000018C   01F2               MOVW    R31:R30, R5:R4
+   \   0000018E   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   00000190   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   00000192   8300               ST      Z, R16
+   \   00000194   C032               RJMP    ??main_2
+     52              }
+     53              else
+     54              {
+     55                
+     56                while(parteIntreaga!=0)
+   \                     ??main_1:
+   \   00000196   ....               LDI     R30, LOW(parteIntreaga)
+   \   00000198   ....               LDI     R31, (parteIntreaga) >> 8
+   \   0000019A   8100               LD      R16, Z
+   \   0000019C   8111               LDD     R17, Z+1
+   \   0000019E   8122               LDD     R18, Z+2
+   \   000001A0   8133               LDD     R19, Z+3
+   \   000001A2   2B01               OR      R16, R17
+   \   000001A4   2B02               OR      R16, R18
+   \   000001A6   2B03               OR      R16, R19
+   \   000001A8   F141               BREQ    ??main_2
+     57                {  
+     58                  vect[j]=parteIntreaga%10+'0';
+   \   000001AA   E04A               LDI     R20, 10
+   \   000001AC   E050               LDI     R21, 0
+   \   000001AE   E060               LDI     R22, 0
+   \   000001B0   E070               LDI     R23, 0
+   \   000001B2   ....               LDI     R30, LOW(parteIntreaga)
+   \   000001B4   ....               LDI     R31, (parteIntreaga) >> 8
+   \   000001B6   8100               LD      R16, Z
+   \   000001B8   8111               LDD     R17, Z+1
+   \   000001BA   8122               LDD     R18, Z+2
+   \   000001BC   8133               LDD     R19, Z+3
+   \   000001BE   ........           CALL    ?UL_DIVMOD_L03
+   \   000001C2   5D40               SUBI    R20, 208
+   \   000001C4   01F2               MOVW    R31:R30, R5:R4
+   \   000001C6   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   000001C8   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   000001CA   8340               ST      Z, R20
+     59                  parteIntreaga/=10;
+   \   000001CC   E04A               LDI     R20, 10
+   \   000001CE   E050               LDI     R21, 0
+   \   000001D0   E060               LDI     R22, 0
+   \   000001D2   E070               LDI     R23, 0
+   \   000001D4   ....               LDI     R30, LOW(parteIntreaga)
+   \   000001D6   ....               LDI     R31, (parteIntreaga) >> 8
+   \   000001D8   8100               LD      R16, Z
+   \   000001DA   8111               LDD     R17, Z+1
+   \   000001DC   8122               LDD     R18, Z+2
+   \   000001DE   8133               LDD     R19, Z+3
+   \   000001E0   ........           CALL    ?UL_DIVMOD_L03
+   \   000001E4   ....               LDI     R30, LOW(parteIntreaga)
+   \   000001E6   ....               LDI     R31, (parteIntreaga) >> 8
+   \   000001E8   8300               ST      Z, R16
+   \   000001EA   8311               STD     Z+1, R17
+   \   000001EC   8322               STD     Z+2, R18
+   \   000001EE   8333               STD     Z+3, R19
+     60                  j--;
+   \   000001F0   EF0F               LDI     R16, 255
+   \   000001F2   0E40               ADD     R4, R16
+   \   000001F4   EF0F               LDI     R16, 255
+   \   000001F6   1E50               ADC     R5, R16
+   \   000001F8   CFCE               RJMP    ??main_1
+     61                }
+     62              }
+     63              
+     64              for(j=j+1;j<10;++j)
+   \                     ??main_2:
+   \   000001FA   E001               LDI     R16, 1
+   \   000001FC   0E40               ADD     R4, R16
+   \   000001FE   E000               LDI     R16, 0
+   \   00000200   1E50               ADC     R5, R16
+   \                     ??main_3:
+   \   00000202   E00A               LDI     R16, 10
+   \   00000204   1640               CP      R4, R16
+   \   00000206   E000               LDI     R16, 0
+   \   00000208   0650               CPC     R5, R16
+   \   0000020A   F45C               BRGE    ??main_4
+     65              {
+     66               USART_transmit(vect[j]); 
+   \   0000020C   01F2               MOVW    R31:R30, R5:R4
+   \   0000020E   ....               SUBI    R30, LOW((-(vect) & 0xFFFF))
+   \   00000210   ....               SBCI    R31, (-(vect) & 0xFFFF) >> 8
+   \   00000212   8100               LD      R16, Z
+   \   00000214   ........           CALL    USART_transmit
+     67              }
+   \   00000218   E001               LDI     R16, 1
+   \   0000021A   0E40               ADD     R4, R16
+   \   0000021C   E000               LDI     R16, 0
+   \   0000021E   1E50               ADC     R5, R16
+   \   00000220   CFF0               RJMP    ??main_3
+     68              USART_transmit('m');
+   \                     ??main_4:
+   \   00000222   E60D               LDI     R16, 109
+   \   00000224   ........           CALL    USART_transmit
+     69              USART_transmit('s');
+   \   00000228   E703               LDI     R16, 115
+   \   0000022A   ........           CALL    USART_transmit
+     70              USART_transmit(' ');
+   \   0000022E   E200               LDI     R16, 32
+   \   00000230   ........           CALL    USART_transmit
+     71              NR=0;
+   \   00000234   E000               LDI     R16, 0
+   \   00000236   E010               LDI     R17, 0
+   \   00000238   E020               LDI     R18, 0
+   \   0000023A   E030               LDI     R19, 0
+   \   0000023C   E040               LDI     R20, 0
+   \   0000023E   E050               LDI     R21, 0
+   \   00000240   E060               LDI     R22, 0
+   \   00000242   E070               LDI     R23, 0
+   \   00000244   ....               LDI     R30, LOW(NR)
+   \   00000246   ....               LDI     R31, (NR) >> 8
+   \   00000248   8300               ST      Z, R16
+   \   0000024A   8311               STD     Z+1, R17
+   \   0000024C   8322               STD     Z+2, R18
+   \   0000024E   8333               STD     Z+3, R19
+   \   00000250   8344               STD     Z+4, R20
+   \   00000252   8355               STD     Z+5, R21
+   \   00000254   8366               STD     Z+6, R22
+   \   00000256   8377               STD     Z+7, R23
+     72                     
+     73            }
+     74            
+     75            
+     76            
+     77            while(1)
+     78            {
+     79             var=TCNT1; 
+   \                     ??main_0:
+   \   00000258   B50C               IN      R16, 0x2C
+   \   0000025A   B51D               IN      R17, 0x2D
+   \   0000025C   E020               LDI     R18, 0
+   \   0000025E   E030               LDI     R19, 0
+   \   00000260   E040               LDI     R20, 0
+   \   00000262   E050               LDI     R21, 0
+   \   00000264   E060               LDI     R22, 0
+   \   00000266   E070               LDI     R23, 0
+   \   00000268   ....               LDI     R30, LOW(var)
+   \   0000026A   ....               LDI     R31, (var) >> 8
+   \   0000026C   8300               ST      Z, R16
+   \   0000026E   8311               STD     Z+1, R17
+   \   00000270   8322               STD     Z+2, R18
+   \   00000272   8333               STD     Z+3, R19
+   \   00000274   8344               STD     Z+4, R20
+   \   00000276   8355               STD     Z+5, R21
+   \   00000278   8366               STD     Z+6, R22
+   \   0000027A   8377               STD     Z+7, R23
+   \   0000027C   CFED               RJMP    ??main_0
+   \   0000027E                      REQUIRE _A_MCUCSR
+   \   0000027E                      REQUIRE _A_TCNT1
+     80              
+     81            }
+     82          }
+
+   \                                 In  segment INTVEC, offset 0x20, root
+   \                     `??T1_OVF??INTVEC 32`:
+   \   00000020   ........           JMP     T1_OVF
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for 64 Bit Constant>_0`:
+   \   00000000   FFFF00000000       DD 65535, 0
+   \              0000        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     __Constant_ffff_0:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+      11      2  T1_OVF
+       6      4  main
+                   6 2 -> USART_initialize
+                   6 2 -> USART_transmit
+                   6 2 -> timer1_INIT
+       0      2  timer1_INIT
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       8  ?<Initializer for 64 Bit Constant>_0
+       4  ??T1_OVF??INTVEC 32
+       8  NR
+       4  T
+     106  T1_OVF
+       1  _A_MCUCSR
+       1  _A_TCCR1B
+       2  _A_TCNT1
+       1  _A_TIMSK
+       8  __Constant_ffff_0
+     638  main
+       4  parteFractionara
+       4  parteIntreaga
+      14  timer1_INIT
+       8  var
+      10  vect
+      12  -- Other
+
+ 
+   5 bytes in segment ABSOLUTE
+ 758 bytes in segment CODE
+  12 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   8 bytes in segment NEAR_I
+   8 bytes in segment NEAR_ID
+  16 bytes in segment NEAR_N
+  22 bytes in segment NEAR_Z
+ 
+ 758 bytes of CODE memory (+ 24 bytes shared)
+  38 bytes of DATA memory (+ 13 bytes shared)
+
+Errors: none
+Warnings: 1

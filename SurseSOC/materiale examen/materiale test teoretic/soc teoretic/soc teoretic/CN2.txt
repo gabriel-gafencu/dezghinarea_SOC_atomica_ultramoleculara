@@ -1,0 +1,445 @@
+1. Microprocesoarele Pentium contin o structura microprogramabila?
+c) da-unitate de control (inclusive campuri ALU)
+
+2. Cate timere are 8051?
+a) 2 care pot lucra si pe 8 si 16 biti
+
+5. La procesorul Pentium unitatea de segment e inclusa in stadiul:
+b) D2
+
+6. La 8051 T0 si T1 sunt:
+a) intrari pt countere
+
+7. Pt Pentium stadiul D2 reprezinta:
+b) calculul adresei unitatii de segmentare
+
+8.Ciclul flUsh e generat 
+b) cand procesorul dual necesita un acces la memoria cache
+
+9.Arhitectura Pentium contine
+a) 2 structuri pipeline
+b) 2 structuri pipeline si un singur set de registre generale
+
+10. Descriptorii de segment cache contin:
+b) adresa de baza si atribute
+
+11.Unitatea de control la Pentium este:
+a) microprogramata
+
+12. Magistrala de date la Pentium are
+c) 64 biti
+
+
+13. Adresa de inceput a unei pagini de 4K este multiplu de:
+c) 216   2 12  ar trebui sa fie  
+
+14.Un spatiu de memorie de 8K intr-un sistem cu 8051 poate fi selectat:
+a) prin decodificarea linii P27-5+
+
+15. Mem cache set asociativa pe 4 cai implica:
+b) 22 directori
+
+16. Fie un sist cu 8KO memorie de la adresa 8000h. Adresa finala e:
+a) 9FFFh
+
+17. Arhitectura Pentium contine o structura BTB:
+a) 4 cai set asociativa
+
+18. Fie un sistem cu microcontroller sau PIC, PCON contine date (info) despre:
+a) setari Idle, PowerDown
+
+19. Care sunt diferentele intre Load si Mov?
+c) specifica sensul transferului de date    --primele doua nu sunt sigur
+
+20.Magistrala de adrese reprezinta:
+a) un bus pe care CPU depune un vector care reprezinta adresa unei locatii de memorie
+b) un bus pe care CPU depune un vector care reprezinta adresa unui disp. I/O
+c) un bus pe care CPU depune un vector care reprezinta adresa unei locatii de memorie
+
+1. Microprocesorul Pentium contine o structura microprogramata
+c) DA. Unitate de control inclusiv cimpul ALU      - correct-
+
+2. Fie o str. 8051. Ce spatiu de memorie poate accesa direct (fara porturi controlate)?
+a) 64 KO  -CORECT-
+
+3. Fie o str. 8051. Ce spatiu de memorie poate accesa incluzind porturile controlate?
+c) 128 KO
+
+4. Cite timere are 8051?
+a) 2 care pot lucra pe 8 si 16 biti –CORECT-
+
+5. De cite intrari de “tresh” dispune 8051?
+b) 2 –CORECT-
+
+6. Cite surse de intrerupere accepta 8051?
+b) 5 -//cred ca e correct--
+
+7.  Cite tipuri de accesare a memoriei cache cunoasteti?
+a) look trough    look aside  -CORECT-
+
+8. BTB e o str. Bazata pe memoria cache la care:
+a) tagul reprezinta adresa instructiunii brench  -X
+c) mem cache (BTb) contine adresa brench     -X
+
+9. Operatia WRITE BACK reprezinta:
+a) inscrierea lui L1
+
+10. Ciclul FLUSH e util in structura
+a) monoprocesor    ---tind sac red ca e util in ambele structuri
+b) biprocesor
+
+11. Pt procesorul Pentium stadiul D1 reprezinta
+a ) incompatibilitatea instructiune/comp. –CORECT-
+
+12. Pt procesorul Pentium stadiul D2 reprezinta
+b) calculul adresei unitatii de segmentare
+
+13. Magistrala de date la Pentium are:
+c) 64 biti
+
+14. TLB-urile sunt folosite in:
+a) paginare
+
+16. Pagina la masinile IBM/Pentium are:
+a) 4KO
+
+17. La o structura biprocesor Pentium, NA(next address):
+a) este o cerere de noua adresa                       –CORECT-
+b) este o ocupare de la L2                              - CORECT-
+c) controlerul gestioneaza 2 bancuri              - CORECT-
+
+18. Fie 4 dispozitive conectate pe o magistrala comuna. Apare conflict cind:
+a) 2 dispozittive depun o valoare si 2 citesc
+c) 2 dispozittive depun o valoare pe magistrala si 1 citeste
+
+
+19. Secventa de comanda pentru citirea din memoria dinamica este:
+b) RASnegat = 0 , CASnegat = 0, WEnegat = 1;  -CORECT-
+
+
+20. O structura FPGA poate fi folosita pentru:
+a) implementarea unei structuri combinationale
+
+1. O memoria cache necesita
+a) director
+
+2. Pt segmentare se folosesc
+a) descriptor de segment
+b) registru de segment
+
+3. Timerele implementate pe 8051 lucreaza pe:
+a) 16 biti
+c) 8 biti
+
+4.Pentru microprocesorul Pentium, BTB reprezinta:
+a) brench   target  buffer
+
+5. Ciclul Flush e executat:
+b) cind procesorul dual necesita acces la memoriea cache
+
+6.O linie cache la Pentium contine:
+a) 32 biti   32 octeti nu biti
+c) adresa data de director  --probabil asta e raspunsul corect
+
+
+7. Adresa liniara se determina din:
+a) adresa efectiva si adresa de baza segment
+
+8. Un sistem cu 8051 poate fi interfatat serie:
+b) prin linii proprii
+
+9. Un spatiu de memorie cu 8051 de 8KO poate fi selectat:
+a) prin decodificarea liniilor P2…75
+
+10. Adresa de inceput a unui segment e:
+b) oricare
+
+11. Fie o memorie RAM (read-write) de date de 8KO. CSnegat este:
+c) conectat la o logica de decodificare
+
+12. Fie un system 8051 care are 8KO de la adresa 8000h. Adresa finala e:
+a) 9FFF
+
+
+13. Pt. a modifica valuarea unei linii pe portul P2 se va folosi
+b) instructiuni MOVE ---pt ca p2 poate fi adresabil pe biti
+
+14. Fie un system cu microcontroller sau PIC. PCON contine date, informatii despre:
+a)setari IDLE Power Down
+
+15. La un system care contine un separator de memorie si resurse I/O, linia de adrese AO
+a) poate fi folosita pt selectarea paginilor de 256 octeti
+
+16. Un multiplexor cu 4 intrari implica
+a) o structura secventiala cu 2 CBB-uri cu selectia pe 2 biti
+b) o structura logica combinationala cu selectia pe 2 biti
+c) 1 PIC cu 4
+
+17. Semnalul NA(next address) e generat de :
+b) controlerul de memorie cind poate accesa alt banc
+
+18. Fc.  Y=f(1,4,6) poate fi implementata cu
+a) multiplexor
+c) 1 CBB + 1 multiplexor.
+
+1.fie o structura 80C51 .Ce spatiu de mem poate accesa direct
+a)64ko		b)128ko	c)32ko
+raspuns :a
+
+2.la 8051 T0 si T1 sunt:
+a)intrari pentru countere	b)intrari testabile prin instructiuni	c)intrari pt cereri de intreruperi
+raspuns :a
+
+3. …..write back
+a)inscriere in L1	b)scriere intr-un port i/o	c)rescriere intr-un reg de uz general
+raspuns : a si b
+
+4.ciclul FLASH este util in struct
+a)monoproc	b)biproc	c)semnalizarea unui acces la resurse
+raspuns : a
+
+5.o linie cache la Pentium contine 
+a)32 biti 	b)8octeti	c)32 octeti
+raspuns : c
+
+6.descriptorii de segmente contin 
+a)adrese de taskuri	b)adrese de baza si attribute	c)adrese de baza si adrese de taskuri
+raspuns : b
+
+7.unitatea de control la Pentium
+a)microprogramata	b)cablata(automat cablat)	c)analogica
+raspuns : a 
+
+8.adresa de inceput a unei pagini de 4k este multiplu de 
+a)211	b)27	c)216
+raspuns : ??? c)
+
+9.fie o memorie Ram (read/wriete dedate de 8ko).CS este:
+a)legat la masa digitala (GND)	b)conectat la PSEN	c)conectat la o logica de decodificare
+raspuns : c
+
+10.arhitectura Pentium contine o str BTB cu:
+a)4 cai set asociativa		b)mem virtuala de 4 Go	c)16TLB
+raspuns : a
+
+11.care sunt diferentele dintre instr LOAD si MOV
+a)notatii diferite pt familii diferite de procesoare 	b)se accepta de toate asambloarele	c)specifica sensul transferului de date
+raspuns : a
+12.fie un vector …
+a)a1 poate fi folosit in selectia bancurilor	b)a3 repr resete i/o	c)a1 este folosit de starea proc cu S7negat =1
+raspuns : ?
+
+13.fie o functie logica y=f(1,2,7,8) .Ea implica :
+a)o struct cu 4CLBuri		b)4 mux 1din2 si un CBB	c)o struct combinationala
+raspuns : a b c ??? c
+
+14.Tacc reprezinta 
+a)timp acces mem	b)timp acces struc combinationala	c)timp acces CBB
+raspuns : b ??? a
+
+15.pagina la masinile IBM P1 are
+a)4ko	b)4mo	c)16ko
+raspuns : a
+
+16.pentru o diagrama de timp prezentata in data sheet T2 acopera
+a)accesul la mem externa	b)accesul la pipe line”V”	c)accesul la cele 2 pipeline-uri
+raspuns : b
+
+17.la o structura biprocesor Pentium
+a)NA este o cerere de noua adresa	b)NA este acceptare de la L2	c)controlerul gestioneaza 2 bankuri
+raspuns : a
+
+18……….STB
+a)front crescator	b)palier	c)front descrescator
+raspuns : b
+
+19.prog procedurala implica existenta 
+a)cache	b)stivei		c)sistemului de intreruperi
+raspuns : b c
+
+20.intr-un sistem bazat pe 8086in care avem … din ciclurile refresh se vor genera
+a)comanda proc	b)controller 82C08	c)mem ex automat ciclurile refresh
+raspuns : a b
+
+
+
+
+
+
+
+
+1.de cate porturi pe 8biti dispune 8051
+a)5	b)2	c)4
+
+2.cate tipuri de accesare a mem cache cunoasteti
+a)look through,aside	b)look aside, look all		c)look through,look all
+raspuns :a
+
+3.o memorie cache necesita
+a)director	b)descriptor	c)tabela de pagina 
+raspuns : a b
+
+4.pt segmentare se foloseste
+a)descripttori de segment	b)registri de segment		c)tabele de paginare
+raspuns : a b
+
+5.timerele 8051 pot lucra pe 
+a)16 biti	b) 8 biti cu autoincarcare	c)8 biti
+raspuns : a b c
+
+6.pt microprocesorul PENTIUM BTB repr
+a)brench target buffer		b)buffer to brench	c)buffer to buffer cache
+raspuns : a
+
+7.BTB este o struc bazata pe memoria cache la care
+a)tagul repr adresa instruct Brench		b)tagul repr adresa instruct apelata	c)memeoria cache BTB contine adresa apelata
+raspuns : a c
+
+8.pt procesorul PENTIUM D2 reprez
+a)identificarea instruct Brench	b)calculul adresei instr …segmente	c)identificare instr pop-push
+raspuns : b
+
+9.ciclul flush este generat
+a)cand se executa o intr de inmultire		b)cand procesorul dual necesita un ac la mem cache 	c)cand procesorul seafla in starea idle 
+raspuns : b
+
+10.arhitectura Pentium contine
+a)2 struc pipe-line	b)2 unitati alu si un segm de reg generale	c)2 alu,2 seturi de reg generale
+raspuns : a b
+
+11.adresa liniara se determina din
+a)AE si adresa de baza segment	b)adresa fizica		c)adresa data de dir
+raspuns :a
+12.magistrala de date la Pentium are :
+a)16biti	b)32 biti	c)64biti
+raspuns :c
+
+13.un spatiu de memorie de 8ko intr-un 8051 poate fi selectat prin:
+a)decodificarea liniilor P2 7-5  	b)cu ajutorul P0 7-5		c)prin instr out pe portul P3
+raspuns :a
+
+14.adresa de inceput a unui segment este 
+a)multiplu de 211	b)oricare	c)multiplu de …
+raspuns : b
+
+15.memoria cache asociata pe 4 cai implica
+a)20 directori	b)22 directori 		c)24directori
+raspuns : b
+
+16.la un sistem care contine un spatiu de memorie si resurse i/olinia de adrese A8
+a)poate fi folosita pt selectarea paginii 256 octeti	b)nu se foloseste	c)folosit pt selectarea paginii de 4ko
+raspuns : ???
+
+17.magistrala de adrese repr 
+a)un bus pe care cpu depune un vector care repr adresa adresa unei locatii de memorie
+b)un bus pe care cpu depune un vector care repr adresa unui dispozitiv I/O
+c) un bus pe care cpu depune un vector care repr adresa unei locatii de memorie
+Raspuns : a b c
+
+18.semnalul NA este generat de 
+a)microprocessor cand necesita o instr	b)controlerul de memorie cand poate accesa alt bank	c)de dual processor 
+raspuns : b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.microprocesorul Pentium contine o structura microprogramabila
+a)da- directori cache	b)nu	c)da –unitatea de control inclusive campuri alu
+raspuns : c
+
+2.cate timere are 8051 
+a)2 care pot lucra pe 8 si 16 biti	b)1 pe 8 biti	c)3
+raspuns : a
+
+3.de cate intrari de test dispune 8051
+a)1	b)2	c)3
+raspuns : ?
+
+4.cate surse de intreruperi accepta 8051
+a)2	b)5	c)4
+raspuns :c
+
+5.la procesorul Pentium unitatea de segment este inclusa in stadiul
+a)WB negat 	b)D2	c)E
+raspuns :b
+
+6.la 8051 T0 T1 sunt 
+a)intrari pentru countere	b)intrari testabile prin ….	c)intrari pentru cererile de intreruperi
+raspuns : a
+
+7.pentru Pentium stadiul D2 repr :
+a)identificarea instructiunii brench	b)calculul adresei unitatii de segmentare	c)identificare instruct pop-push
+raspuns : b
+
+8. ciclul flush este generat
+a)cand se executa o intr de inmultire		b)cand procesorul dual necesita un ac la mem cache 	c)cand procesorul seafla in starea idle 
+raspuns : b
+
+9. arhitectura Pentium contine
+a)2 struc pipe-line	b)2 unitati alu si un segm de reg generale	c)2 alu,2 seturi de reg generale
+raspuns : a b
+
+10. descriptorii de segmente contin 
+a)adrese de taskuri	b)adrese de baza si attribute	c)adrese de baza si adrese de taskuri
+raspuns : b
+
+11. .unitatea de control la Pentium
+a)microprogramata	b)cablata(automat cablat)	c)analogica
+raspuns : a 
+
+12. magistrala de date la Pentium are :
+a)16biti	b)32 biti	c)64biti
+raspuns :c
+
+13. adresa de inceput a unui segment este 
+a)multiplu de 211	b)multiplu de 27	a)multiplu de 216
+raspuns :  c ???
+
+14. un spatiu de memorie de 8ko intr-un 8051 poate fi selectat prin:
+a)decodificarea liniilor P2 7-5  	b)cu ajutorul P0 7-5		c)prin instr out pe portul P3
+raspuns :a
+
+15. memoria cache asociata pe 4 cai implica
+a)20 directori	b)22 directori 		c)24directori
+raspuns : b
+
+16.fie un sistem cu 8k memorie de la adresa 8000h.Adresa finala e:
+a)9FFFh	b)A000h	c)CFFFh
+raspuns :a
+
+17. arhitectura Pentium contine o str BTB cu:
+a)4 cai set asociativa		b)mem virtuala de 4 Go	c)16TLB
+raspuns : a
+
+18.fie un sistem cu microcontroller sau PIC. PCON contine date despre
+a)setari IDLE, POWEDOWN 	b)capacitatea memoriei program	c)valid…..
+raspuns : a
+
+19. .care sunt diferentele dintre instr LOAD si MOV
+a)notatii diferite pt familii diferite de procesoare 	b)se accepta de toate asambloarele	c)specifica sensul transferului de date
+raspuns : a
+
+20. magistrala de adrese repr 
+a)un bus pe care cpu depune un vector care repr adresa unei locatii de memorie
+b)un bus pe care cpu depune un vector care repr adresa unui disp I/O
+c) un bus pe care cpu depune un vector care repr adresa unui locatii de memorie
+Raspuns : a b c
+
+
+
+
+
+
+
+
+

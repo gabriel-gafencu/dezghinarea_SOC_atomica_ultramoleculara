@@ -1,0 +1,6 @@
+La un nod de transmisiuni sosesc in medie 240 de mesaje pe ora formand un flux de intrare poissonian.
+ Mesajele au o lungime variabila, ce corespunde unei repartitii exponential negativa,
+ dar in medie au 100 de caractere. Timpul de transmitere a unui mesaj este proportional cu lungimea mesajului, viteza detransmisie fiind de 20 de caractere pe secunda.
+ a) sa se determine probabilitatea ca un mesaj sa astepte cel putin 3 mesaje care sa se transmita mai intai.
+ b) sa se realizeze un algoritm de simulare pentru dimensiunarea optima a unui buffer de intrare astfel incat procentajul mesajelor respinse sa nu depaseasca 1%.
+

@@ -1,0 +1,129 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       20/Dec/2014  12:33:14 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\Apasare tasta\usart.c                          /
+//    Command line =  "D:\1307B\Apasare tasta\usart.c" --cpu=m16 -ms -o       /
+//                    "D:\1307B\Apasare tasta\Debug\Obj\" -lCN                /
+//                    "D:\1307B\Apasare tasta\Debug\List\" -lb                /
+//                    "D:\1307B\Apasare tasta\Debug\List\"                    /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\Apasare tasta\Debug\List\usart.s90             /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME usart
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        PUBLIC USART_Receive
+        PUBLIC USART_initialize
+        PUBLIC USART_transmit
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_UBRRH
+        PUBWEAK _A_UBRRL
+        PUBWEAK _A_UCSRA
+        PUBWEAK _A_UCSRB
+        PUBWEAK _A_UDR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+
+
+        ASEGN ABSOLUTE:DATA:NOROOT,040H
+// union <unnamed> volatile __io _A_UBRRH
+_A_UBRRH:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02cH
+// union <unnamed> volatile __io _A_UDR
+_A_UDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02bH
+// union <unnamed> volatile __io _A_UCSRA
+_A_UCSRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02aH
+// union <unnamed> volatile __io _A_UCSRB
+_A_UCSRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,029H
+// union <unnamed> volatile __io _A_UBRRL
+_A_UBRRL:
+        DS8 1
+
+        RSEG CODE:CODE:NOROOT(1)
+USART_initialize:
+        MOVW    R19:R18, R17:R16
+        MOV     R18, R19
+        LDI     R19, 0
+        OUT     0x20, R18
+        MOV     R18, R16
+        OUT     0x09, R18
+        LDI     R18, 24
+        OUT     0x0A, R18
+        SBI     0x11, 0x01
+        CBI     0x11, 0x00
+        RET
+        REQUIRE _A_UBRRH
+        REQUIRE _A_UBRRL
+        REQUIRE _A_UCSRB
+        REQUIRE _A_DDRD
+
+        RSEG CODE:CODE:NOROOT(1)
+USART_transmit:
+??USART_transmit_0:
+        SBIS    0x0B, 0x05
+        RJMP    ??USART_transmit_0
+        OUT     0x0C, R16
+        RET
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+
+        RSEG CODE:CODE:NOROOT(1)
+USART_Receive:
+??USART_Receive_0:
+        SBIS    0x0B, 0x07
+        RJMP    ??USART_Receive_0
+        IN      R16, 0x0C
+        RET
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        END
+// 
+//  6 bytes in segment ABSOLUTE
+// 38 bytes in segment CODE
+// 
+// 38 bytes of CODE memory
+//  0 bytes of DATA memory (+ 6 bytes shared)
+//
+//Errors: none
+//Warnings: none

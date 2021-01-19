@@ -1,0 +1,220 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        22/Dec/2015  17:07:30 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c    #
+#    Command line =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c    #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\GenF_MOD14_ #
+#                    1%sec\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\GenF_MO #
+#                    D14_1%sec\Debug\List\ -lA D:\soc2015\1305B\LucruExtra\Ge #
+#                    nF_MOD14_1%sec\Debug\List\ --initializers_in_flash       #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\List\ #
+#                    timer1.lst                                               #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\Obj\t #
+#                    imer1.r90                                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c
+      1          #include "timer1.h"
+
+   \                                 In  segment ABSOLUTE, at 0x53
+   \   union <unnamed> volatile __io _A_TCCR0
+   \                     _A_TCCR0:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4f
+   \   union <unnamed> volatile __io _A_TCCR1A
+   \                     _A_TCCR1A:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4a
+   \   union <unnamed> volatile __io _A_OCR1A
+   \                     _A_OCR1A:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x46
+   \   union <unnamed> volatile __io _A_ICR1
+   \                     _A_ICR1:
+   \   00000000                      DS8 2
+      2          
+
+   \                                 In  segment NEAR_Z, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_Z>`
+      3          unsigned int softCount;
+   \                     softCount:
+   \   00000000                      DS8 2
+      4          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      5          void TIMER1_init()
+   \                     TIMER1_init:
+      6          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+      7            TCCR1A |= (1 << WGM11) | (0 << WGM10);
+   \   00000004   B50F               IN      R16, 0x2F
+   \   00000006   6002               ORI     R16, 0x02
+   \   00000008   BD0F               OUT     0x2F, R16
+      8            TCCR1B |= (1 << WGM13) | (1 << WGM12);
+   \   0000000A   B50E               IN      R16, 0x2E
+   \   0000000C   6108               ORI     R16, 0x18
+   \   0000000E   BD0E               OUT     0x2E, R16
+      9            
+     10            TCCR1A |= (1 << COM1A1) | (0 << COM1A0);
+   \   00000010   B50F               IN      R16, 0x2F
+   \   00000012   6800               ORI     R16, 0x80
+   \   00000014   BD0F               OUT     0x2F, R16
+     11            
+     12            TCCR1B |= (0 << CS12) | (0 << CS11) | (1 << CS10);
+   \   00000016   B50E               IN      R16, 0x2E
+   \   00000018   6001               ORI     R16, 0x01
+   \   0000001A   BD0E               OUT     0x2E, R16
+     13            
+     14            unsigned int wantedFrq = 20000; /*oscilatiiCLK pe secunda*/
+   \   0000001C   E280               LDI     R24, 32
+   \   0000001E   E49E               LDI     R25, 78
+     15            ICR1 = (F_OSC) / wantedFrq - 1;
+   \   00000020   01AC               MOVW    R21:R20, R25:R24
+   \   00000022   E060               LDI     R22, 0
+   \   00000024   E070               LDI     R23, 0
+   \   00000026   EA00               LDI     R16, 160
+   \   00000028   E311               LDI     R17, 49
+   \   0000002A   E32D               LDI     R18, 61
+   \   0000002C   E030               LDI     R19, 0
+   \   0000002E   ........           CALL    ?SL_DIVMOD_L03
+   \   00000032   01F8               MOVW    R31:R30, R17:R16
+   \   00000034   9731               SBIW    R31:R30, 1
+   \   00000036   BDF7               OUT     0x27, R31
+   \   00000038   BDE6               OUT     0x26, R30
+     16            
+     17            unsigned int duty = 1; /*procent*/
+   \   0000003A   E0A1               LDI     R26, 1
+   \   0000003C   E0B0               LDI     R27, 0
+     18            OCR1A = ICR1 * duty / 100;
+   \   0000003E   B506               IN      R16, 0x26
+   \   00000040   B517               IN      R17, 0x27
+   \   00000042   01AD               MOVW    R21:R20, R27:R26
+   \   00000044   ........           CALL    ?S_EC_MUL_L02
+   \   00000048   E644               LDI     R20, 100
+   \   0000004A   E050               LDI     R21, 0
+   \   0000004C   ........           CALL    ?US_DIVMOD_L02
+   \   00000050   BD1B               OUT     0x2B, R17
+   \   00000052   BD0A               OUT     0x2A, R16
+     19          }
+   \   00000054   E0E4               LDI     R30, 4
+   \   00000056   ........           JMP     ?EPILOGUE_B4_L09
+   \   0000005A                      REQUIRE _A_TCCR1A
+   \   0000005A                      REQUIRE _A_TCCR1B
+   \   0000005A                      REQUIRE _A_ICR1
+   \   0000005A                      REQUIRE _A_OCR1A
+     20          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     21          void TIMER0_init()
+   \                     TIMER0_init:
+     22          {
+     23            TCCR0 |= (0 << WGM01) | (0 << WGM00); 
+   \   00000000   B703               IN      R16, 0x33
+   \   00000002   BF03               OUT     0x33, R16
+     24            TCCR0 |= (1 << CS02) | (0 << CS01) | (1 << CS00);
+   \   00000004   B703               IN      R16, 0x33
+   \   00000006   6005               ORI     R16, 0x05
+   \   00000008   BF03               OUT     0x33, R16
+     25          }
+   \   0000000A   9508               RET
+   \   0000000C                      REQUIRE _A_TCCR0
+     26          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     27          __interrupt void isr_TIMER0_OVF_vect()
+   \                     isr_TIMER0_OVF_vect:
+     28          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     29            if(softCount <= 16)
+   \   0000000C   91E0....           LDS     R30, softCount
+   \   00000010   91F0....           LDS     R31, (softCount + 1)
+   \   00000014   9771               SBIW    R31:R30, 17
+   \   00000016   F448               BRCC    ??isr_TIMER0_OVF_vect_0
+     30              softCount++;
+   \   00000018   ....               LDI     R30, LOW(softCount)
+   \   0000001A   ....               LDI     R31, (softCount) >> 8
+   \   0000001C   8100               LD      R16, Z
+   \   0000001E   8111               LDD     R17, Z+1
+   \   00000020   5F0F               SUBI    R16, 255
+   \   00000022   4F1F               SBCI    R17, 255
+   \   00000024   8300               ST      Z, R16
+   \   00000026   8311               STD     Z+1, R17
+   \   00000028   C006               RJMP    ??isr_TIMER0_OVF_vect_1
+     31            else
+     32              softCount = 0;
+   \                     ??isr_TIMER0_OVF_vect_0:
+   \   0000002A   E000               LDI     R16, 0
+   \   0000002C   E010               LDI     R17, 0
+   \   0000002E   9300....           STS     softCount, R16
+   \   00000032   9310....           STS     (softCount + 1), R17
+     33          }
+   \                     ??isr_TIMER0_OVF_vect_1:
+   \   00000036   BF2F               OUT     0x3F, R18
+   \   00000038   9109               LD      R16, Y+
+   \   0000003A   9119               LD      R17, Y+
+   \   0000003C   9129               LD      R18, Y+
+   \   0000003E   91E9               LD      R30, Y+
+   \   00000040   91F9               LD      R31, Y+
+   \   00000042   9518               RETI
+
+   \                                 In  segment INTVEC, offset 0x24, root
+   \                     `??isr_TIMER0_OVF_vect??INTVEC 36`:
+   \   00000024   ........           JMP     isr_TIMER0_OVF_vect
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  TIMER0_init
+       4      4  TIMER1_init
+       5      2  isr_TIMER0_OVF_vect
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??isr_TIMER0_OVF_vect??INTVEC 36
+      12  TIMER0_init
+      90  TIMER1_init
+       2  _A_ICR1
+       2  _A_OCR1A
+       1  _A_TCCR0
+       1  _A_TCCR1A
+       1  _A_TCCR1B
+      68  isr_TIMER0_OVF_vect
+       2  softCount
+       6  -- Other
+
+ 
+   7 bytes in segment ABSOLUTE
+ 170 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   2 bytes in segment NEAR_Z
+ 
+ 170 bytes of CODE memory (+ 10 bytes shared)
+   2 bytes of DATA memory (+  7 bytes shared)
+
+Errors: none
+Warnings: none

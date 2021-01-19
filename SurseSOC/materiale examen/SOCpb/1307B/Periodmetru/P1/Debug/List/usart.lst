@@ -1,0 +1,209 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        06/Jan/2015  19:42:52 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\1307B\Periodmetru\P1\usart.c                          #
+#    Command line =  D:\1307B\Periodmetru\P1\usart.c --cpu=m16 -ms -o         #
+#                    D:\1307B\Periodmetru\P1\Debug\Obj\ -lC                   #
+#                    D:\1307B\Periodmetru\P1\Debug\List\ -lA                  #
+#                    D:\1307B\Periodmetru\P1\Debug\List\                      #
+#                    --initializers_in_flash --no_cse --no_inline             #
+#                    --no_code_motion --no_cross_call --no_clustering         #
+#                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e            #
+#                    --eeprom_size 512 --clib -On                             #
+#    List file    =  D:\1307B\Periodmetru\P1\Debug\List\usart.lst             #
+#    Object file  =  D:\1307B\Periodmetru\P1\Debug\Obj\usart.r90              #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\1307B\Periodmetru\P1\usart.c
+      1          
+      2          #include "usart.h"
+
+   \                                 In  segment ABSOLUTE, at 0x40
+   \   union <unnamed> volatile __io _A_UBRRH
+   \                     _A_UBRRH:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2c
+   \   union <unnamed> volatile __io _A_UDR
+   \                     _A_UDR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2b
+   \   union <unnamed> volatile __io _A_UCSRA
+   \                     _A_UCSRA:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x2a
+   \   union <unnamed> volatile __io _A_UCSRB
+   \                     _A_UCSRB:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x29
+   \   union <unnamed> volatile __io _A_UBRRL
+   \                     _A_UBRRL:
+   \   00000000                      DS8 1
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      3          void USART_initialize(unsigned short int baud_rate)
+   \                     USART_initialize:
+      4          {
+      5            /* seteazã baud rate */
+      6            UBRRH = (unsigned char)(baud_rate >> 8);
+   \   00000000   0198               MOVW    R19:R18, R17:R16
+   \   00000002   2F23               MOV     R18, R19
+   \   00000004   E030               LDI     R19, 0
+   \   00000006   BD20               OUT     0x20, R18
+      7            UBRRL = (unsigned char)(baud_rate & 0xFF);
+   \   00000008   2F20               MOV     R18, R16
+   \   0000000A   B929               OUT     0x09, R18
+      8            UCSRB = (1 << RXEN) | (1 << TXEN); /* activeazã transmisia .i recep.ia la ie.ire */
+   \   0000000C   E128               LDI     R18, 24
+   \   0000000E   B92A               OUT     0x0A, R18
+      9            /* seteazã pinul TXD: ie.ire */
+     10            DDRD |= (1 << PD1);
+   \   00000010   9A89               SBI     0x11, 0x01
+     11            /* seteazã pinul RXD: intrare */
+     12            DDRD &= ~(1 << PD0);
+   \   00000012   9888               CBI     0x11, 0x00
+     13            /* activeazã întreruperea */
+     14            UCSRB |= (1 << RXCIE);
+   \   00000014   9A57               SBI     0x0A, 0x07
+     15            UCSRB |= (1 << TXCIE);
+   \   00000016   9A56               SBI     0x0A, 0x06
+     16          }
+   \   00000018   9508               RET
+   \   0000001A                      REQUIRE _A_UBRRH
+   \   0000001A                      REQUIRE _A_UBRRL
+   \   0000001A                      REQUIRE _A_UCSRB
+   \   0000001A                      REQUIRE _A_DDRD
+     17          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     18          void USART_transmit( unsigned char data)
+   \                     USART_transmit:
+   \                     ??USART_transmit_0:
+     19          {
+     20            /* a.teaptã pânã ce se terminã de transmis toate datele .i dupã trece la urmãtoarele informa.ii */
+     21            while (!( UCSRA & (1 << UDRE)))
+   \   00000000   9B5D               SBIS    0x0B, 0x05
+   \   00000002   CFFE               RJMP    ??USART_transmit_0
+     22            {
+     23              ;
+     24            }
+     25            UDR = data;
+   \   00000004   B90C               OUT     0x0C, R16
+     26          }
+   \   00000006   9508               RET
+   \   00000008                      REQUIRE _A_UCSRA
+   \   00000008                      REQUIRE _A_UDR
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     27          unsigned char USART_Receive(void)
+   \                     USART_Receive:
+   \                     ??USART_Receive_0:
+     28          {
+     29            /* A.teapta recep.ionarea datelor */
+     30            while ( !(UCSRA & (1<<RXC)) )
+   \   00000000   9B5F               SBIS    0x0B, 0x07
+   \   00000002   CFFE               RJMP    ??USART_Receive_0
+     31            {
+     32              ;
+     33            }
+     34            /* Preia .i returneaza datele recep.ionate din buffer */
+     35            return UDR;
+   \   00000004   B10C               IN      R16, 0x0C
+   \   00000006   9508               RET
+   \   00000008                      REQUIRE _A_UCSRA
+   \   00000008                      REQUIRE _A_UDR
+     36          }
+     37          
+     38          #pragma vector = USART_TXC_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     39          __interrupt void interrupt_routine_USART_TXC(void)
+   \                     interrupt_routine_USART_TXC:
+     40          {
+   \   00000000   932A               ST      -Y, R18
+   \   00000002   931A               ST      -Y, R17
+   \   00000004   930A               ST      -Y, R16
+   \   00000006   B72F               IN      R18, 0x3F
+     41            unsigned char test = 0;
+   \   00000008   E000               LDI     R16, 0
+     42            test += 1;
+   \   0000000A   9503               INC     R16
+     43          }
+   \   0000000C   BF2F               OUT     0x3F, R18
+   \   0000000E   9109               LD      R16, Y+
+   \   00000010   9119               LD      R17, Y+
+   \   00000012   9129               LD      R18, Y+
+   \   00000014   9518               RETI
+     44          #pragma vector = USART_RXC_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     45          __interrupt void interrupt_routine_USART_RXC(void)
+   \                     interrupt_routine_USART_RXC:
+     46          {
+   \   00000000   930A               ST      -Y, R16
+   \   00000002   B70F               IN      R16, 0x3F
+     47            
+     48          }
+   \   00000004   BF0F               OUT     0x3F, R16
+   \   00000006   9109               LD      R16, Y+
+   \   00000008   9518               RETI
+
+   \                                 In  segment INTVEC, offset 0x2c, root
+   \                     `??interrupt_routine_USART_RXC??INTVEC 44`:
+   \   0000002C   ........           JMP     interrupt_routine_USART_RXC
+
+   \                                 In  segment INTVEC, offset 0x34, root
+   \                     `??interrupt_routine_USART_TXC??INTVEC 52`:
+   \   00000034   ........           JMP     interrupt_routine_USART_TXC
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  USART_Receive
+       0      2  USART_initialize
+       0      2  USART_transmit
+       1      2  interrupt_routine_USART_RXC
+       3      2  interrupt_routine_USART_TXC
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??interrupt_routine_USART_RXC??INTVEC 44
+       4  ??interrupt_routine_USART_TXC??INTVEC 52
+       8  USART_Receive
+      26  USART_initialize
+       8  USART_transmit
+       1  _A_DDRD
+       1  _A_UBRRH
+       1  _A_UBRRL
+       1  _A_UCSRA
+       1  _A_UCSRB
+       1  _A_UDR
+      10  interrupt_routine_USART_RXC
+      22  interrupt_routine_USART_TXC
+
+ 
+  6 bytes in segment ABSOLUTE
+ 74 bytes in segment CODE
+  8 bytes in segment INTVEC
+ 
+ 74 bytes of CODE memory (+ 8 bytes shared)
+  0 bytes of DATA memory (+ 6 bytes shared)
+
+Errors: none
+Warnings: none

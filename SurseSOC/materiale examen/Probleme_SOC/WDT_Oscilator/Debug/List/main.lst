@@ -1,0 +1,376 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        29/Dec/2015  17:31:42 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\WDT_Oscilator\main.c         #
+#    Command line =  D:\soc2015\1305B\LucruExtra\WDT_Oscilator\main.c         #
+#                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\WDT_Oscilat #
+#                    or\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\WDT_Oscila #
+#                    tor\Debug\List\ -lA D:\soc2015\1305B\LucruExtra\WDT_Osci #
+#                    lator\Debug\List\ --initializers_in_flash --no_cse       #
+#                    --no_inline --no_code_motion --no_cross_call             #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\LucruExtra\WDT_Oscilator\Debug\List\mai #
+#                    n.lst                                                    #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\WDT_Oscilator\Debug\Obj\main #
+#                    .r90                                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\WDT_Oscilator\main.c
+      1          #include<iom16.h>
+
+   \                                 In  segment ABSOLUTE, at 0x59
+   \   union <unnamed> volatile __io _A_TIMSK
+   \                     _A_TIMSK:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4e
+   \   union <unnamed> volatile __io _A_TCCR1B
+   \                     _A_TCCR1B:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x4c
+   \   union <unnamed> volatile __io _A_TCNT1
+   \                     _A_TCNT1:
+   \   00000000                      DS8 2
+
+   \                                 In  segment ABSOLUTE, at 0x41
+   \   union <unnamed> volatile __io _A_WDTCR
+   \                     _A_WDTCR:
+   \   00000000                      DS8 1
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          #include<inavr.h>
+      3          #include"usart.h"
+      4          
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      5          __no_init unsigned int Timer1_currentValue;
+   \                     Timer1_currentValue:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      6          __no_init unsigned int Timer1_numberOverflows;
+   \                     Timer1_numberOverflows:
+   \   00000000                      DS8 2
+
+   \                                 In  segment NEAR_N, align 1, keep-with-next
+      7          __no_init unsigned int sendFlag;
+   \                     sendFlag:
+   \   00000000                      DS8 2
+      8          
+      9          #pragma vector = TIMER1_OVF_vect
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     10          __interrupt void isr_TIMER1_OVF_vect()
+   \                     isr_TIMER1_OVF_vect:
+     11          {
+   \   00000000   93FA               ST      -Y, R31
+   \   00000002   93EA               ST      -Y, R30
+   \   00000004   932A               ST      -Y, R18
+   \   00000006   931A               ST      -Y, R17
+   \   00000008   930A               ST      -Y, R16
+   \   0000000A   B72F               IN      R18, 0x3F
+     12            Timer1_numberOverflows++;
+   \   0000000C   ....               LDI     R30, LOW(Timer1_numberOverflows)
+   \   0000000E   ....               LDI     R31, (Timer1_numberOverflows) >> 8
+   \   00000010   8100               LD      R16, Z
+   \   00000012   8111               LDD     R17, Z+1
+   \   00000014   5F0F               SUBI    R16, 255
+   \   00000016   4F1F               SBCI    R17, 255
+   \   00000018   8300               ST      Z, R16
+   \   0000001A   8311               STD     Z+1, R17
+     13          }
+   \   0000001C   BF2F               OUT     0x3F, R18
+   \   0000001E   9109               LD      R16, Y+
+   \   00000020   9119               LD      R17, Y+
+   \   00000022   9129               LD      R18, Y+
+   \   00000024   91E9               LD      R30, Y+
+   \   00000026   91F9               LD      R31, Y+
+   \   00000028   9518               RETI
+     14          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+     15          void main( void )
+   \                     main:
+     16          {
+   \   00000000   ........           CALL    ?PROLOGUE4_L09
+   \   00000004   9760               SBIW    R29:R28, 16
+     17            USART_init(BAUD_RATE);
+   \   00000006   E00C               LDI     R16, 12
+   \   00000008   E010               LDI     R17, 0
+   \   0000000A   ........           CALL    USART_init
+     18            DDRD = (1 << PD1);
+   \   0000000E   E002               LDI     R16, 2
+   \   00000010   BB01               OUT     0x11, R16
+     19            
+     20            TIMSK |= (1 << TOIE1);
+   \   00000012   B709               IN      R16, 0x39
+   \   00000014   6004               ORI     R16, 0x04
+   \   00000016   BF09               OUT     0x39, R16
+     21            __enable_interrupt();
+   \   00000018   9478               SEI
+     22            
+     23            sendFlag++;
+   \   0000001A   ....               LDI     R30, LOW(sendFlag)
+   \   0000001C   ....               LDI     R31, (sendFlag) >> 8
+   \   0000001E   8100               LD      R16, Z
+   \   00000020   8111               LDD     R17, Z+1
+   \   00000022   5F0F               SUBI    R16, 255
+   \   00000024   4F1F               SBCI    R17, 255
+   \   00000026   8300               ST      Z, R16
+   \   00000028   8311               STD     Z+1, R17
+     24            if(sendFlag > 50)
+   \   0000002A   91E0....           LDS     R30, sendFlag
+   \   0000002E   91F0....           LDS     R31, (sendFlag + 1)
+   \   00000032   97F3               SBIW    R31:R30, 51
+   \   00000034   F030               BRCS    ??main_0
+     25              sendFlag = 0;
+   \   00000036   E000               LDI     R16, 0
+   \   00000038   E010               LDI     R17, 0
+   \   0000003A   9300....           STS     sendFlag, R16
+   \   0000003E   9310....           STS     (sendFlag + 1), R17
+     26            
+     27            unsigned long long aux = Timer1_numberOverflows;
+   \                     ??main_0:
+   \   00000042   9100....           LDS     R16, Timer1_numberOverflows
+   \   00000046   9110....           LDS     R17, (Timer1_numberOverflows + 1)
+   \   0000004A   E020               LDI     R18, 0
+   \   0000004C   E030               LDI     R19, 0
+   \   0000004E   E040               LDI     R20, 0
+   \   00000050   E050               LDI     R21, 0
+   \   00000052   E060               LDI     R22, 0
+   \   00000054   E070               LDI     R23, 0
+   \   00000056   8308               ST      Y, R16
+   \   00000058   8319               STD     Y+1, R17
+   \   0000005A   832A               STD     Y+2, R18
+   \   0000005C   833B               STD     Y+3, R19
+   \   0000005E   834C               STD     Y+4, R20
+   \   00000060   835D               STD     Y+5, R21
+   \   00000062   836E               STD     Y+6, R22
+   \   00000064   837F               STD     Y+7, R23
+     28            aux = aux * 65536 + Timer1_currentValue;
+   \   00000066   9100....           LDS     R16, Timer1_currentValue
+   \   0000006A   9110....           LDS     R17, (Timer1_currentValue + 1)
+   \   0000006E   E020               LDI     R18, 0
+   \   00000070   E030               LDI     R19, 0
+   \   00000072   E040               LDI     R20, 0
+   \   00000074   E050               LDI     R21, 0
+   \   00000076   E060               LDI     R22, 0
+   \   00000078   E070               LDI     R23, 0
+   \   0000007A   8708               STD     Y+8, R16
+   \   0000007C   8719               STD     Y+9, R17
+   \   0000007E   872A               STD     Y+10, R18
+   \   00000080   873B               STD     Y+11, R19
+   \   00000082   874C               STD     Y+12, R20
+   \   00000084   875D               STD     Y+13, R21
+   \   00000086   876E               STD     Y+14, R22
+   \   00000088   877F               STD     Y+15, R23
+   \   0000008A   8108               LD      R16, Y
+   \   0000008C   8119               LDD     R17, Y+1
+   \   0000008E   812A               LDD     R18, Y+2
+   \   00000090   813B               LDD     R19, Y+3
+   \   00000092   814C               LDD     R20, Y+4
+   \   00000094   815D               LDD     R21, Y+5
+   \   00000096   816E               LDD     R22, Y+6
+   \   00000098   817F               LDD     R23, Y+7
+   \   0000009A   ....               LDI     R26, LOW(__Constant_10000_0)
+   \   0000009C   ....               LDI     R27, (__Constant_10000_0) >> 8
+   \   0000009E   ........           CALL    ?LL_MUL_L12
+   \   000000A2   01FE               MOVW    R31:R30, R29:R28
+   \   000000A4   9638               ADIW    R31:R30, 8
+   \   000000A6   ........           CALL    ?LL_ADD_L12
+   \   000000AA   8308               ST      Y, R16
+   \   000000AC   8319               STD     Y+1, R17
+   \   000000AE   832A               STD     Y+2, R18
+   \   000000B0   833B               STD     Y+3, R19
+   \   000000B2   834C               STD     Y+4, R20
+   \   000000B4   835D               STD     Y+5, R21
+   \   000000B6   836E               STD     Y+6, R22
+   \   000000B8   837F               STD     Y+7, R23
+     29            aux = aux << 1; //aux - timp de resetare in microsecunde
+   \   000000BA   8108               LD      R16, Y
+   \   000000BC   8119               LDD     R17, Y+1
+   \   000000BE   812A               LDD     R18, Y+2
+   \   000000C0   813B               LDD     R19, Y+3
+   \   000000C2   814C               LDD     R20, Y+4
+   \   000000C4   815D               LDD     R21, Y+5
+   \   000000C6   816E               LDD     R22, Y+6
+   \   000000C8   817F               LDD     R23, Y+7
+   \   000000CA   0F00               LSL     R16
+   \   000000CC   1F11               ROL     R17
+   \   000000CE   1F22               ROL     R18
+   \   000000D0   1F33               ROL     R19
+   \   000000D2   1F44               ROL     R20
+   \   000000D4   1F55               ROL     R21
+   \   000000D6   1F66               ROL     R22
+   \   000000D8   1F77               ROL     R23
+   \   000000DA   8308               ST      Y, R16
+   \   000000DC   8319               STD     Y+1, R17
+   \   000000DE   832A               STD     Y+2, R18
+   \   000000E0   833B               STD     Y+3, R19
+   \   000000E2   834C               STD     Y+4, R20
+   \   000000E4   835D               STD     Y+5, R21
+   \   000000E6   836E               STD     Y+6, R22
+   \   000000E8   837F               STD     Y+7, R23
+     30            aux = (unsigned long long)32768 * 1000000 / aux;
+   \   000000EA   E000               LDI     R16, 0
+   \   000000EC   E010               LDI     R17, 0
+   \   000000EE   E220               LDI     R18, 32
+   \   000000F0   EA31               LDI     R19, 161
+   \   000000F2   E047               LDI     R20, 7
+   \   000000F4   E050               LDI     R21, 0
+   \   000000F6   E060               LDI     R22, 0
+   \   000000F8   E070               LDI     R23, 0
+   \   000000FA   01DE               MOVW    R27:R26, R29:R28
+   \   000000FC   ........           CALL    ?ULL_DIV_L12
+   \   00000100   8308               ST      Y, R16
+   \   00000102   8319               STD     Y+1, R17
+   \   00000104   832A               STD     Y+2, R18
+   \   00000106   833B               STD     Y+3, R19
+   \   00000108   834C               STD     Y+4, R20
+   \   0000010A   835D               STD     Y+5, R21
+   \   0000010C   836E               STD     Y+6, R22
+   \   0000010E   837F               STD     Y+7, R23
+     31            
+     32            if(sendFlag == 0)
+   \   00000110   9100....           LDS     R16, sendFlag
+   \   00000114   9110....           LDS     R17, (sendFlag + 1)
+   \   00000118   2B01               OR      R16, R17
+   \   0000011A   F481               BRNE    ??main_1
+     33            {
+     34            //USART_transmit('<');
+     35            USART_transmit_ulonglong(aux);
+   \   0000011C   8108               LD      R16, Y
+   \   0000011E   8119               LDD     R17, Y+1
+   \   00000120   812A               LDD     R18, Y+2
+   \   00000122   813B               LDD     R19, Y+3
+   \   00000124   814C               LDD     R20, Y+4
+   \   00000126   815D               LDD     R21, Y+5
+   \   00000128   816E               LDD     R22, Y+6
+   \   0000012A   817F               LDD     R23, Y+7
+   \   0000012C   ........           CALL    USART_transmit_ulonglong
+     36            //USART_transmit('>');
+     37          
+     38            USART_transmit('\r');
+   \   00000130   E00D               LDI     R16, 13
+   \   00000132   ........           CALL    USART_transmit
+     39            USART_transmit('\n');
+   \   00000136   E00A               LDI     R16, 10
+   \   00000138   ........           CALL    USART_transmit
+     40            }
+     41            
+     42            Timer1_currentValue = 0;
+   \                     ??main_1:
+   \   0000013C   E000               LDI     R16, 0
+   \   0000013E   E010               LDI     R17, 0
+   \   00000140   9300....           STS     Timer1_currentValue, R16
+   \   00000144   9310....           STS     (Timer1_currentValue + 1), R17
+     43            Timer1_numberOverflows = 0;
+   \   00000148   E000               LDI     R16, 0
+   \   0000014A   E010               LDI     R17, 0
+   \   0000014C   9300....           STS     Timer1_numberOverflows, R16
+   \   00000150   9310....           STS     (Timer1_numberOverflows + 1), R17
+     44            
+     45            WDTCR |= (0 << WDP2) | (0 << WDP1) | (1 << WDP0);
+   \   00000154   B501               IN      R16, 0x21
+   \   00000156   6001               ORI     R16, 0x01
+   \   00000158   BD01               OUT     0x21, R16
+     46            TCCR1B |= (0 << CS12) | (1 << CS11) | (0 << CS10);
+   \   0000015A   B50E               IN      R16, 0x2E
+   \   0000015C   6002               ORI     R16, 0x02
+   \   0000015E   BD0E               OUT     0x2E, R16
+     47            
+     48            TCNT1 = 0;
+   \   00000160   E000               LDI     R16, 0
+   \   00000162   E010               LDI     R17, 0
+   \   00000164   BD1D               OUT     0x2D, R17
+   \   00000166   BD0C               OUT     0x2C, R16
+     49            WDTCR |= (1 << WDE);
+   \   00000168   B501               IN      R16, 0x21
+   \   0000016A   6008               ORI     R16, 0x08
+   \   0000016C   BD01               OUT     0x21, R16
+     50              
+     51            while(1)
+     52            {
+     53              Timer1_currentValue = TCNT1;
+   \                     ??main_2:
+   \   0000016E   B50C               IN      R16, 0x2C
+   \   00000170   B51D               IN      R17, 0x2D
+   \   00000172   9300....           STS     Timer1_currentValue, R16
+   \   00000176   9310....           STS     (Timer1_currentValue + 1), R17
+   \   0000017A   CFF9               RJMP    ??main_2
+   \   0000017C                      REQUIRE _A_DDRD
+   \   0000017C                      REQUIRE _A_TIMSK
+   \   0000017C                      REQUIRE _A_WDTCR
+   \   0000017C                      REQUIRE _A_TCCR1B
+   \   0000017C                      REQUIRE _A_TCNT1
+     54            }
+     55          }
+
+   \                                 In  segment INTVEC, offset 0x20, root
+   \                     `??isr_TIMER1_OVF_vect??INTVEC 32`:
+   \   00000020   ........           JMP     isr_TIMER1_OVF_vect
+
+   \                                 In  segment NEAR_ID, align 1, keep-with-next
+   \                     `?<Initializer for 64 Bit Constant>_0`:
+   \   00000000   000000010000       DD 65536, 0
+   \              0000        
+
+   \                                 In  segment NEAR_I, align 1, keep-with-next
+   \   00000000                      REQUIRE `?<Segment init: NEAR_I>`
+   \                     __Constant_10000_0:
+   \   00000000                      DS8 8
+   \   00000008                      REQUIRE `?<Initializer for 64 Bit Constant>_0`
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       5      2  isr_TIMER1_OVF_vect
+      20      4  main
+                   20 2 -> USART_init
+                   20 2 -> USART_transmit
+                   20 2 -> USART_transmit_ulonglong
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       8  ?<Initializer for 64 Bit Constant>_0
+       4  ??isr_TIMER1_OVF_vect??INTVEC 32
+       2  Timer1_currentValue
+       2  Timer1_numberOverflows
+       1  _A_DDRD
+       1  _A_TCCR1B
+       2  _A_TCNT1
+       1  _A_TIMSK
+       1  _A_WDTCR
+       8  __Constant_10000_0
+      42  isr_TIMER1_OVF_vect
+     380  main
+       2  sendFlag
+       6  -- Other
+
+ 
+   6 bytes in segment ABSOLUTE
+ 422 bytes in segment CODE
+   6 bytes in segment INITTAB
+   4 bytes in segment INTVEC
+   8 bytes in segment NEAR_I
+   8 bytes in segment NEAR_ID
+   6 bytes in segment NEAR_N
+ 
+ 422 bytes of CODE memory (+ 18 bytes shared)
+   6 bytes of DATA memory (+ 14 bytes shared)
+
+Errors: none
+Warnings: none

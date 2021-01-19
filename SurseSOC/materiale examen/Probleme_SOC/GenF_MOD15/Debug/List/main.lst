@@ -1,0 +1,77 @@
+###############################################################################
+#                                                                             #
+# IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR        18/Dec/2015  11:12:32 #
+# Copyright 1996-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Source file  =  D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator #
+#                    \main.c                                                  #
+#    Command line =  D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator #
+#                    \main.c --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\Mas #
+#                    urare_frecventa_oscilator\Debug\Obj\ -lC                 #
+#                    D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator #
+#                    \Debug\List\ -lA D:\soc2015\1305B\LucruExtra\Masurare_fr #
+#                    ecventa_oscilator\Debug\List\ --initializers_in_flash    #
+#                    --no_cse --no_inline --no_code_motion --no_cross_call    #
+#                    --no_clustering --no_tbaa --debug                        #
+#                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib -On #
+#    List file    =  D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator #
+#                    \Debug\List\main.lst                                     #
+#    Object file  =  D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator #
+#                    \Debug\Obj\main.r90                                      #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+D:\soc2015\1305B\LucruExtra\Masurare_frecventa_oscilator\main.c
+      1          #include "timer1.h"
+
+   \                                 In  segment ABSOLUTE, at 0x31
+   \   union <unnamed> volatile __io _A_DDRD
+   \                     _A_DDRD:
+   \   00000000                      DS8 1
+      2          
+
+   \                                 In  segment CODE, align 2, keep-with-next
+      3          void main( void )
+   \                     main:
+      4          {
+      5            /*initializez timer*/
+      6           TIMER1_init();
+   \   00000000   ........           CALL    TIMER1_init
+      7            
+      8            /*setez PD5 (OC1A) ca pin de iesire*/
+      9            DDRD = (1 << PD5);
+   \   00000004   E200               LDI     R16, 32
+   \   00000006   BB01               OUT     0x11, R16
+     10            
+     11            while(1)
+   \                     ??main_0:
+   \   00000008   CFFF               RJMP    ??main_0
+   \   0000000A                      REQUIRE _A_DDRD
+     12              ;
+     13          }
+
+   Maximum stack usage in bytes:
+
+   CSTACK RSTACK Function
+   ------ ------ --------
+       0      2  main
+                   0 2 -> TIMER1_init
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  _A_DDRD
+      10  main
+
+ 
+  1 byte  in segment ABSOLUTE
+ 10 bytes in segment CODE
+ 
+ 10 bytes of CODE memory
+  0 bytes of DATA memory (+ 1 byte shared)
+
+Errors: none
+Warnings: none

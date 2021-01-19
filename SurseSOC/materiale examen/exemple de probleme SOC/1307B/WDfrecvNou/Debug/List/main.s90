@@ -1,0 +1,447 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       03/Jan/2015  16:22:40 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\WDfrecvNou\main.c                              /
+//    Command line =  D:\1307B\WDfrecvNou\main.c --cpu=m16 -ms -o             /
+//                    D:\1307B\WDfrecvNou\Debug\Obj\ -lCN                     /
+//                    D:\1307B\WDfrecvNou\Debug\List\ -lb                     /
+//                    D:\1307B\WDfrecvNou\Debug\List\                         /
+//                    --initializers_in_flash --no_cse --no_inline            /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\1307B\WDfrecvNou\Debug\List\main.s90                 /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B10_L09
+        EXTERN ?PROLOGUE10_L09
+        EXTERN ?PROLOGUE4_L09
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?S_EC_MUL_L02
+        EXTERN ?US_DIVMOD_L02
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??T1int??INTVEC 32`
+        PUBLIC T1int
+        PUBLIC USART_initialize
+        PUBLIC USART_transmit
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_ICR1
+        PUBWEAK _A_OCR1A
+        PUBWEAK _A_PORTD
+        PUBWEAK _A_TCCR1A
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TIMSK
+        PUBWEAK _A_UBRRH
+        PUBWEAK _A_UBRRL
+        PUBWEAK _A_UCSRA
+        PUBWEAK _A_UCSRB
+        PUBWEAK _A_UDR
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC cnt
+        PUBLIC data
+        PUBLIC integerTransmit
+        PUBLIC main
+        PUBLIC timp
+
+T1int               SYMBOL "T1int"
+`??T1int??INTVEC 32` SYMBOL "??INTVEC 32", T1int
+
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04fH
+// union <unnamed> volatile __io _A_TCCR1A
+_A_TCCR1A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04aH
+// union <unnamed> volatile __io _A_OCR1A
+_A_OCR1A:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,046H
+// union <unnamed> volatile __io _A_ICR1
+_A_ICR1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,040H
+// union <unnamed> volatile __io _A_UBRRH
+_A_UBRRH:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,032H
+// union <unnamed> volatile __io _A_PORTD
+_A_PORTD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02cH
+// union <unnamed> volatile __io _A_UDR
+_A_UDR:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02bH
+// union <unnamed> volatile __io _A_UCSRA
+_A_UCSRA:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,02aH
+// union <unnamed> volatile __io _A_UCSRB
+_A_UCSRB:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,029H
+// union <unnamed> volatile __io _A_UBRRL
+_A_UBRRL:
+        DS8 1
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+timp:
+        DS8 4
+        REQUIRE `?<Initializer for timp>`
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+cnt:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+data:
+        DS8 1
+
+        RSEG CODE:CODE:NOROOT(1)
+USART_initialize:
+        MOVW    R19:R18, R17:R16
+        MOV     R18, R19
+        LDI     R19, 0
+        OUT     0x20, R18
+        MOV     R18, R16
+        OUT     0x09, R18
+        LDI     R18, 24
+        OUT     0x0A, R18
+        SBI     0x11, 0x01
+        CBI     0x11, 0x00
+        SBI     0x0A, 0x07
+        RET
+        REQUIRE _A_UBRRH
+        REQUIRE _A_UBRRL
+        REQUIRE _A_UCSRB
+        REQUIRE _A_DDRD
+
+        RSEG CODE:CODE:NOROOT(1)
+USART_transmit:
+??USART_transmit_0:
+        SBIS    0x0B, 0x05
+        RJMP    ??USART_transmit_0
+        OUT     0x0C, R16
+        RET
+        REQUIRE _A_UCSRA
+        REQUIRE _A_UDR
+
+        RSEG CODE:CODE:NOROOT(1)
+integerTransmit:
+        CALL    ?PROLOGUE10_L09
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        SBIW    R29:R28, 5
+        MOVW    R9:R8, R17:R16
+        MOVW    R25:R24, R19:R18
+        MOVW    R27:R26, R21:R20
+        CLR     R4
+        CLR     R5
+        MOVW    R7:R6, R27:R26
+??integerTransmit_0:
+        MOV     R16, R6
+        OR      R16, R7
+        BREQ    ??integerTransmit_1
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R7:R6
+        CALL    ?US_DIVMOD_L02
+        SUBI    R20, 208
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R4
+        ADC     R31, R5
+        ST      Z, R20
+        LDI     R16, 1
+        ADD     R4, R16
+        LDI     R16, 0
+        ADC     R5, R16
+        LDI     R20, 10
+        LDI     R21, 0
+        MOVW    R17:R16, R7:R6
+        CALL    ?US_DIVMOD_L02
+        MOVW    R7:R6, R17:R16
+        RJMP    ??integerTransmit_0
+??integerTransmit_1:
+        MOV     R16, R24
+        OR      R16, R25
+        BREQ    ??integerTransmit_2
+        MOVW    R31:R30, R29:R28
+        ADD     R30, R4
+        ADC     R31, R5
+        SBIW    R31:R30, 1
+        LD      R16, Z
+        RCALL   USART_transmit
+        LDI     R16, 255
+        ADD     R4, R16
+        LDI     R16, 255
+        ADC     R5, R16
+        SBIW    R25:R24, 1
+        RJMP    ??integerTransmit_1
+??integerTransmit_2:
+        ADIW    R29:R28, 5
+        LDI     R30, 10
+        JMP     ?EPILOGUE_B10_L09
+
+        RSEG CODE:CODE:NOROOT(1)
+T1int:
+        ST      -Y, R31
+        ST      -Y, R30
+        ST      -Y, R20
+        ST      -Y, R19
+        ST      -Y, R18
+        ST      -Y, R17
+        ST      -Y, R16
+        IN      R20, 0x3F
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        SUBI    R16, 255
+        SBCI    R17, 255
+        SBCI    R18, 255
+        SBCI    R19, 255
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        OUT     0x3F, R20
+        LD      R16, Y+
+        LD      R17, Y+
+        LD      R18, Y+
+        LD      R19, Y+
+        LD      R20, Y+
+        LD      R30, Y+
+        LD      R31, Y+
+        RETI
+
+        RSEG CODE:CODE:NOROOT(1)
+main:
+        CALL    ?PROLOGUE4_L09
+        LDI     R24, 5
+        LDI     R25, 0
+        LDI     R26, 3
+        IN      R16, 0x2E
+        ORI     R16, 0x19
+        OUT     0x2E, R16
+        IN      R16, 0x2F
+        ORI     R16, 0x82
+        OUT     0x2F, R16
+        IN      R16, 0x39
+        ORI     R16, 0x04
+        OUT     0x39, R16
+        SBI     0x11, 0x05
+        SBI     0x12, 0x05
+        LDI     R16, 12
+        LDI     R17, 0
+        RCALL   USART_initialize
+        LDI     R16, 154
+        LDI     R17, 2
+        OUT     0x27, R17
+        OUT     0x26, R16
+        LDI     R20, 100
+        LDI     R21, 0
+        IN      R16, 0x26
+        IN      R17, 0x27
+        CALL    ?US_DIVMOD_L02
+        MOVW    R21:R20, R25:R24
+        CALL    ?S_EC_MUL_L02
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+        SEI
+??main_0:
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        LDI     R30, LOW(timp)
+        LDI     R31, (timp) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        CP      R16, R20
+        CPC     R17, R21
+        CPC     R18, R22
+        CPC     R19, R23
+        BRLT    ??main_0
+        MOV     R27, R26
+        LSL     R27
+        SBC     R27, R27
+        ADD     R24, R26
+        ADC     R25, R27
+        CPI     R24, 96
+        LDI     R16, 0
+        CPC     R25, R16
+        BRCC    ??main_1
+        CPI     R24, 5
+        LDI     R16, 0
+        CPC     R25, R16
+        BRCC    ??main_2
+??main_1:
+        NEG     R26
+        MOV     R27, R26
+        LSL     R27
+        SBC     R27, R27
+        ADD     R24, R26
+        ADC     R25, R27
+        MOV     R27, R26
+        LSL     R27
+        SBC     R27, R27
+        ADD     R24, R26
+        ADC     R25, R27
+??main_2:
+        LDI     R20, 100
+        LDI     R21, 0
+        IN      R16, 0x26
+        IN      R17, 0x27
+        CALL    ?US_DIVMOD_L02
+        MOVW    R21:R20, R25:R24
+        CALL    ?S_EC_MUL_L02
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+        CPI     R24, 10
+        LDI     R16, 0
+        CPC     R25, R16
+        BRCC    ??main_3
+        MOVW    R21:R20, R25:R24
+        LDI     R18, 1
+        LDI     R19, 0
+        LDI     R16, 0
+        LDI     R17, 0
+        RCALL   integerTransmit
+        RJMP    ??main_4
+??main_3:
+        MOVW    R21:R20, R25:R24
+        LDI     R18, 2
+        LDI     R19, 0
+        LDI     R16, 0
+        LDI     R17, 0
+        RCALL   integerTransmit
+??main_4:
+        LDI     R16, 13
+        RCALL   USART_transmit
+        LDI     R16, 10
+        RCALL   USART_transmit
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 0
+        LDI     R19, 0
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+        RJMP    ??main_0
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_TCCR1A
+        REQUIRE _A_TIMSK
+        REQUIRE _A_DDRD
+        REQUIRE _A_PORTD
+        REQUIRE _A_ICR1
+        REQUIRE _A_OCR1A
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 32
+`??T1int??INTVEC 32`:
+        JMP     T1int
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for timp>`:
+        DD 6006
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        END
+// 
+//  14 bytes in segment ABSOLUTE
+// 436 bytes in segment CODE
+//  12 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//   4 bytes in segment NEAR_I
+//   4 bytes in segment NEAR_ID
+//   5 bytes in segment NEAR_Z
+// 
+// 440 bytes of CODE memory (+ 16 bytes shared)
+//   9 bytes of DATA memory (+ 14 bytes shared)
+//
+//Errors: none
+//Warnings: 1

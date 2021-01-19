@@ -1,0 +1,814 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       13/Dec/2014  13:48:36 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\1307B\Work4\main.c                                   /
+//    Command line =  D:\1307B\Work4\main.c --cpu=m16 -ms -o                  /
+//                    D:\1307B\Work4\Debug\Obj\ -lC                           /
+//                    D:\1307B\Work4\Debug\List\ -lA                          /
+//                    D:\1307B\Work4\Debug\List\ --initializers_in_flash      /
+//                    --no_cse --no_inline --no_code_motion --no_cross_call   /
+//                    --no_clustering --no_tbaa --debug                       /
+//                    -DENABLE_BIT_DEFINITIONS -e --eeprom_size 512 --clib    /
+//                    -On                                                     /
+//    List file    =  D:\1307B\Work4\Debug\List\main.s90                      /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME main
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?F2SL_L04
+        EXTERN ?F_ADD_L04
+        EXTERN ?F_CMP_GE_L04
+        EXTERN ?F_DIV_L04
+        EXTERN ?F_MUL_L04
+        EXTERN ?PROLOGUE16_L09
+        EXTERN ?Register_R12_is_cg_reg
+        EXTERN ?Register_R13_is_cg_reg
+        EXTERN ?Register_R14_is_cg_reg
+        EXTERN ?Register_R15_is_cg_reg
+        EXTERN ?Register_R4_is_cg_reg
+        EXTERN ?Register_R5_is_cg_reg
+        EXTERN ?Register_R6_is_cg_reg
+        EXTERN ?Register_R7_is_cg_reg
+        EXTERN ?Register_R8_is_cg_reg
+        EXTERN ?Register_R9_is_cg_reg
+        EXTERN ?UL2F_L04
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_I>`
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??T1int??INTVEC 32`
+        PUBLIC T1int
+        FUNCTION T1int,0233H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 5, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBWEAK _A_DDRD
+        PUBWEAK _A_ICR1
+        PUBWEAK _A_OCR1A
+        PUBWEAK _A_PORTD
+        PUBWEAK _A_TCCR1A
+        PUBWEAK _A_TCCR1B
+        PUBWEAK _A_TIMSK
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC aux
+        PUBLIC aux2
+        PUBLIC aux_iana
+        PUBLIC aux_per
+        PUBLIC cnt
+        PUBLIC durata_pas
+        PUBLIC main
+        FUNCTION main,021a01H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBLIC timer1_INIT
+        FUNCTION timer1_INIT,0201H
+        ARGFRAME RSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+T1int               SYMBOL "T1int"
+`??T1int??INTVEC 32` SYMBOL "??INTVEC 32", T1int
+
+        EXTERN USART_initialize
+        FUNCTION USART_initialize,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN USART_transmit
+        FUNCTION USART_transmit,0202H
+        ARGFRAME RSTACK, 0, STACK
+        EXTERN myprint
+        FUNCTION myprint,0202H
+        ARGFRAME RSTACK, 0, STACK
+
+// D:\1307B\Work4\main.c
+//    1 #include<inavr.h>
+//    2 #include<iom16.h>
+
+        ASEGN ABSOLUTE:DATA:NOROOT,059H
+// union <unnamed> volatile __io _A_TIMSK
+_A_TIMSK:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04fH
+// union <unnamed> volatile __io _A_TCCR1A
+_A_TCCR1A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04aH
+// union <unnamed> volatile __io _A_OCR1A
+_A_OCR1A:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,046H
+// union <unnamed> volatile __io _A_ICR1
+_A_ICR1:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,032H
+// union <unnamed> volatile __io _A_PORTD
+_A_PORTD:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,031H
+// union <unnamed> volatile __io _A_DDRD
+_A_DDRD:
+        DS8 1
+//    3 #include "usart.h"
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    4 int cnt=0; //variabila pentru întrerupere
+cnt:
+        DS8 2
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    5 double aux_per;  // va fi 2 %
+aux_per:
+        DS8 4
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    6 double durata_pas;
+durata_pas:
+        DS8 4
+
+        RSEG NEAR_I:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_I>`
+//    7 double aux2=0.05;
+aux2:
+        DS8 4
+        REQUIRE `?<Initializer for aux2>`
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    8 char aux[20];
+aux:
+        DS8 20
+//    9 
+//   10 //întreruperea de overflow la timer1
+//   11 #pragma vector=TIMER1_OVF_vect
+
+        RSEG CODE:CODE:NOROOT(1)
+//   12 __interrupt void T1int(void)
+T1int:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function T1int
+//   13 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        IN      R18, 0x3F
+//   14   cnt++;
+        LDI     R30, LOW(cnt)
+        LDI     R31, (cnt) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+//   15 }
+        OUT     0x3F, R18
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+4
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+3
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock0
+//   16 //configurarea timer 1
+
+        RSEG CODE:CODE:NOROOT(1)
+//   17 void timer1_INIT()
+timer1_INIT:
+          CFI Block cfiBlock1 Using cfiCommon1
+          CFI Function timer1_INIT
+//   18 {
+//   19   /*
+//   20   Modul Fast PWM: WGM13:10=1110;
+//   21   Fãrã prescaler: CS12:10=001;
+//   22   Compare Output Mode: 10
+//   23   */
+//   24   TCCR1B|=(1<<WGM13)|(1<<WGM12)|(1<<CS10);
+        IN      R16, 0x2E
+        ORI     R16, 0x19
+        OUT     0x2E, R16
+//   25   TCCR1A|=(1<<COM1A1)|(1<<WGM11);
+        IN      R16, 0x2F
+        ORI     R16, 0x82
+        OUT     0x2F, R16
+//   26   TIMSK|=(1<<TOIE1);
+        IN      R16, 0x39
+        ORI     R16, 0x04
+        OUT     0x39, R16
+//   27 }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_TCCR1A
+        REQUIRE _A_TIMSK
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//   28  int aux_iana;   // in aux_iana vom avea factorul de umplere
+aux_iana:
+        DS8 2
+
+        RSEG CODE:CODE:NOROOT(1)
+//   29 void main()
+main:
+          CFI Block cfiBlock2 Using cfiCommon1
+          CFI Function main
+//   30 {
+        FUNCALL main, USART_initialize
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, timer1_INIT
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, myprint
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        FUNCALL main, USART_transmit
+        LOCFRAME CSTACK, 16, STACK
+        LOCFRAME RSTACK, 2, STACK
+        ARGFRAME RSTACK, 0, STACK
+        CALL    ?PROLOGUE16_L09
+          CFI R15 Frame(CFA_Y, -1)
+          CFI R14 Frame(CFA_Y, -2)
+          CFI R13 Frame(CFA_Y, -3)
+          CFI R12 Frame(CFA_Y, -4)
+          CFI R11 Frame(CFA_Y, -5)
+          CFI R10 Frame(CFA_Y, -6)
+          CFI R9 Frame(CFA_Y, -7)
+          CFI R8 Frame(CFA_Y, -8)
+          CFI R7 Frame(CFA_Y, -9)
+          CFI R6 Frame(CFA_Y, -10)
+          CFI R5 Frame(CFA_Y, -11)
+          CFI R4 Frame(CFA_Y, -12)
+          CFI R27 Frame(CFA_Y, -13)
+          CFI R26 Frame(CFA_Y, -14)
+          CFI R25 Frame(CFA_Y, -15)
+          CFI R24 Frame(CFA_Y, -16)
+          CFI CFA_Y Y+16
+        REQUIRE ?Register_R4_is_cg_reg
+        REQUIRE ?Register_R5_is_cg_reg
+        REQUIRE ?Register_R6_is_cg_reg
+        REQUIRE ?Register_R7_is_cg_reg
+        REQUIRE ?Register_R8_is_cg_reg
+        REQUIRE ?Register_R9_is_cg_reg
+        REQUIRE ?Register_R12_is_cg_reg
+        REQUIRE ?Register_R13_is_cg_reg
+        REQUIRE ?Register_R14_is_cg_reg
+        REQUIRE ?Register_R15_is_cg_reg
+//   31   USART_initialize(BAUD_RATE);
+        LDI     R16, 12
+        LDI     R17, 0
+        CALL    USART_initialize
+//   32   
+//   33   //Alegerea pinului de ie.ire
+//   34   DDRD|=(1<<PD5);
+        SBI     0x11, 0x05
+//   35   PORTD&=(1<<PD5);
+        IN      R16, 0x12
+        ANDI    R16, 0x20
+        OUT     0x12, R16
+//   36   //Initializarea timer-ului
+//   37   timer1_INIT();
+        RCALL   timer1_INIT
+//   38   //Valoarea care se încarca în registru în functie de frecventa necesara
+//   39  // ICR1=4000;
+//   40   //Factor de umplere de 50%
+//   41   //OCR1A=ICR1>>1;
+//   42   
+//   43   double frecv=5;  // kHz
+        CLR     R12
+        CLR     R13
+        LDI     R16, 160
+        MOV     R14, R16
+        LDI     R16, 64
+        MOV     R15, R16
+//   44   double perioada=1/frecv; // ms
+        MOVW    R21:R20, R13:R12
+        MOVW    R23:R22, R15:R14
+        LDI     R16, 0
+        LDI     R17, 0
+        LDI     R18, 128
+        LDI     R19, 63
+        CALL    ?F_DIV_L04
+        MOVW    R25:R24, R17:R16
+        MOVW    R27:R26, R19:R18
+//   45   ICR1 = perioada/0.00025;  
+        LDI     R20, 111
+        LDI     R21, 18
+        LDI     R22, 131
+        LDI     R23, 57
+        MOVW    R17:R16, R25:R24
+        MOVW    R19:R18, R27:R26
+        CALL    ?F_DIV_L04
+        CALL    ?F2SL_L04
+        OUT     0x27, R17
+        OUT     0x26, R16
+//   46   OCR1A = aux2*ICR1; //factor de umplere de 5% pt hi
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        CALL    ?F_MUL_L04
+        CALL    ?F2SL_L04
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+//   47   
+//   48   // Calculam aux_per de 2% din perioada (ICR1, nu se modifica ! )
+//   49   
+//   50   aux_per = 0.02*ICR1;
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        LDI     R20, 10
+        LDI     R21, 215
+        LDI     R22, 163
+        LDI     R23, 60
+        CALL    ?F_MUL_L04
+        LDI     R30, LOW(aux_per)
+        LDI     R31, (aux_per) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   51   
+//   52  
+//   53   
+//   54   // (95-5)/2 = 45 pasi
+//   55   
+//   56   durata_pas = 500/(double)45/perioada;   // in ms; 11/0.2=55
+        MOVW    R21:R20, R25:R24
+        MOVW    R23:R22, R27:R26
+        LDI     R16, 28
+        LDI     R17, 199
+        LDI     R18, 49
+        LDI     R19, 65
+        CALL    ?F_DIV_L04
+        LDI     R30, LOW(durata_pas)
+        LDI     R31, (durata_pas) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   57   
+//   58   //durata_pas=30000;
+//   59   
+//   60   int flag=0;
+        CLR     R8
+        CLR     R9
+//   61   //pornirea întreruperii
+//   62   __enable_interrupt();
+        SEI
+//   63    
+//   64  
+//   65    
+//   66   
+//   67   while(1)
+//   68   {
+//   69     if(cnt == (int)durata_pas)
+??main_0:
+        LDS     R22, cnt
+        LDS     R23, (cnt + 1)
+        LDI     R30, LOW(durata_pas)
+        LDI     R31, (durata_pas) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F2SL_L04
+        CP      R22, R16
+        CPC     R23, R17
+        BRNE    ??main_0
+//   70     {
+//   71       cnt = 0;
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     cnt, R16
+        STS     (cnt + 1), R17
+//   72       //USART_transmit(0x0d);     // CR
+//   73      // USART_transmit(0x0a);     // LF -> cele 2 = '\n'
+//   74       USART_transmit('F');
+        LDI     R16, 70
+        CALL    USART_transmit
+//   75       USART_transmit('U');
+        LDI     R16, 85
+        CALL    USART_transmit
+//   76       USART_transmit('=');
+        LDI     R16, 61
+        CALL    USART_transmit
+//   77       aux_iana = aux2*100;
+        LDI     R20, 0
+        LDI     R21, 0
+        LDI     R22, 200
+        LDI     R23, 66
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F_MUL_L04
+        CALL    ?F2SL_L04
+        STS     aux_iana, R16
+        STS     (aux_iana + 1), R17
+//   78       myprint (0, 2, &aux_iana);
+        LDI     R20, LOW(aux_iana)
+        LDI     R21, (aux_iana) >> 8
+        LDI     R18, 2
+        LDI     R19, 0
+        LDI     R16, 0
+        LDI     R17, 0
+        CALL    myprint
+//   79       USART_transmit('%');
+        LDI     R16, 37
+        CALL    USART_transmit
+//   80       if(flag == 0)
+        MOV     R16, R8
+        OR      R16, R9
+        BREQ    $+2+2
+        RJMP    ??main_1
+//   81       {
+//   82         aux2 += 0.02;
+        LDI     R20, 10
+        LDI     R21, 215
+        LDI     R22, 163
+        LDI     R23, 60
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F_ADD_L04
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   83         OCR1A = aux2*ICR1;
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        CALL    ?F_MUL_L04
+        CALL    ?F2SL_L04
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+//   84         if(OCR1A >= 0.95 * ICR1)
+        IN      R16, 0x2A
+        IN      R17, 0x2B
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        LDI     R20, 51
+        LDI     R21, 51
+        LDI     R22, 115
+        LDI     R23, 63
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        CALL    ?F_MUL_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_CMP_GE_L04
+        BRCS    $+2+2
+        RJMP    ??main_0
+//   85           flag=1;
+        CLR     R9
+        CLR     R8
+        INC     R8
+        RJMP    ??main_0
+//   86         
+//   87       }
+//   88       else
+//   89       {
+//   90           aux2 -= 0.02;
+??main_1:
+        LDI     R20, 10
+        LDI     R21, 215
+        LDI     R22, 163
+        LDI     R23, 188
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        LDD     R18, Z+2
+        LDD     R19, Z+3
+        CALL    ?F_ADD_L04
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        ST      Z, R16
+        STD     Z+1, R17
+        STD     Z+2, R18
+        STD     Z+3, R19
+//   91           OCR1A = aux2*ICR1;
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        LDI     R30, LOW(aux2)
+        LDI     R31, (aux2) >> 8
+        LD      R20, Z
+        LDD     R21, Z+1
+        LDD     R22, Z+2
+        LDD     R23, Z+3
+        CALL    ?F_MUL_L04
+        CALL    ?F2SL_L04
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+//   92           if(OCR1A <= 0.05 * ICR1)
+        IN      R16, 0x26
+        IN      R17, 0x27
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        MOVW    R1:R0, R17:R16
+        MOVW    R3:R2, R19:R18
+        LDI     R20, 205
+        LDI     R21, 204
+        LDI     R22, 76
+        LDI     R23, 61
+        MOVW    R17:R16, R1:R0
+        MOVW    R19:R18, R3:R2
+        CALL    ?F_MUL_L04
+        MOVW    R5:R4, R17:R16
+        MOVW    R7:R6, R19:R18
+        IN      R16, 0x2A
+        IN      R17, 0x2B
+        LDI     R18, 0
+        LDI     R19, 0
+        CALL    ?UL2F_L04
+        MOVW    R21:R20, R17:R16
+        MOVW    R23:R22, R19:R18
+        MOVW    R17:R16, R5:R4
+        MOVW    R19:R18, R7:R6
+        CALL    ?F_CMP_GE_L04
+        BRCS    $+2+2
+        RJMP    ??main_0
+//   93             flag=0;
+        CLR     R8
+        CLR     R9
+        RJMP    ??main_0
+          CFI EndBlock cfiBlock2
+        REQUIRE _A_DDRD
+        REQUIRE _A_PORTD
+        REQUIRE _A_ICR1
+        REQUIRE _A_OCR1A
+//   94       }
+//   95     }
+//   96   }
+//   97 }
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 32
+`??T1int??INTVEC 32`:
+        JMP     T1int
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        RSEG NEAR_ID:CODE:NOROOT(0)
+`?<Initializer for aux2>`:
+        DD 3D4CCCCDH
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_I>`:
+        DC16    SFE(NEAR_I) - SFB(NEAR_I)
+        DC16    SFB(NEAR_I)
+        DC16    SFB(NEAR_ID)
+        REQUIRE ?need_segment_init
+
+        END
+// 
+//   9 bytes in segment ABSOLUTE
+// 658 bytes in segment CODE
+//  12 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//   4 bytes in segment NEAR_I
+//   4 bytes in segment NEAR_ID
+//  32 bytes in segment NEAR_Z
+// 
+// 662 bytes of CODE memory (+ 16 bytes shared)
+//  36 bytes of DATA memory (+  9 bytes shared)
+//
+//Errors: none
+//Warnings: 7

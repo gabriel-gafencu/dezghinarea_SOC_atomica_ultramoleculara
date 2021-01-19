@@ -1,0 +1,409 @@
+///////////////////////////////////////////////////////////////////////////////
+//                                                                            /
+// IAR C/C++ Compiler V6.11.1.50453 for Atmel AVR       22/Dec/2015  17:07:30 /
+// Copyright 1996-2011 IAR Systems AB.                                        /
+//                                                                            /
+//    Source file  =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c   /
+//    Command line =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c   /
+//                    --cpu=m16 -ms -o D:\soc2015\1305B\LucruExtra\GenF_MOD14 /
+//                    _1%sec\Debug\Obj\ -lC D:\soc2015\1305B\LucruExtra\GenF_ /
+//                    MOD14_1%sec\Debug\List\ -lA                             /
+//                    D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\List /
+//                    \ --initializers_in_flash --no_cse --no_inline          /
+//                    --no_code_motion --no_cross_call --no_clustering        /
+//                    --no_tbaa --debug -DENABLE_BIT_DEFINITIONS -e           /
+//                    --eeprom_size 512 --clib -On                            /
+//    List file    =  D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\Debug\List /
+//                    \timer1.s90                                             /
+//                                                                            /
+//                                                                            /
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME timer1
+
+        RTMODEL "__64bit_doubles", "disabled"
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__cpu", "3"
+        RTMODEL "__cpu_name", "ATmega16"
+        RTMODEL "__enhanced_core", "enabled"
+        RTMODEL "__has_elpm", "false"
+        RTMODEL "__memory_model", "2"
+        RTMODEL "__rt_version", "3"
+
+        RSEG CSTACK:DATA:NOROOT(0)
+        RSEG RSTACK:DATA:NOROOT(0)
+
+        EXTERN ?EPILOGUE_B4_L09
+        EXTERN ?PROLOGUE4_L09
+        EXTERN ?SL_DIVMOD_L03
+        EXTERN ?S_EC_MUL_L02
+        EXTERN ?US_DIVMOD_L02
+        EXTERN ?need_segment_init
+
+        PUBWEAK `?<Segment init: NEAR_Z>`
+        PUBWEAK `??isr_TIMER0_OVF_vect??INTVEC 36`
+        PUBLIC TIMER0_init
+        FUNCTION TIMER0_init,0201H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC TIMER1_init
+        FUNCTION TIMER1_init,0201H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 4, STACK
+        LOCFRAME RSTACK, 4, STACK
+        PUBWEAK _A_ICR1
+        PUBWEAK _A_OCR1A
+        PUBWEAK _A_TCCR0
+        PUBWEAK _A_TCCR1A
+        PUBWEAK _A_TCCR1B
+        PUBWEAK __?EEARH
+        PUBWEAK __?EEARL
+        PUBWEAK __?EECR
+        PUBWEAK __?EEDR
+        PUBLIC isr_TIMER0_OVF_vect
+        FUNCTION isr_TIMER0_OVF_vect,0231H
+        ARGFRAME CSTACK, 0, STACK
+        LOCFRAME CSTACK, 5, STACK
+        LOCFRAME RSTACK, 2, STACK
+        PUBLIC softCount
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_Y Y DATA
+          CFI StackFrame CFA_SP SP DATA
+          CFI VirtualResource ?RetPad:1, ?RetHigh:8, ?RetLow:8, ?Ret:17
+          CFI Resource R0:8, R1:8, R2:8, R3:8, R4:8, R5:8, R6:8, R7:8, R8:8, R9:8
+          CFI Resource R10:8, R11:8, R12:8, R13:8, R14:8, R15:8, R16:8, R17:8
+          CFI Resource R18:8, R19:8, R20:8, R21:8, R22:8, R23:8, R24:8, R25:8
+          CFI Resource R26:8, R27:8, R28:8, R29:8, R30:8, R31:8
+          CFI Resource ?RetHighByteMask:8, SP:16, SPH:8, SPL:8, Y:16
+          CFI ResourceParts ?Ret ?RetHigh, ?RetLow, ?RetPad
+          CFI ResourceParts SP SPH, SPL
+          CFI ResourceParts Y R29, R28
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 Undefined
+          CFI R17 Undefined
+          CFI R18 Undefined
+          CFI R19 Undefined
+          CFI R20 Undefined
+          CFI R21 Undefined
+          CFI R22 Undefined
+          CFI R23 Undefined
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 Undefined
+          CFI R31 Undefined
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign 1
+          CFI ReturnAddress ?Ret CODE
+          CFI CFA_Y Y+0
+          CFI CFA_SP SP+2
+          CFI ?RetPad 0
+          CFI ?RetHigh and(load(1, DATA, sub(CFA_SP, 1)), ?RetHighByteMask)
+          CFI ?RetLow Frame(CFA_SP, 0)
+          CFI ?Ret Concat
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R13 SameValue
+          CFI R14 SameValue
+          CFI R15 SameValue
+          CFI R16 SameValue
+          CFI R17 SameValue
+          CFI R18 SameValue
+          CFI R19 SameValue
+          CFI R20 SameValue
+          CFI R21 SameValue
+          CFI R22 SameValue
+          CFI R23 SameValue
+          CFI R24 SameValue
+          CFI R25 SameValue
+          CFI R26 SameValue
+          CFI R27 SameValue
+          CFI R28 Undefined
+          CFI R29 Undefined
+          CFI R30 SameValue
+          CFI R31 SameValue
+          CFI ?RetHighByteMask SameValue
+          CFI SPH Undefined
+          CFI SPL Undefined
+          CFI EndCommon cfiCommon1
+        
+isr_TIMER0_OVF_vect SYMBOL "isr_TIMER0_OVF_vect"
+`??isr_TIMER0_OVF_vect??INTVEC 36` SYMBOL "??INTVEC 36", isr_TIMER0_OVF_vect
+
+// D:\soc2015\1305B\LucruExtra\GenF_MOD14_1%sec\timer1.c
+//    1 #include "timer1.h"
+
+        ASEGN ABSOLUTE:DATA:NOROOT,053H
+// union <unnamed> volatile __io _A_TCCR0
+_A_TCCR0:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04fH
+// union <unnamed> volatile __io _A_TCCR1A
+_A_TCCR1A:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04eH
+// union <unnamed> volatile __io _A_TCCR1B
+_A_TCCR1B:
+        DS8 1
+
+        ASEGN ABSOLUTE:DATA:NOROOT,04aH
+// union <unnamed> volatile __io _A_OCR1A
+_A_OCR1A:
+        DS8 2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,046H
+// union <unnamed> volatile __io _A_ICR1
+_A_ICR1:
+        DS8 2
+//    2 
+
+        RSEG NEAR_Z:DATA:NOROOT(0)
+        REQUIRE `?<Segment init: NEAR_Z>`
+//    3 unsigned int softCount;
+softCount:
+        DS8 2
+//    4 
+
+        RSEG CODE:CODE:NOROOT(1)
+//    5 void TIMER1_init()
+TIMER1_init:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function TIMER1_init
+//    6 {
+        CALL    ?PROLOGUE4_L09
+          CFI R27 Frame(CFA_Y, -1)
+          CFI R26 Frame(CFA_Y, -2)
+          CFI R25 Frame(CFA_Y, -3)
+          CFI R24 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+//    7   TCCR1A |= (1 << WGM11) | (0 << WGM10);
+        IN      R16, 0x2F
+        ORI     R16, 0x02
+        OUT     0x2F, R16
+//    8   TCCR1B |= (1 << WGM13) | (1 << WGM12);
+        IN      R16, 0x2E
+        ORI     R16, 0x18
+        OUT     0x2E, R16
+//    9   
+//   10   TCCR1A |= (1 << COM1A1) | (0 << COM1A0);
+        IN      R16, 0x2F
+        ORI     R16, 0x80
+        OUT     0x2F, R16
+//   11   
+//   12   TCCR1B |= (0 << CS12) | (0 << CS11) | (1 << CS10);
+        IN      R16, 0x2E
+        ORI     R16, 0x01
+        OUT     0x2E, R16
+//   13   
+//   14   unsigned int wantedFrq = 20000; /*oscilatiiCLK pe secunda*/
+        LDI     R24, 32
+        LDI     R25, 78
+//   15   ICR1 = (F_OSC) / wantedFrq - 1;
+        MOVW    R21:R20, R25:R24
+        LDI     R22, 0
+        LDI     R23, 0
+        LDI     R16, 160
+        LDI     R17, 49
+        LDI     R18, 61
+        LDI     R19, 0
+        CALL    ?SL_DIVMOD_L03
+        MOVW    R31:R30, R17:R16
+        SBIW    R31:R30, 1
+        OUT     0x27, R31
+        OUT     0x26, R30
+//   16   
+//   17   unsigned int duty = 1; /*procent*/
+        LDI     R26, 1
+        LDI     R27, 0
+//   18   OCR1A = ICR1 * duty / 100;
+        IN      R16, 0x26
+        IN      R17, 0x27
+        MOVW    R21:R20, R27:R26
+        CALL    ?S_EC_MUL_L02
+        LDI     R20, 100
+        LDI     R21, 0
+        CALL    ?US_DIVMOD_L02
+        OUT     0x2B, R17
+        OUT     0x2A, R16
+//   19 }
+        LDI     R30, 4
+        JMP     ?EPILOGUE_B4_L09
+          CFI EndBlock cfiBlock0
+        REQUIRE _A_TCCR1A
+        REQUIRE _A_TCCR1B
+        REQUIRE _A_ICR1
+        REQUIRE _A_OCR1A
+//   20 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   21 void TIMER0_init()
+TIMER0_init:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function TIMER0_init
+//   22 {
+//   23   TCCR0 |= (0 << WGM01) | (0 << WGM00); 
+        IN      R16, 0x33
+        OUT     0x33, R16
+//   24   TCCR0 |= (1 << CS02) | (0 << CS01) | (1 << CS00);
+        IN      R16, 0x33
+        ORI     R16, 0x05
+        OUT     0x33, R16
+//   25 }
+        RET
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_TCCR0
+//   26 
+
+        RSEG CODE:CODE:NOROOT(1)
+//   27 __interrupt void isr_TIMER0_OVF_vect()
+isr_TIMER0_OVF_vect:
+          CFI Block cfiBlock2 Using cfiCommon1
+          CFI Function isr_TIMER0_OVF_vect
+//   28 {
+        ST      -Y, R31
+          CFI R31 Frame(CFA_Y, -1)
+          CFI CFA_Y Y+1
+        ST      -Y, R30
+          CFI R30 Frame(CFA_Y, -2)
+          CFI CFA_Y Y+2
+        ST      -Y, R18
+          CFI R18 Frame(CFA_Y, -3)
+          CFI CFA_Y Y+3
+        ST      -Y, R17
+          CFI R17 Frame(CFA_Y, -4)
+          CFI CFA_Y Y+4
+        ST      -Y, R16
+          CFI R16 Frame(CFA_Y, -5)
+          CFI CFA_Y Y+5
+        IN      R18, 0x3F
+//   29   if(softCount <= 16)
+        LDS     R30, softCount
+        LDS     R31, (softCount + 1)
+        SBIW    R31:R30, 17
+        BRCC    ??isr_TIMER0_OVF_vect_0
+//   30     softCount++;
+        LDI     R30, LOW(softCount)
+        LDI     R31, (softCount) >> 8
+        LD      R16, Z
+        LDD     R17, Z+1
+        SUBI    R16, 255
+        SBCI    R17, 255
+        ST      Z, R16
+        STD     Z+1, R17
+        RJMP    ??isr_TIMER0_OVF_vect_1
+//   31   else
+//   32     softCount = 0;
+??isr_TIMER0_OVF_vect_0:
+        LDI     R16, 0
+        LDI     R17, 0
+        STS     softCount, R16
+        STS     (softCount + 1), R17
+//   33 }
+??isr_TIMER0_OVF_vect_1:
+        OUT     0x3F, R18
+        LD      R16, Y+
+          CFI R16 SameValue
+          CFI CFA_Y Y+4
+        LD      R17, Y+
+          CFI R17 SameValue
+          CFI CFA_Y Y+3
+        LD      R18, Y+
+          CFI R18 SameValue
+          CFI CFA_Y Y+2
+        LD      R30, Y+
+          CFI R30 SameValue
+          CFI CFA_Y Y+1
+        LD      R31, Y+
+          CFI R31 SameValue
+          CFI CFA_Y Y+0
+        RETI
+          CFI EndBlock cfiBlock2
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01cH
+__?EECR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01dH
+__?EEDR:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01eH
+__?EEARL:
+
+        ASEGN ABSOLUTE:DATA:NOROOT,01fH
+__?EEARH:
+
+        COMMON INTVEC:CODE:ROOT(1)
+        ORG 36
+`??isr_TIMER0_OVF_vect??INTVEC 36`:
+        JMP     isr_TIMER0_OVF_vect
+
+        RSEG INITTAB:CODE:NOROOT(0)
+`?<Segment init: NEAR_Z>`:
+        DC16    SFE(NEAR_Z) - SFB(NEAR_Z)
+        DC16    SFB(NEAR_Z)
+        DC16    0
+        REQUIRE ?need_segment_init
+
+        END
+// 
+//   7 bytes in segment ABSOLUTE
+// 170 bytes in segment CODE
+//   6 bytes in segment INITTAB
+//   4 bytes in segment INTVEC
+//   2 bytes in segment NEAR_Z
+// 
+// 170 bytes of CODE memory (+ 10 bytes shared)
+//   2 bytes of DATA memory (+  7 bytes shared)
+//
+//Errors: none
+//Warnings: none
